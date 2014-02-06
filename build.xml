@@ -1,38 +1,4 @@
-<!--
-     General purpose build script for web applications and web services,
-     including enhanced support for deploying directly to a Tomcat 6
-     based server.
-
-     This build script assumes that the source code of your web application
-     is organized into the following subdirectories underneath the source
-     code directory from which you execute the build script:
-
-        docs                 Static documentation files to be copied to
-                             the "docs" subdirectory of your distribution.
-
-        src                  Java source code (and associated resource files)
-                             to be compiled to the "WEB-INF/classes"
-                             subdirectory of your web application.
-
-        web                  Static HTML, JSP, and other content (such as
-                             image files), including the WEB-INF subdirectory
-                             and its configuration file contents.
-
-     $Id: build.xml.txt 1200125 2011-11-10 04:05:48Z kkolinko $
--->
-
-
-<!-- A "project" describes a set of targets that may be requested
-     when Ant is executed.  The "default" attribute defines the
-     target which is executed if no specific target is requested,
-     and the "basedir" attribute defines the current working directory
-     from which Ant executes the requested task.  This is normally
-     set to the current working directory.
--->
-
 <project name="OscarParty" default="compile" basedir=".">
-
-
 
     <!-- ===================== Property Definitions =========================== -->
 
@@ -80,16 +46,26 @@
 
     -->
 
-    <property name="app.name"      value="OscarParty"/>
-    <property name="app.path"      value="/${app.name}"/>
-    <property name="app.version"   value="0.1-dev"/>
-    <property name="build.home"    value="${basedir}/build"/>
+    <property name="app.name" value="OscarParty"/>
+    <property name="app.path" value="/${app.name}"/>
+    <property name="app.version" value="0.1-dev"/>
+    <property name="build.home" value="${basedir}/build"/>
     <property name="catalina.home" value="/home/fkearney8/utils/Tomcat/apache-tomcat-7.0.50"/>
-    <property name="dist.home"     value="${basedir}/dist"/>
-    <property name="manager.url"   value="http://localhost:8080/manager/text"/>
-    <property name="src.home"      value="${basedir}/src"/>
-    <property name="web.home"      value="${basedir}/web"/>
+    <property name="dist.home" value="${basedir}/dist"/>
+    <property name="manager.url" value="http://localhost:8080/manager/text"/>
+    <property name="src.home" value="${basedir}/src"/>
+    <property name="web.home" value="${basedir}/web"/>
 
+
+    <property name="scala.home" value="/home/fkearney8/utils/Scala/scala-2.10.3"/>
+    <property name="scala-library.jar" value="${scala.home}/lib/scala-library.jar"/>
+    <taskdef resource="scala/tools/ant/antlib.xml">
+        <classpath>
+            <pathelement location="${scala.home}/lib/scala-compiler.jar"/>
+            <pathelement location="${scala.home}/lib/scala-reflect.jar"/>
+            <pathelement location="${scala-library.jar}"/>
+        </classpath>
+    </taskdef>
 
     <!-- ==================== External Dependencies =========================== -->
 
@@ -146,9 +122,9 @@
         <fileset dir="${catalina.home}/lib">
             <include name="*.jar"/>
         </fileset>
+        <file name="${scala-library.jar}"/>
 
     </path>
-
 
 
     <!-- ================== Custom Ant Task Definitions ======================= -->
@@ -192,10 +168,9 @@
 
     -->
 
-    <property name="compile.debug"       value="true"/>
+    <property name="compile.debug" value="true"/>
     <property name="compile.deprecation" value="false"/>
-    <property name="compile.optimize"    value="true"/>
-
+    <property name="compile.optimize" value="true"/>
 
 
     <!-- ==================== All Target ====================================== -->
@@ -209,7 +184,6 @@
 
     <target name="all" depends="clean,compile"
             description="Clean build and dist directories, then compile"/>
-
 
 
     <!-- ==================== Clean Target ==================================== -->
@@ -228,7 +202,6 @@
     </target>
 
 
-
     <!-- ==================== Compile Target ================================== -->
 
     <!--
@@ -244,17 +217,24 @@
             description="Compile Java sources">
 
         <!-- Compile Java classes as necessary -->
-        <mkdir    dir="${build.home}/WEB-INF/classes"/>
+        <mkdir dir="${build.home}/WEB-INF/classes"/>
         <javac srcdir="${src.home}"
                destdir="${build.home}/WEB-INF/classes"
                debug="${compile.debug}"
                deprecation="${compile.deprecation}"
                optimize="${compile.optimize}">
+            <include name="**/*.java"/>
             <classpath refid="compile.classpath"/>
         </javac>
 
+        <scalac srcdir="${src.home}"
+                destdir="${build.home}"
+                classpathref="compile.classpath">
+            <include name="**/*.scala"/>
+        </scalac>
+
         <!-- Copy application resources -->
-        <copy  todir="${build.home}/WEB-INF/classes">
+        <copy todir="${build.home}/WEB-INF/classes">
             <fileset dir="${src.home}" excludes="**/*.java"/>
         </copy>
 
@@ -293,7 +273,6 @@
         <!-- Copy additional files to ${dist.home} as necessary -->
 
     </target>
-
 
 
     <!-- ==================== Install Target ================================== -->
@@ -343,7 +322,7 @@
     <target name="javadoc" depends="compile"
             description="Create Javadoc API documentation">
 
-        <mkdir          dir="${dist.home}/docs/api"/>
+        <mkdir dir="${dist.home}/docs/api"/>
         <javadoc sourcepath="${src.home}"
                  destdir="${dist.home}/docs/api"
                  packagenames="*">
@@ -351,7 +330,6 @@
         </javadoc>
 
     </target>
-
 
 
     <!-- ====================== List Target =================================== -->
@@ -368,9 +346,9 @@
     <target name="list"
             description="List installed applications on servlet container">
 
-        <list    url="${manager.url}"
-                 username="${manager.username}"
-                 password="${manager.password}"/>
+        <list url="${manager.url}"
+              username="${manager.username}"
+              password="${manager.password}"/>
 
     </target>
 
@@ -391,9 +369,9 @@
     <target name="prepare">
 
         <!-- Create build directories as needed -->
-        <mkdir  dir="${build.home}"/>
-        <mkdir  dir="${build.home}/WEB-INF"/>
-        <mkdir  dir="${build.home}/WEB-INF/classes"/>
+        <mkdir dir="${build.home}"/>
+        <mkdir dir="${build.home}/WEB-INF"/>
+        <mkdir dir="${build.home}/WEB-INF/classes"/>
 
 
         <!-- Copy static content of this web application -->
@@ -403,7 +381,7 @@
 
         <!-- Copy external dependencies as required -->
         <!-- *** CUSTOMIZE HERE AS REQUIRED BY YOUR APPLICATION *** -->
-        <mkdir  dir="${build.home}/WEB-INF/lib"/>
+        <mkdir dir="${build.home}/WEB-INF/lib"/>
         <!--
             <copy todir="${build.home}/WEB-INF/lib" file="${foo.jar}"/>
         -->
