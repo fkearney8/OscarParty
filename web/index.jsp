@@ -8,6 +8,8 @@
     <h2>Welcome to the Oscar Party!</h2>
     <%= new String("Hello from the (index) JSP code!") %>
 
+    <a href="selection.jsp">Selection of winners</a>
+
     <div id="WinnerSelectionAccordion" class="accordion">
         <h3>Best Picture</h3>
         <div>There is some content here about the best picture.</div>
