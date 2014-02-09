@@ -45,26 +45,34 @@
                 snapTolerance: 20
             });
 
+            $(".drop").each(function(i) {this.elementDropped = "none"});
+
             $(".drop").droppable({
                 accept: ".selection",
-                drop: function(event, ui) {
-                    //ui is the element that was dropped, so, a draggable
-                    ui.draggable.position({ //put the draggable directly over the droppable
-                        of: $(this),
-                        my: 'left top',
-                        at: 'left top'
-                    });
-                    //set this droppable not to take any more draggables
-                    $(this).droppable( "option", "accept", ui.draggable );;
-                },
+                drop: droppedSelection,
                 hoverClass: "drop-ready",
                 out: function (event, ui) {
                     //when a draggable is removed, we can take a draggable input again
                     $(this).droppable( "option", "accept", ".selection" );
+                    this.elementDropped = "none";
                 }
             });
 
         });
+
+        function droppedSelection(event, ui) {
+            //ui is the element that was dropped, so, a draggable
+            ui.draggable.position({ //put the draggable directly over the droppable
+                of: $(this),
+                my: 'left top',
+                at: 'left top'
+            });
+            //set this droppable not to take any more selection draggables, but keep it aware of taking one out
+            $(this).droppable( "option", "accept", ui.draggable );
+
+            //now track the dropped element
+            this.elementDropped = ui.draggable.text();
+        }
 
         function shouldRevert(event, ui) {
             $(this).data("uiDraggable").originalPosition = {
@@ -74,6 +82,7 @@
             // return boolean
             return !event;
         }
+
     </script>
 </head>
 <body>
@@ -116,5 +125,7 @@
         </div>
     </div>
     </div>
+
+    <button type="Submit"/>
 </body>
 </html>
