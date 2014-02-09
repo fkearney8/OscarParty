@@ -19,11 +19,14 @@
         .drop-area {float: right;}
         .drop {
             border-style: inset;
-            border-width: 3px;
+            border-width: 5px;
             width: 200px;
             height: 90px;
             margin: 20px;
             padding-left: 5px;
+        }
+        .drop-ready {
+            border-color: #FFFFFF;
         }
     </style>
 
@@ -50,7 +53,8 @@
                         my: 'left top',
                         at: 'left top'
                     });
-                }
+                },
+                hoverClass: "drop-ready"
             });
 
         });
