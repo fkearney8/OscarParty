@@ -46,6 +46,7 @@
             });
 
             $(".drop").droppable({
+                accept: ".selection",
                 drop: function(event, ui) {
                     //ui is the element that was dropped, so, a draggable
                     ui.draggable.position({ //put the draggable directly over the droppable
@@ -53,8 +54,14 @@
                         my: 'left top',
                         at: 'left top'
                     });
+                    //set this droppable not to take any more draggables
+                    $(this).droppable( "option", "accept", ui.draggable );;
                 },
-                hoverClass: "drop-ready"
+                hoverClass: "drop-ready",
+                out: function (event, ui) {
+                    //when a draggable is removed, we can take a draggable input again
+                    $(this).droppable( "option", "accept", ".selection" );
+                }
             });
 
         });
