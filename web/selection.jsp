@@ -24,6 +24,7 @@
             height: 90px;
             margin: 20px;
             padding-left: 5px;
+            z-index: -1;
         }
         .drop-ready {
             border-color: #FFFFFF;
@@ -72,8 +73,10 @@
 
             //now track the dropped element
             this.elementDropped = ui.draggable.text();
+            alert("dropped " + this.elementDropped);
         }
 
+        //whether to revert a draggable back to its original position
         function shouldRevert(event, ui) {
             $(this).data("uiDraggable").originalPosition = {
                 top : 0,

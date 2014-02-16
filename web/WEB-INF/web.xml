@@ -25,7 +25,7 @@
 
     <!-- General description of your web application -->
 
-    <display-name>My Web Application</display-name>
+    <display-name>Oscar Party</display-name>
     <description>
         This is the Oscar Party. Grab your cocktail and your coat tails.
     </description>
@@ -50,7 +50,7 @@
 
     <context-param>
         <param-name>webmaster</param-name>
-        <param-value>myaddress@mycompany.com</param-value>
+        <param-value>fkearney8@gmail.com</param-value>
         <description>
             The EMAIL address of the administrator to whom questions
             and comments about this application should be addressed.
@@ -119,6 +119,13 @@
         </description>
     </servlet>
 
+    <servlet>
+        <servlet-name>selection</servlet-name>
+        <description>Servlet to create the list of picks and allow the gambler to make
+            their selections.
+        </description>
+        <servlet-class>com.oscarparty.servlets.SelectionServlet</servlet-class>
+    </servlet>
 
     <!-- Define mappings that are used by the servlet container to
          translate a particular request URI (context-relative) to a
@@ -148,6 +155,10 @@
         <url-pattern>/graph</url-pattern>
     </servlet-mapping>
 
+    <servlet-mapping>
+        <servlet-name>selection</servlet-name>
+        <url-pattern>/selection</url-pattern>
+    </servlet-mapping>
 
     <!-- Define the default session timeout for your application,
          in minutes.  From a servlet or JSP page, you can modify
