@@ -213,11 +213,28 @@
 
     -->
 
+    <target name="deploy" depends="compile">
+        <copy todir="${catalina.home}/webapps/${app.path}">
+            <fileset dir="${build.home}"/>
+        </copy>
+    </target>
+
+
+    <target name="deployAndBounce" depends="deploy, bounceTomcat"/>
+
     <target name="compile" depends="prepare"
             description="Compile Java sources">
 
-        <!-- Compile Java classes as necessary -->
         <mkdir dir="${build.home}/WEB-INF/classes"/>
+
+        <scalac srcdir="${src.home}"
+                destdir="${build.home}/WEB-INF/classes"
+                classpathref="compile.classpath">
+            <include name="**/*.scala"/>
+            <include name="**/*.java"/>
+        </scalac>
+
+        <!-- Compile Java classes as necessary -->
         <javac srcdir="${src.home}"
                destdir="${build.home}/WEB-INF/classes"
                debug="${compile.debug}"
@@ -225,13 +242,8 @@
                optimize="${compile.optimize}">
             <include name="**/*.java"/>
             <classpath refid="compile.classpath"/>
+            <classpath path="${build.home}/WEB-INF/classes"/>
         </javac>
-
-        <scalac srcdir="${src.home}"
-                destdir="${build.home}"
-                classpathref="compile.classpath">
-            <include name="**/*.scala"/>
-        </scalac>
 
         <!-- Copy application resources -->
         <copy todir="${build.home}/WEB-INF/classes">
@@ -239,15 +251,6 @@
         </copy>
 
     </target>
-
-
-    <target name="deploy" depends="compile">
-        <copy todir="${catalina.home}/webapps/${app.path}">
-            <fileset dir="${build.home}"/>
-        </copy>
-    </target>
-
-    <target name="deployAndBounce" depends="deploy, bounceTomcat"/>
 
     <target name="bounceTomcat">
         <exec executable="/home/fkearney8/utils/Tomcat/apache-tomcat-7.0.50/bin/shutdown.sh"/>
@@ -389,9 +392,11 @@
         <!-- Copy external dependencies as required -->
         <!-- *** CUSTOMIZE HERE AS REQUIRED BY YOUR APPLICATION *** -->
         <mkdir dir="${build.home}/WEB-INF/lib"/>
-        <!--
-            <copy todir="${build.home}/WEB-INF/lib" file="${foo.jar}"/>
-        -->
+        <copy todir="${build.home}/WEB-INF/lib" failonerror="true">
+            <fileset dir="${scala.home}/lib">
+                <include name="scala-library.jar"/>
+            </fileset>
+        </copy>
 
         <!-- Copy static files from external dependencies as needed -->
         <!-- *** CUSTOMIZE HERE AS REQUIRED BY YOUR APPLICATION *** -->

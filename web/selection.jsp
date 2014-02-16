@@ -93,6 +93,21 @@
     <h2>Welcome to the Oscar Party!</h2>
     <%= new String("Hello from the (index) JSP code!") %>
 
+    <%@ page import="java.util.*, com.oscarparty.servlets.selection.*" %>
+
+    <jsp:useBean id="allNominees" scope="request" class="com.oscarparty.servlets.selection.AllOscarNominees" />
+    Hello from the nominees bean: <%= allNominees.hiString() %>
+
+    <%
+    List<OscarCategory> categories = allNominees.categoriesJava();
+    List<String> category1Nominees = categories.get(0).nomineesJava();
+    for (String eachNominee : category1Nominees) {
+        %>
+        A nominee: <%=eachNominee%><br/>
+        <%
+    }
+    %>
+
     <div class="expander-area">
     <div id="WinnerSelectionAccordion" class="accordion">
         <h3>Best Picture</h3>
