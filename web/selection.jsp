@@ -5,18 +5,19 @@
         .body {
             background: black;
             color: #EFEC9F;
+            font-size: 12px;
         }
-        .expander-area {width: 70%;}
+        .expander-area {max-width: 1000px; min-width: 800px;}
         .accordion-section {
-            height: 600px;
+            height: 320px;
         }
-        .selection-area {float: left; height: 600px; width: 800px;}
+        .selection-area {float: left; width: 520px;}
         .selection {
-            width: 200px;
-            height: 90px;
-            margin: 20px;
+            width: 125px;
+            height: 70px;
+            margin: 10px;
             border: 3px outset;
-            padding-left: 5px;
+            padding: 5px;
             text-align: center;
             vertical-align: middle;
             display: inline-block;
@@ -26,8 +27,8 @@
         .drop {
             border-style: inset;
             border-width: 5px;
-            width: 200px;
-            height: 90px;
+            width: 124px;
+            height: 70px;
             margin: 20px;
             padding-left: 5px;
             z-index: -1;
@@ -98,8 +99,8 @@
     <%@include file="header.jsp"%>
     <h2>Welcome to the Oscar Party!</h2>
 
-    <p style="width: 30%">
-    Instrucutions:<br/>
+    <p style="width: 30%; font-size: 15px;">
+    Instructions:<br/>
     Open each nomination category below and select your 3 favorite choices. Simply drag your selections to the boxes
      to make your picks. You'll see that different categories are worth different points. Also, your top choices will
      be worth more (if you're right!) than your lower choices. Have fun!
@@ -127,10 +128,13 @@
             } //end of each nominee
             %>
             </div>
+            <%
+            List<Integer> points = eachCategory.pointsJava();
+            %>
             <div class="drop-area">
-                <div class="drop 3points">3 points pick</div>
-                <div class="drop 2points">2 points pick</div>
-                <div class="drop 1points">1 point pick</div>
+                <div class="drop top-pick"><%= points.get(0) %> points pick</div>
+                <div class="drop mid-pick"><%= points.get(1) %> points pick</div>
+                <div class="drop bot-pick"><%= points.get(2) %> point pick</div>
             </div>
         </div>
         <%
