@@ -96,12 +96,17 @@
 <body class="body">
     <%@include file="header.jsp"%>
     <h2>Welcome to the Oscar Party!</h2>
-    <%= new String("Hello from the (index) JSP code!") %>
+
+    <p style="width: 30%">
+    Instrucutions:<br/>
+    Open each nomination category below and select your 3 favorite choices. Simply drag your selections to the boxes
+     to make your picks. You'll see that different categories are worth different points. Also, your top choices will
+     be worth more (if you're right!) than your lower choices. Have fun!
+    </p>
 
     <%@ page import="java.util.*, com.oscarparty.servlets.selection.*" %>
 
     <jsp:useBean id="allNominees" scope="request" class="com.oscarparty.servlets.selection.AllOscarNominees" />
-    Hello from the nominees bean: <%= allNominees.hiString() %>
 
     <div class="expander-area">
     <div id="WinnerSelectionAccordion" class="accordion">

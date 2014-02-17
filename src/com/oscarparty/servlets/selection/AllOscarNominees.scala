@@ -5,9 +5,6 @@ import collection.JavaConversions._
 
 class AllOscarNominees {
 
-  //  val oscarCategories = new Array[OscarCategory]
-  val hiString = "scala class here saying hi with an implicit getter"
-
   val categories = new ArrayBuffer[OscarCategory]()
   categories += new OscarCategory("Best Picture",
     Array ("American Hustle",
