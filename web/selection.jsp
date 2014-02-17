@@ -20,6 +20,7 @@
             text-align: center;
             vertical-align: middle;
             display: inline-block;
+            background: #000000;
         }
         .drop-area {float: right;}
         .drop {
@@ -30,6 +31,7 @@
             margin: 20px;
             padding-left: 5px;
             z-index: -1;
+            background: #443113;
         }
         .drop-ready {
             border-color: #FFFFFF;
@@ -78,7 +80,6 @@
 
             //now track the dropped element
             this.elementDropped = ui.draggable.text();
-            alert("dropped " + this.elementDropped);
         }
 
         //whether to revert a draggable back to its original position
