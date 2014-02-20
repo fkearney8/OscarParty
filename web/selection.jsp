@@ -31,11 +31,13 @@
             height: 70px;
             margin: 20px;
             padding-left: 5px;
+            text-align: center;
             z-index: -1;
             background: #443113;
         }
         .drop-ready {
             border-color: #FFFFFF;
+            background: #554224;
         }
     </style>
 
@@ -141,7 +143,12 @@
                 <div class="drop midPick"><%= points.get(1) %> points pick
                     <input type="hidden" name="<%=eachCategory.name()%>.midPick"/>
                 </div>
-                <div class="drop botPick"><%= points.get(2) %> point pick
+                <div class="drop botPick">
+                    <%
+                    int botPointsVal = points.get(2);
+                    String point_s_string = botPointsVal > 1 ? "points" : "point";
+                    %>
+                    <%= botPointsVal %> <%= point_s_string %> pick
                     <input type="hidden" name="<%=eachCategory.name()%>.botPick"/>
                 </div>
             </div>
@@ -152,8 +159,8 @@
 
      </div>
      </div>
-
-    <input type="submit" value="Submit Picks!"></input>
+     <div>Give a username, so we can track a winner: <input name="userName" type="text" label"Your Name"/></div>
+    <input type="submit" value="Submit Picks!"/>
     </form>
 </body>
 </html>
