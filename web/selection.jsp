@@ -80,7 +80,9 @@
             $(this).droppable( "option", "accept", ui.draggable );
 
             //now track the dropped element
-            this.elementDropped = ui.draggable.text();
+            this.textDropped = ui.draggable.text();
+            //put it in the corresponding hidden input
+            $(this).find("input").val(this.textDropped);
         }
 
         //whether to revert a draggable back to its original position
@@ -110,6 +112,7 @@
 
     <jsp:useBean id="allNominees" scope="request" class="com.oscarparty.servlets.selection.AllOscarNominees" />
 
+    <form method="post" action="submitPicks.do">
     <div class="expander-area">
     <div id="WinnerSelectionAccordion" class="accordion">
         <%
@@ -132,9 +135,15 @@
             List<Integer> points = eachCategory.pointsJava();
             %>
             <div class="drop-area">
-                <div class="drop top-pick"><%= points.get(0) %> points pick</div>
-                <div class="drop mid-pick"><%= points.get(1) %> points pick</div>
-                <div class="drop bot-pick"><%= points.get(2) %> point pick</div>
+                <div class="drop topPick"><%= points.get(0) %> points pick
+                    <input type="hidden" name="<%=eachCategory.name()%>.topPick"/>
+                </div>
+                <div class="drop midPick"><%= points.get(1) %> points pick
+                    <input type="hidden" name="<%=eachCategory.name()%>.midPick"/>
+                </div>
+                <div class="drop botPick"><%= points.get(2) %> point pick
+                    <input type="hidden" name="<%=eachCategory.name()%>.botPick"/>
+                </div>
             </div>
         </div>
         <%
@@ -144,6 +153,7 @@
      </div>
      </div>
 
-    <button type="Submit"/>
+    <input type="submit" value="Submit Picks!"></input>
+    </form>
 </body>
 </html>

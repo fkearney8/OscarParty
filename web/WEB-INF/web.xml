@@ -82,49 +82,19 @@
 
          You can define any number of servlets, including zero.
     -->
-
-    <servlet>
-        <servlet-name>controller</servlet-name>
-        <description>
-            This servlet plays the "controller" role in the MVC architecture
-            used in this application.  It is generally mapped to the ".do"
-            filename extension with a servlet-mapping element, and all form
-            submits in the app will be submitted to a request URI like
-            "saveCustomer.do", which will therefore be mapped to this servlet.
-
-            The initialization parameter names for this servlet are the
-            "servlet path" that will be received by this servlet (after the
-            filename extension is removed).  The corresponding value is the
-            name of the action class that will be used to process this request.
-        </description>
-        <servlet-class>com.mycompany.mypackage.ControllerServlet</servlet-class>
-        <init-param>
-            <param-name>listOrders</param-name>
-            <param-value>com.mycompany.myactions.ListOrdersAction</param-value>
-        </init-param>
-        <init-param>
-            <param-name>saveCustomer</param-name>
-            <param-value>com.mycompany.myactions.SaveCustomerAction</param-value>
-        </init-param>
-        <!-- Load this servlet at server startup time -->
-        <load-on-startup>5</load-on-startup>
-    </servlet>
-
-    <servlet>
-        <servlet-name>graph</servlet-name>
-        <description>
-            This servlet produces GIF images that are dynamically generated
-            graphs, based on the input parameters included on the request.
-            It is generally mapped to a specific request URI like "/graph".
-        </description>
-    </servlet>
-
     <servlet>
         <servlet-name>selection</servlet-name>
         <description>Servlet to create the list of picks and allow the gambler to make
             their selections.
         </description>
         <servlet-class>com.oscarparty.servlets.SelectionServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>submitPicks</servlet-name>
+        <description>Servlet to handle the picks being submitted.
+        </description>
+        <servlet-class>com.oscarparty.servlets.PicksSubmittedServlet</servlet-class>
     </servlet>
 
     <!-- Define mappings that are used by the servlet container to
@@ -146,13 +116,8 @@
     -->
 
     <servlet-mapping>
-        <servlet-name>controller</servlet-name>
-        <url-pattern>*.do</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>graph</servlet-name>
-        <url-pattern>/graph</url-pattern>
+        <servlet-name>submitPicks</servlet-name>
+        <url-pattern>/submitPicks.do</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
