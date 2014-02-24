@@ -188,4 +188,19 @@ class AllOscarNominees {
     jul
   }
 
+  def findCategory(categoryName : String) : OscarCategory = {
+    for (category <- categories) {
+      if (category.name == categoryName) {
+        category
+      }
+    }
+  }
+
+  def categoryNames : Array[String] = {
+    val catNames = new ArrayBuffer[String]
+    for (eachCategory <- categories) {
+      catNames += eachCategory.name
+    }
+    catNames
+  }
 }

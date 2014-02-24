@@ -19,7 +19,6 @@ public class SelectionServlet extends HttpServlet {
         AllOscarNominees allOscarNominees = new AllOscarNominees();
 
         List<OscarCategory> categories = allOscarNominees.categoriesJava();
-        List<String> catNominees = categories.get(0).nomineesJava();
 
         req.setAttribute("allNominees", allOscarNominees);
         requestDispatcher.forward(req, res);

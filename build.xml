@@ -396,6 +396,7 @@
             <fileset dir="${scala.home}/lib">
                 <include name="scala-library.jar"/>
             </fileset>
+            <fileset dir="lib"/>
         </copy>
 
         <!-- Copy static files from external dependencies as needed -->
