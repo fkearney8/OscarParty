@@ -51,7 +51,7 @@
     <property name="app.version" value="0.1-dev"/>
     <property name="build.home" value="${basedir}/build"/>
     <property name="catalina.home" value="/home/fkearney8/utils/Tomcat/apache-tomcat-7.0.50"/>
-    <property name="dist.home" value="${build.home}/dist"/>
+    <property name="build.dist" value="${build.home}/dist"/>
     <property name="manager.url" value="http://localhost:8080/manager/text"/>
     <property name="src.home" value="${basedir}/src"/>
     <property name="web.home" value="${basedir}/web"/>
@@ -198,7 +198,6 @@
     <target name="clean"
             description="Delete old build and dist directories">
         <delete dir="${build.home}"/>
-        <delete dir="${dist.home}"/>
     </target>
 
 
@@ -285,11 +284,21 @@
             description="Create binary distribution">
 
         <!-- Create application JAR file -->
-        <jar jarfile="${dist.home}/${app.name}.war"
-             basedir="${build.home}"/>
+        <jar jarfile="${build.dist}/${app.name}.war"
+             basedir="${build.home}"
+             excludes="dist/*">
+        </jar>
 
         <!-- Copy additional files to ${dist.home} as necessary -->
 
+    </target>
+
+    <target name="remoteDeploy" depends="dist">
+        <scp file="${build.dist}/${app.name}.war"
+             todir="ubuntu@ec2-54-84-235-11.compute-1.amazonaws.com:/var/lib/tomcat7/webapps/"
+             keyfile="${basedir}/OscarPartyPrivateKey.pem"
+             trust="yes"
+             />
     </target>
 
 
@@ -310,6 +319,7 @@
 
         <!-- Create build directories as needed -->
         <mkdir dir="${build.home}"/>
+        <mkdir dir="${build.dist}"/>
         <mkdir dir="${build.home}/WEB-INF"/>
         <mkdir dir="${build.home}/WEB-INF/classes"/>
 
