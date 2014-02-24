@@ -2,11 +2,6 @@
 <head>
     <%@include file="resources.jsp"%>
     <style>
-        .body {
-            background: black;
-            color: #EFEC9F;
-            font-size: 12px;
-        }
         .expander-area {max-width: 1000px; min-width: 800px;}
         .accordion-section {
             height: 320px;
@@ -99,7 +94,7 @@
 
     </script>
 </head>
-<body class="body">
+<body>
     <%@include file="header.jsp"%>
     <h2>Welcome to the Oscar Party!</h2>
 

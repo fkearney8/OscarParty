@@ -5,9 +5,6 @@
 <body>
     <%@include file="header.jsp"%>
     <h2>Welcome to the Oscar Party!</h2>
-    <%= new String("Hello from the (index) JSP code!") %>
-
-    <a href="selection.jsp">Selection of winners</a>
-
+    <h3><a href="selection.jsp">Select your winners!</a></h3>
 </body>
 </html>

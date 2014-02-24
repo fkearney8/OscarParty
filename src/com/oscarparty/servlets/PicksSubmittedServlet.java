@@ -6,6 +6,7 @@ import com.oscarparty.servlets.playerpicks.PlayerPicksDAO;
 import scala.collection.mutable.DefaultEntry;
 import scala.collection.mutable.HashMap;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -67,9 +68,12 @@ public class PicksSubmittedServlet extends HttpServlet {
         PlayerPicksDAO playerPicksDAO = new PlayerPicksDAO();
         playerPicksDAO.storePicks(playerPicks);
 
-        PlayerPicks readPicks = playerPicksDAO.readLastPicksForUsername(playerPicks.userName());
-        writer.println("Read picks for user: " + readPicks.userName());
-        writer.println("Best Pic Top Pick: " + readPicks.getCategoryPicks("Best Picture").topPick());
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/picksSubmitted.jsp");
+        dispatcher.forward(req, res);
+
+//        PlayerPicks readPicks = playerPicksDAO.readLastPicksForUsername(playerPicks.userName());
+//        writer.println("Read picks for user: " + readPicks.userName());
+//        writer.println("Best Pic Top Pick: " + readPicks.getCategoryPicks("Best Picture").topPick());
 
 
 //        try {
