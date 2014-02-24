@@ -16,7 +16,7 @@ class AllOscarNominees {
       "Philomena",
       "12 Years a Slave",
       "The Wolf of Wall Street"),
-    Array (10, 8, 6))
+    Array (15, 12, 9))
   categories += new OscarCategory("Best Actor in a Leading Role",
     Array (
       "Christian Bale (American Hustle)",
@@ -191,7 +191,7 @@ class AllOscarNominees {
   def findCategory(categoryName : String) : OscarCategory = {
     for (category <- categories) {
       if (category.name == categoryName) {
-        category
+        return category
       }
     }
     throw new IllegalArgumentException("Could not find category: " + categoryName)

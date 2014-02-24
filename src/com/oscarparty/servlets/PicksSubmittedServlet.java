@@ -1,7 +1,10 @@
 package com.oscarparty.servlets;
 
+import com.oscarparty.servlets.playerpicks.CategoryPicks;
 import com.oscarparty.servlets.playerpicks.PlayerPicks;
 import com.oscarparty.servlets.playerpicks.PlayerPicksDAO;
+import scala.collection.mutable.DefaultEntry;
+import scala.collection.mutable.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,6 +17,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -57,8 +61,15 @@ public class PicksSubmittedServlet extends HttpServlet {
                 }
             }
         }
+        if (!playerPicks.arePicksValid()) {
+            throw new IllegalArgumentException("Picks were not valid!");
+        }
         PlayerPicksDAO playerPicksDAO = new PlayerPicksDAO();
         playerPicksDAO.storePicks(playerPicks);
+
+        PlayerPicks readPicks = playerPicksDAO.readLastPicksForUsername(playerPicks.userName());
+        writer.println("Read picks for user: " + readPicks.userName());
+        writer.println("Best Pic Top Pick: " + readPicks.getCategoryPicks("Best Picture").topPick());
 
 
 //        try {

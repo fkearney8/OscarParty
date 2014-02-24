@@ -1,15 +1,16 @@
 package com.oscarparty.servlets.playerpicks
 
-import java.sql.{PreparedStatement, DriverManager, Connection}
+import java.sql.{ResultSet, PreparedStatement, DriverManager, Connection}
 import scala.collection.mutable.ArrayBuffer
+import com.oscarparty.servlets.selection.AllOscarNominees
 
 class PlayerPicksDAO {
   final val USER: String = "postgres"
   final val PASS: String = "Amasa1217"
+  val dbUrl: String = "jdbc:postgresql:OscarParty"
 
   def storePicks(playerPicks : PlayerPicks) {
     System.out.println("Connecting to database...")
-    val dbUrl: String = "jdbc:postgresql:OscarParty"
     val conn = DriverManager.getConnection(dbUrl, USER, PASS)
     conn.setAutoCommit(true)
     val storePicksStatement = prepareInsertStatement(conn, playerPicks)
@@ -19,7 +20,7 @@ class PlayerPicksDAO {
 
   private def prepareInsertStatement(conn : Connection, playerPicks : PlayerPicks) : PreparedStatement = {
     //database columns are like best_animated_short_film_toppick
-    var statementColsSql = new StringBuilder("Insert into userpicks (")
+    val statementColsSql = new StringBuilder("Insert into userpicks (")
     val statementValuesSql = new StringBuilder("values (")
     val orderedPicks = new ArrayBuffer[String]()
     val pickPriorities = Array("topPick", "midPick", "botPick")
@@ -52,5 +53,30 @@ class PlayerPicksDAO {
       preparedStatement.setString(i+1, eachOrderedPick)
     }
     preparedStatement
+  }
+  
+  def readLastPicksForUsername(userName : String) : PlayerPicks = {
+    val conn = DriverManager.getConnection(dbUrl, USER, PASS)
+    val readPicksStatement = conn.prepareStatement("select * from userpicks where username = ?")
+    readPicksStatement.setString(1, userName)
+    val resultSet = readPicksStatement.executeQuery()
+    //read in all picks
+    val allNoms = new AllOscarNominees
+    val playerPicks = new PlayerPicks
+    while (resultSet.next()) {
+      //iterate through each category
+      for (eachCat <- allNoms.categories) {
+        val colPrefixForCat = eachCat.columnPrefix
+        for (eachPriority <- Array("topPick", "midPick", "botPick")) {
+          val colName = colPrefixForCat + "_" + eachPriority
+          val valueRead = resultSet.getString(colName)
+          System.out.println("Read value " + valueRead + " for column name " + colName)
+          playerPicks.addPick(eachCat.name, eachPriority, valueRead)
+        }
+      }
+      //set username
+      playerPicks.userName = resultSet.getString("username")
+    }
+    playerPicks
   }
 }
