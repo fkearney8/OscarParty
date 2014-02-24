@@ -51,7 +51,7 @@
     <property name="app.version" value="0.1-dev"/>
     <property name="build.home" value="${basedir}/build"/>
     <property name="catalina.home" value="/home/fkearney8/utils/Tomcat/apache-tomcat-7.0.50"/>
-    <property name="dist.home" value="${basedir}/dist"/>
+    <property name="dist.home" value="${build.home}/dist"/>
     <property name="manager.url" value="http://localhost:8080/manager/text"/>
     <property name="src.home" value="${basedir}/src"/>
     <property name="web.home" value="${basedir}/web"/>
@@ -281,92 +281,14 @@
 
     -->
 
-    <target name="dist" depends="compile,javadoc"
+    <target name="dist" depends="compile"
             description="Create binary distribution">
 
         <!-- Create application JAR file -->
-        <jar jarfile="${dist.home}/${app.name}-${app.version}.war"
+        <jar jarfile="${dist.home}/${app.name}.war"
              basedir="${build.home}"/>
 
         <!-- Copy additional files to ${dist.home} as necessary -->
-
-    </target>
-
-
-    <!-- ==================== Install Target ================================== -->
-
-    <!--
-
-      The "install" target tells the specified Tomcat 6 installation to dynamically
-      install this web application and make it available for execution.  It does
-      *not* cause the existence of this web application to be remembered across
-      Tomcat restarts; if you restart the server, you will need to re-install all
-      this web application.
-
-      If you have already installed this application, and simply want Tomcat to
-      recognize that you have updated Java classes (or the web.xml file), use the
-      "reload" target instead.
-
-      NOTE:  This target will only succeed if it is run from the same server that
-      Tomcat is running on.
-
-      NOTE:  This is the logical opposite of the "remove" target.
-
-    -->
-
-    <target name="install" depends="compile"
-            description="Install application to servlet container">
-
-        <deploy url="${manager.url}"
-                username="${manager.username}"
-                password="${manager.password}"
-                path="${app.path}"
-                localWar="file://${build.home}"/>
-
-    </target>
-
-
-    <!-- ==================== Javadoc Target ================================== -->
-
-    <!--
-
-      The "javadoc" target creates Javadoc API documentation for the Java
-      classes included in your application.  Normally, this is only required
-      when preparing a distribution release, but is available as a separate
-      target in case the developer wants to create Javadocs independently.
-
-    -->
-
-    <target name="javadoc" depends="compile"
-            description="Create Javadoc API documentation">
-
-        <mkdir dir="${dist.home}/docs/api"/>
-        <javadoc sourcepath="${src.home}"
-                 destdir="${dist.home}/docs/api"
-                 packagenames="*">
-            <classpath refid="compile.classpath"/>
-        </javadoc>
-
-    </target>
-
-
-    <!-- ====================== List Target =================================== -->
-
-    <!--
-
-      The "list" target asks the specified Tomcat 6 installation to list the
-      currently running web applications, either loaded at startup time or
-      installed dynamically.  It is useful to determine whether or not the
-      application you are currently developing has been installed.
-
-    -->
-
-    <target name="list"
-            description="List installed applications on servlet container">
-
-        <list url="${manager.url}"
-              username="${manager.username}"
-              password="${manager.password}"/>
 
     </target>
 
