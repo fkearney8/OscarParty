@@ -257,6 +257,11 @@
         <exec executable="/home/fkearney8/utils/Tomcat/apache-tomcat-7.0.50/bin/startup.sh"/>
     </target>
 
+    <target name="bounceTomcatDebugMode">
+        <exec executable="/home/fkearney8/utils/Tomcat/apache-tomcat-7.0.50/bin/shutdown.sh"/>
+        <exec executable="/home/fkearney8/utils/Tomcat/apache-tomcat-7.0.50/bin/catalina.sh jpda start"/>
+    </target>
+
     <!-- ==================== Dist Target ===================================== -->
 
 

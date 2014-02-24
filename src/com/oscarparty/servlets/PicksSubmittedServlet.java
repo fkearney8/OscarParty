@@ -1,5 +1,8 @@
 package com.oscarparty.servlets;
 
+import com.oscarparty.servlets.playerpicks.PlayerPicks;
+import com.oscarparty.servlets.playerpicks.PlayerPicksDAO;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,19 +32,43 @@ public class PicksSubmittedServlet extends HttpServlet {
 
         Map<String, String[]> parameterMap = req.getParameterMap();
         Set<Map.Entry<String, String[]>> paramEntries = parameterMap.entrySet();
+        PlayerPicks playerPicks = new PlayerPicks();
         PrintWriter writer = res.getWriter();
         writer.println("Your picks have been submitted!");
         for (Map.Entry<String, String[]> paramKey : paramEntries) {
-            writer.println("Parameter key: " + paramKey.getKey() + " with value " +
-                    Arrays.toString(paramKey.getValue()));
-        }
-        try {
-            storePicks(parameterMap);
-        } catch (SQLException e) {
-            throw new ServletException(e);
-        }
+            String pickKey = paramKey.getKey();
+            String[] pickValues = paramKey.getValue();
+            writer.println("Parameter key: " + pickKey + " with value " +
+                    Arrays.toString(pickValues));
 
-        
+            if (pickValues.length > 1) {
+                throw new ServletException("More pick values than allowed.");
+            } else if (pickValues.length == 1) {
+                String pick = pickValues[0];
+                if (pickKey.equals("userName")) {
+                    playerPicks.userName_$eq(pick);
+                } else {
+                    //result params are like "Best Actress in a Supporting Role.botPick" = "[Amy Adams]"
+                    int indexOfDot = pickKey.indexOf(".");
+                    if (indexOfDot < 0) throw new ServletException("Pick key is malformed: " + pickKey);
+                    String categoryName = pickKey.substring(0, indexOfDot);
+                    String pickPriority = pickKey.substring(indexOfDot + 1);
+                    playerPicks.addPick(categoryName, pickPriority, pick);
+                }
+            }
+        }
+        PlayerPicksDAO playerPicksDAO = new PlayerPicksDAO();
+        playerPicksDAO.storePicks(playerPicks);
+
+
+//        try {
+//            storePicks(parameterMap);
+//        } catch (SQLException e) {
+//            throw new ServletException(e);
+//        }
+
+
+
     }
 
     static final String USER = "postgres";

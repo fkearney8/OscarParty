@@ -194,6 +194,7 @@ class AllOscarNominees {
         category
       }
     }
+    throw new IllegalArgumentException("Could not find category: " + categoryName)
   }
 
   def categoryNames : Array[String] = {
@@ -201,6 +202,6 @@ class AllOscarNominees {
     for (eachCategory <- categories) {
       catNames += eachCategory.name
     }
-    catNames
+    catNames.toArray
   }
 }
