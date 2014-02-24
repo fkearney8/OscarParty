@@ -11,7 +11,7 @@
     Frank accepts Paypal at fkearney8+paypal@gmail.com and Amazon payments at fkearney8+amazon@gmail.com
     </p>
     <p>
-    Play for money, it'll be more fun! And you'll probably still be able to clothe and shoe all your illegitimate children.
+    Play for money, it'll be more fun! We'll have a leaderboard at the party so you can see how you fare against everyone else.
     </p>
 </body>
 </html>

@@ -32,12 +32,12 @@ class PlayerPicks {
       var topPickValid, midPickValid, botPickValid = false
 
       //if none is ok, leave this uncommented. Comment out when none is not ok
-      if (catPicks.topPick == "") topPickValid = true
-      if (catPicks.midPick == "") midPickValid = true
-      if (catPicks.botPick == "") botPickValid = true
-      //if any of the picks are the same in a category, that's not valid. Uncomment this when non is not ok
-//      if (catPicks.topPick == catPicks.midPick || catPicks.topPick == catPicks.botPick || catPicks.midPick == catPicks.botPick)
-//        return false
+//      if (catPicks.topPick == "") topPickValid = true
+//      if (catPicks.midPick == "") midPickValid = true
+//      if (catPicks.botPick == "") botPickValid = true
+      //if any of the picks are the same in a category, that's not valid. Uncomment this when blanks are not ok
+      if (catPicks.topPick == catPicks.midPick || catPicks.topPick == catPicks.botPick || catPicks.midPick == catPicks.botPick)
+        return false
 
       for (eachNominee <- thisOscarCategory.nominees) {
         if (catPicks.topPick == eachNominee) topPickValid = true

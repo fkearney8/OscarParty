@@ -60,10 +60,17 @@
                 out: function (event, ui) {
                     //when a draggable is removed, we can take a draggable input again
                     $(this).droppable( "option", "accept", ".selection" );
-                    this.elementDropped = "none";
+                    $(this).find("input").val("");
                 }
             });
 
+            $("#modalPopover").dialog({
+                autoOpen: false,
+                draggable: false,
+                modal: true,
+
+
+            });
         });
 
         function droppedSelection(event, ui) {
@@ -92,6 +99,35 @@
             return !event;
         }
 
+        function submitForm() {
+            var userName = $("#userName").val();
+            if (userName.trim().length == 0) {
+                $("#modalPopover").text("Don't forget to add a Player Name");
+                $("#modalPopover").dialog("open");
+                return;
+            }
+            var allValid = true;
+            var inputs = $(".drop").find("input");
+            var firstMissing = true;
+            inputs.each(function(index) {
+                var inputName = $(this).attr("name");
+                var inputValue = $(this).val();
+                console.log("For name " + inputName + " Value is " + inputValue);
+                if (inputValue.trim().length == 0) {
+                    allValid = false;
+                    if (firstMissing) {
+                        var categoryName = inputName.substring(0, inputName.indexOf("."));
+                        $("#modalPopover").text("Picks missing for " + categoryName);
+                        $("#modalPopover").dialog("open");
+                        firstMissing = false;
+                    }
+                }
+            });
+
+            if (allValid)
+                $("form").submit();
+        }
+
     </script>
 </head>
 <body>
@@ -106,6 +142,8 @@
     </p>
 
     <%@ page import="java.util.*, com.oscarparty.servlets.selection.*" %>
+
+    <div id="modalPopover" style="text-align: center"></div>
 
     <jsp:useBean id="allNominees" scope="request" class="com.oscarparty.servlets.selection.AllOscarNominees" />
 
@@ -154,8 +192,9 @@
 
      </div>
      </div>
-     <div>Give a username, so we can track a winner: <input name="userName" type="text" label"Your Name"/></div>
-    <input type="submit" value="Submit Picks!"/>
+     <br/>
+     <div>Give a player name, so we can track a winner: <input id="userName" name="userName" type="text" label"Your Name"/></div>
+    <input type="button" value="Submit Picks!" onclick="submitForm()"/>
     </form>
 </body>
 </html>
