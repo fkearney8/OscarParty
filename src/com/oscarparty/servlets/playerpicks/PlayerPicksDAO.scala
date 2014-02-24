@@ -6,7 +6,7 @@ import com.oscarparty.servlets.selection.AllOscarNominees
 
 class PlayerPicksDAO {
   final val USER: String = "postgres"
-  final val PASS: String = "Amasa1217"
+  final val PASS: String = "Simple"
   val dbUrl: String = "jdbc:postgresql:OscarParty"
 
   def storePicks(playerPicks : PlayerPicks) {
