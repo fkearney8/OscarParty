@@ -83,46 +83,35 @@
          You can define any number of servlets, including zero.
     -->
     <servlet>
+        <servlet-name>submitPicks</servlet-name>
+        <description>Servlet to handle the picks being submitted.
+        </description>
+        <servlet-class>com.oscarparty.servlets.PicksSubmittedServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>selection</servlet-name>
         <description>Servlet to create the list of picks and allow the gambler to make
             their selections.
         </description>
         <servlet-class>com.oscarparty.servlets.SelectionServlet</servlet-class>
     </servlet>
-
     <servlet>
-        <servlet-name>submitPicks</servlet-name>
-        <description>Servlet to handle the picks being submitted.
-        </description>
-        <servlet-class>com.oscarparty.servlets.PicksSubmittedServlet</servlet-class>
+        <servlet-name>seeAllPicks</servlet-name>
+        <description>Servlet to see the list of submitted picks</description>
+        <servlet-class>com.oscarparty.servlets.AllPlayerPicksServlet</servlet-class>
     </servlet>
-
-    <!-- Define mappings that are used by the servlet container to
-         translate a particular request URI (context-relative) to a
-         particular servlet.  The examples below correspond to the
-         servlet descriptions above.  Thus, a request URI like:
-
-           http://localhost:8080/{contextpath}/graph
-
-         will be mapped to the "graph" servlet, while a request like:
-
-           http://localhost:8080/{contextpath}/saveCustomer.do
-
-         will be mapped to the "controller" servlet.
-
-         You may define any number of servlet mappings, including zero.
-         It is also legal to define more than one mapping for the same
-         servlet, if you wish to.
-    -->
 
     <servlet-mapping>
         <servlet-name>submitPicks</servlet-name>
         <url-pattern>/submitPicks.do</url-pattern>
     </servlet-mapping>
-
     <servlet-mapping>
         <servlet-name>selection</servlet-name>
         <url-pattern>/selection</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>seeAllPicks</servlet-name>
+        <url-pattern>/seeAllPicks</url-pattern>
     </servlet-mapping>
 
     <!-- Define the default session timeout for your application,

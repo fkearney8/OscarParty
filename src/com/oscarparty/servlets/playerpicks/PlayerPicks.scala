@@ -2,6 +2,8 @@ package com.oscarparty.servlets.playerpicks
 
 import scala.collection.mutable
 import com.oscarparty.servlets.selection.AllOscarNominees
+import scala.collection.mutable.ArrayBuffer
+import collection.JavaConversions._
 
 class PlayerPicks {
 
@@ -11,6 +13,21 @@ class PlayerPicks {
 
   for ((category) <- allNominees.categories) {
     allPicks(category.name) = new CategoryPicks(category.name)
+  }
+
+  def categoryPicksInOrder() : ArrayBuffer[CategoryPicks] = {
+    val returnList = new ArrayBuffer[CategoryPicks]()
+    //iterate through categories in order
+    for ((category) <- allNominees.categories) {
+      returnList += getCategoryPicks(category.name)
+    }
+    returnList
+  }
+
+  def categoryPicksInOrderJava() : java.util.List[CategoryPicks] = {
+    val scalaArrayBuffer = categoryPicksInOrder()
+    val jul : java.util.List[CategoryPicks] = scalaArrayBuffer
+    jul
   }
 
   def getCategoryPicks(categoryName : String) : CategoryPicks  = {

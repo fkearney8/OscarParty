@@ -18,8 +18,6 @@ public class SelectionServlet extends HttpServlet {
         RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/selection.jsp");
         AllOscarNominees allOscarNominees = new AllOscarNominees();
 
-        List<OscarCategory> categories = allOscarNominees.categoriesJava();
-
         req.setAttribute("allNominees", allOscarNominees);
         requestDispatcher.forward(req, res);
     }

@@ -9,9 +9,15 @@ class PlayerPicksDAO {
   final val PASS: String = "Simple"
   val dbUrl: String = "jdbc:postgresql:OscarParty"
 
+  def getConnection() : Connection = {
+    Class.forName("org.postgresql.Driver");
+    val conn = DriverManager.getConnection(dbUrl, USER, PASS)
+    conn
+  }
+
   def storePicks(playerPicks : PlayerPicks) {
     System.out.println("Connecting to database...")
-    val conn = DriverManager.getConnection(dbUrl, USER, PASS)
+    val conn = getConnection()
     conn.setAutoCommit(true)
     val storePicksStatement = prepareInsertStatement(conn, playerPicks)
     System.out.println("Storing picks with statement: " + storePicksStatement.toString)
@@ -56,7 +62,7 @@ class PlayerPicksDAO {
   }
   
   def readLastPicksForUsername(userName : String) : PlayerPicks = {
-    val conn = DriverManager.getConnection(dbUrl, USER, PASS)
+    val conn = getConnection()
     val readPicksStatement = conn.prepareStatement("select * from userpicks where username = ?")
     readPicksStatement.setString(1, userName)
     val resultSet = readPicksStatement.executeQuery()
@@ -78,5 +84,31 @@ class PlayerPicksDAO {
       playerPicks.userName = resultSet.getString("username")
     }
     playerPicks
+  }
+
+  def readAllPlayerPicks() : java.util.List[PlayerPicks] = {
+    val returnList = new java.util.LinkedList[PlayerPicks]();
+    val conn = getConnection()
+    //read in all picks
+    val allNoms = new AllOscarNominees
+    val readPicksStatement = conn.prepareStatement("select * from userpicks")
+    val resultSet = readPicksStatement.executeQuery()
+    while (resultSet.next()) {
+      //iterate through each category
+      val playerPicks = new PlayerPicks
+      //set username
+      playerPicks.userName = resultSet.getString("username")
+      for (eachCat <- allNoms.categories) {
+        val colPrefixForCat = eachCat.columnPrefix
+        for (eachPriority <- Array("topPick", "midPick", "botPick")) {
+          val colName = colPrefixForCat + "_" + eachPriority
+          val valueRead = resultSet.getString(colName)
+          System.out.println("Read value " + valueRead + " for column name " + colName)
+          playerPicks.addPick(eachCat.name, eachPriority, valueRead)
+        }
+      }
+      returnList.add(playerPicks)
+    }
+    returnList
   }
 }
