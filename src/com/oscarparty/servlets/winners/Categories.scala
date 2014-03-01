@@ -1,12 +1,11 @@
 package com.oscarparty.servlets.winners
 
-import com.oscarparty.servlets.selection.AllOscarNominees
+import com.oscarparty.servlets.selection.{OscarCategory, AllOscarNominees}
 
 object Categories {
-
+  val aon = new AllOscarNominees()
   def categoriesWithoutWinners() : Array[String] = {
     //get all the categories
-    val aon = new AllOscarNominees()
     val catNames = aon.categoryNames
 
     //get all the winners so far
