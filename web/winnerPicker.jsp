@@ -24,32 +24,35 @@
     <%
     String[] orderedCats = (String[]) request.getAttribute("orderedCatsWithoutWinners");
      %>
-    <form>
-        Select Winner for Category:
-        <select id="categorySelector" onChange="javascript:categorySelected()">
-            <option value="None">None</option>
-            <%
-            for (String categoryName : orderedCats) {
-                %><option value="<%= categoryName %>"><%= categoryName %></option><%
-            }
-            %>
-        </select>
+    <div style="padding: 10px">
+        <form>
+            Select Winner for Category:
+            <select id="categorySelector" onChange="javascript:categorySelected()">
+                <option value="None">None</option>
+                <%
+                for (String categoryName : orderedCats) {
+                    %><option value="<%= categoryName %>"><%= categoryName %></option><%
+                }
+                %>
+            </select>
 
-        <select id="winnerSelector">
-            <option value="None">None</option>
-        </select>
-        <br/>
-        Select the next category, if we know it:
-        <select id="categorySelector">
-            <option value="None">None</option>
-            <%
-            for (String categoryName : orderedCats) {
-                %><option value="<%= categoryName %>"><%= categoryName %></option><%
-            }
-            %>
-        </select>
-        <input type="button" value="Submit"></input>
-    </form>
+            <select id="winnerSelector">
+                <option value="None">None</option>
+            </select>
+            <br/>
+            Select the next category, if we know it:
+            <select id="categorySelector">
+                <option value="None">None</option>
+                <%
+                for (String categoryName : orderedCats) {
+                    %><option value="<%= categoryName %>"><%= categoryName %></option><%
+                }
+                %>
+            </select>
+            <br/>
+            <input type="button" value="Submit"></input>
+        </form>
+    </div>
 
 </body>
 </html>
