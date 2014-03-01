@@ -3,18 +3,9 @@ package com.oscarparty.servlets.playerpicks
 import java.sql.{ResultSet, PreparedStatement, DriverManager, Connection}
 import scala.collection.mutable.ArrayBuffer
 import com.oscarparty.servlets.selection.AllOscarNominees
+import com.oscarparty.servlets.data.DAO
 
-class PlayerPicksDAO {
-  final val USER: String = "postgres"
-  final val PASS: String = "Simple"
-  val dbUrl: String = "jdbc:postgresql:OscarParty"
-
-  def getConnection() : Connection = {
-    Class.forName("org.postgresql.Driver");
-    val conn = DriverManager.getConnection(dbUrl, USER, PASS)
-    conn
-  }
-
+class PlayerPicksDAO extends DAO {
   def storePicks(playerPicks : PlayerPicks) {
     System.out.println("Connecting to database...")
     val conn = getConnection()
@@ -66,6 +57,7 @@ class PlayerPicksDAO {
     val readPicksStatement = conn.prepareStatement("select * from userpicks where username = ?")
     readPicksStatement.setString(1, userName)
     val resultSet = readPicksStatement.executeQuery()
+    conn.close()
     //read in all picks
     val allNoms = new AllOscarNominees
     val playerPicks = new PlayerPicks
@@ -109,6 +101,7 @@ class PlayerPicksDAO {
       }
       returnList.add(playerPicks)
     }
+    conn.close()
     returnList
   }
 }

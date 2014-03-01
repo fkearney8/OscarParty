@@ -1,3 +1,9 @@
+CREATE TABLE Winners (
+category varchar(200),
+winner varchar(200)
+);
+
+
 CREATE TABLE UserPicks (
 Best_Picture_topPick varchar(200),
 Best_Picture_midPick varchar(200),
@@ -73,3 +79,7 @@ Best_Original_Screenplay_midPick varchar(200),
 Best_Original_Screenplay_botPick varchar(200),
 userName varchar(200)
 );
+
+
+ALTER TABLE userpicks
+ADD paid varchar(20);
