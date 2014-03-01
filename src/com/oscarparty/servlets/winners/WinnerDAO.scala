@@ -2,7 +2,6 @@ package com.oscarparty.servlets.winners
 
 import com.oscarparty.servlets.data.DAO
 import scala.collection.mutable.ArrayBuffer
-import java.sql.ResultSet
 
 class WinnerDAO extends DAO {
   def saveWinner(winner : Winner) {

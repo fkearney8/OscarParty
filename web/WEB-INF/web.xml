@@ -100,6 +100,11 @@
         <description>Servlet to see the list of submitted picks</description>
         <servlet-class>com.oscarparty.servlets.AllPlayerPicksServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>winnerPicker</servlet-name>
+        <description>Servlet to select the winners and the next likely category</description>
+        <servlet-class>com.oscarparty.servlets.WinnerPickerServlet</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>submitPicks</servlet-name>
@@ -112,6 +117,10 @@
     <servlet-mapping>
         <servlet-name>seeAllPicks</servlet-name>
         <url-pattern>/seeAllPicks</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>winnerPicker</servlet-name>
+        <url-pattern>/winnerPicker</url-pattern>
     </servlet-mapping>
 
     <!-- Define the default session timeout for your application,
