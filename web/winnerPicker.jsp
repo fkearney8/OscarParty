@@ -1,17 +1,33 @@
 <html>
 <head>
     <%@include file="resources.jsp"%>
+    <script>
+        <% String catsToNomsMap = (String) request.getAttribute("catsToNomsMap"); %>
+        var catsToNomsMap = <%= catsToNomsMap %>
+        function categorySelected() {
+            var catSelected = $("#categorySelector").val();
+            $("#winnerSelector").empty();
+            var nominees = catsToNomsMap[catSelected];
+
+            $.each(nominees, function(index, nominee) {
+                 $('#winnerSelector')
+                     .append($("<option></option>")
+                     .attr("value", nominee)
+                     .text(nominee));
+            });
+        }
+    </script>
 </head>
 <body>
     <%@include file="header.jsp"%>
     <%@ page import="java.util.*, com.oscarparty.servlets.selection.*, com.oscarparty.servlets.playerpicks.*" %>
     <%
-    Map<String, String[]> catsToNomsMap = (Map<String, String[]>) request.getAttribute("catsToNomsMap");
     String[] orderedCats = (String[]) request.getAttribute("orderedCatsWithoutWinners");
      %>
     <form>
         Select Winner for Category:
-        <select>
+        <select id="categorySelector" onChange="javascript:categorySelected()">
+            <option value="None">None</option>
             <%
             for (String categoryName : orderedCats) {
                 %><option value="<%= categoryName %>"><%= categoryName %></option><%
@@ -19,20 +35,20 @@
             %>
         </select>
 
-        <select>
-        <%
-            //offer the nominees for the selected category, TODO do this for real on selection of a category
-            String[] noms = catsToNomsMap.get("Best Live Action Short Film");
-            for (String nom : noms) {
-                %>
-                <option value="<%= nom %>"><%= nom %></option>
-                <%
-            }
-        %>
-
+        <select id="winnerSelector">
+            <option value="None">None</option>
         </select>
-
-    <input type="button" value="Submit"></input>
+        <br/>
+        Select the next category, if we know it:
+        <select id="categorySelector">
+            <option value="None">None</option>
+            <%
+            for (String categoryName : orderedCats) {
+                %><option value="<%= categoryName %>"><%= categoryName %></option><%
+            }
+            %>
+        </select>
+        <input type="button" value="Submit"></input>
     </form>
 
 </body>
