@@ -105,10 +105,19 @@
         <description>Servlet to select the winners and the next likely category</description>
         <servlet-class>com.oscarparty.servlets.WinnerPickerServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>submitWinner</servlet-name>
+        <description>Servlet to handle the winner selection and save.</description>
+        <servlet-class>com.oscarparty.servlets.WinnerPickedServlet</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>submitPicks</servlet-name>
         <url-pattern>/submitPicks.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>submitWinner</servlet-name>
+        <url-pattern>/winnersPicked.do</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>selection</servlet-name>

@@ -13,7 +13,7 @@ object Categories {
     val winnerCategories = for (winner <- winners) yield winner.category
 
     //what categories don't have winners?
-    catNames.filter((catName) => winnerCategories.contains(catName))
-    catNames
+    val filteredNames = catNames.filter((catName) => !winnerCategories.contains(catName))
+    filteredNames
   }
 }

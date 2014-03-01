@@ -8,6 +8,7 @@
             var catSelected = $("#categorySelector").val();
             $("#winnerSelector").empty();
             var nominees = catsToNomsMap[catSelected];
+            if (!nominees) nominees = ["None"];
 
             $.each(nominees, function(index, nominee) {
                  $('#winnerSelector')
@@ -24,10 +25,10 @@
     <%
     String[] orderedCats = (String[]) request.getAttribute("orderedCatsWithoutWinners");
      %>
-    <div style="padding: 10px">
-        <form>
+    <div style="padding: 10px; font-size: 18px;">
+        <form method="POST" action="winnersPicked.do">
             Select Winner for Category:
-            <select id="categorySelector" onChange="javascript:categorySelected()">
+            <select id="categorySelector" name="winnerCategory" onChange="javascript:categorySelected()">
                 <option value="None">None</option>
                 <%
                 for (String categoryName : orderedCats) {
@@ -36,12 +37,12 @@
                 %>
             </select>
 
-            <select id="winnerSelector">
+            <select id="winnerSelector" name="winnerSelected">
                 <option value="None">None</option>
             </select>
             <br/>
             Select the next category, if we know it:
-            <select id="categorySelector">
+            <select id="categorySelector" name="nextCategory">
                 <option value="None">None</option>
                 <%
                 for (String categoryName : orderedCats) {
@@ -50,7 +51,7 @@
                 %>
             </select>
             <br/>
-            <input type="button" value="Submit"></input>
+            <input type="submit" value="Submit">
         </form>
     </div>
 
