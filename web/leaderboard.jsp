@@ -1,6 +1,6 @@
 <html>
 <head>
-    <META HTTP-EQUIV="Pragma" CONTENT="no-cache"/>
+    <meta http-equiv="refresh" content="20" />
     <%@include file="resources.jsp"%>
     <style>
         .leaderpanel {

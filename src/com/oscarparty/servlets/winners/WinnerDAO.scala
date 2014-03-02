@@ -34,8 +34,8 @@ object WinnerDAO {
   def findCategoryWinner(categoryName : String) : Winner = {
     val allWinners = new WinnerDAO().readAllWinners()
     val returnedWinnerList = allWinners.filter(winner => categoryName.equals(winner.category))
-    if (returnedWinnerList.size == 1)
-      returnedWinnerList(0)
+    if (returnedWinnerList.size > 0)
+      returnedWinnerList.last
     else
       null
   }
