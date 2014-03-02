@@ -64,7 +64,12 @@
         $(function() {
             $(".leaderrow:odd").addClass("leaderrow-odd");
             $(".leaderrow:even").addClass("leaderrow-even");
+            $('.leaderrow').css('cursor', 'pointer');
         });
+
+        function gotoPlayerPicks(playerName) {
+            window.location.href = "playerPicks?playerName=" + playerName;
+        }
     </script>
 </head>
 <body style="font-size: 20px;">
@@ -88,7 +93,7 @@
         for (int i = 0; i < usersAndPoints.size(); i++) {
             PlayerWithPoints playerWithPoints = (PlayerWithPoints) usersAndPoints.get(i);
             %>
-            <div class="leaderrow">
+            <div class="leaderrow" onclick="javascript:gotoPlayerPicks(&quot;<%= playerWithPoints.userName() %>&quot;)">
                 <div class="leadername">
                     <%= playerWithPoints.userName() %>
                 </div>

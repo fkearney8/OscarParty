@@ -120,6 +120,11 @@
         <description>Servlet for the leaderboard.</description>
         <servlet-class>com.oscarparty.servlets.LeaderboardServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>playerPicks</servlet-name>
+        <description>Servlet for seeing an individual's picks off the leaderboard.</description>
+        <servlet-class>com.oscarparty.servlets.PlayerPicksServlet</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>submitPicks</servlet-name>
@@ -148,6 +153,10 @@
     <servlet-mapping>
         <servlet-name>leaderboard</servlet-name>
         <url-pattern>/leaderboard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>playerPicks</servlet-name>
+        <url-pattern>/playerPicks</url-pattern>
     </servlet-mapping>
 
     <!-- Define the default session timeout for your application,
