@@ -7,9 +7,10 @@
             float: left;
             font-size: 24px;
             font-family: Arial, Helvetica, sans-serif;
+            width: 55%;
         }
         .headerrow {
-
+           margin: 10px;
         }
         .leaderpoints.header {
             font-family: Arial, Helvetica, sans-serif;
@@ -18,7 +19,6 @@
             border: solid 1px;
             margin: 10px;
             padding 5px;
-            max-width: 1000px;
         }
         .leaderrow-odd {
             background: url("jquery-ui-1.10.4.custom/css/swanky-purse/images/ui-bg_diamond_25_675423_10x8.png") repeat scroll 50% 50% #443113;
@@ -28,12 +28,12 @@
         }
         .leadername {
             display: inline-block;
-            min-width: 750px;
         }
         .leaderpoints {
             font-family: "Comic Sans MS", cursive, sans-serif;
             display: inline-block;
-            max-width: 100px
+            float: right;
+            padding: 10px 25px 0px 0px
         }
         .leaderNextCatPicks {
             font-size: 18px;
@@ -44,6 +44,7 @@
             max-width: 500px;
             font-size: 14px;
             margin-right: 50px;
+            width: 45%
         }
         .catWinnerRow {
             border: 1px solid;
@@ -51,11 +52,12 @@
         .categoryDiv {
             display: inline-block;
             padding: 3px 10px 3px 5px;
-            width: 200px;
+            width: 40%;
         }
         .winnerNameDiv {
             display: inline-block;
             padding: 3px 5px 3px 0px;
+            width: 55%;
         }
     </style>
     <script>
