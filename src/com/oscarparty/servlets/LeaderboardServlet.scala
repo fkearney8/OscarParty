@@ -13,7 +13,7 @@ class LeaderboardServlet extends HttpServlet {
     //read up all the picks
     val playerPicks = new PlayerPicksDAO().readAllPlayerPicks()
 
-    val playersAndPoints = new Array[(String, Integer)](playerPicks.size())
+    var playersAndPoints = new Array[(String, Integer)](playerPicks.size())
     //for each player picks, calculate how many points they have
     for (i <- 0 until playerPicks.size()) {
       val eachPickSet = playerPicks.get(i)
@@ -41,7 +41,7 @@ class LeaderboardServlet extends HttpServlet {
     }
 
     //to make things easier on the leaderboard page, we want the users in order by points
-    playersAndPoints.sortWith(_._2 < _._2)
+    playersAndPoints = playersAndPoints.sortWith(_._2 > _._2)
 
     val playerWithPointsArray = for ((player, points) <- playersAndPoints) yield new PlayerWithPoints(player, points)
 
