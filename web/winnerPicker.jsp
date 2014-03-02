@@ -4,6 +4,13 @@
     <script>
         $(function() {
             $("#categorySelector").val("<%= request.getAttribute("nextCategory") %>");
+            //in case it didn't get set to something still available
+            var catPreselection = $("#categorySelector").val();
+            if (catPreselection == null || catPreselection.trim().length() == 0) {
+                $("#categorySelector").val("None");
+            }
+
+            categorySelected();
         });
 
 

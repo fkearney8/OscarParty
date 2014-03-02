@@ -20,3 +20,7 @@ class CategoryPicks (val categoryName : String) {
     else throw new IllegalArgumentException("Unsupported pick priority " + pickPriority)
   }
 }
+
+object CategoryPicks {
+  val pickPriorities = Array("topPick", "midPick", "botPick")
+}

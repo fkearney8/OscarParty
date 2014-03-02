@@ -29,3 +29,14 @@ class WinnerDAO extends DAO {
     returnBuffer
   }
 }
+
+object WinnerDAO {
+  val allWinners = new WinnerDAO().readAllWinners()
+  def findCategoryWinner(categoryName : String) : Winner = {
+    val returnedWinnerList = allWinners.filter(winner => categoryName.equals(winner.category))
+    if (returnedWinnerList.size == 1)
+      returnedWinnerList(0)
+    else
+      null
+  }
+}
