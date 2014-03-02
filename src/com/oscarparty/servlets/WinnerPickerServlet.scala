@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse
 import com.oscarparty.servlets.selection.AllOscarNominees
 import scala.collection.JavaConversions._
 import scala.util.parsing.json.{JSONArray, JSONObject}
+import com.oscarparty.servlets.data.NextCategory
 
 class WinnerPickerServlet extends HttpServlet {
   protected override def doGet(req: HttpServletRequest, resp: HttpServletResponse) {
@@ -24,6 +25,7 @@ class WinnerPickerServlet extends HttpServlet {
 
     req.setAttribute("orderedCatsWithoutWinners", orderedCatsWithoutWinners)
     req.setAttribute("catsToNomsMap", catsToNomsJson)
+    req.setAttribute("nextCategory", NextCategory.nextCategory)
 
     req.getServletContext.getRequestDispatcher("/winnerPicker.jsp").forward(req, resp)
   }

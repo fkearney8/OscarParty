@@ -2,6 +2,11 @@
 <head>
     <%@include file="resources.jsp"%>
     <script>
+        $(function() {
+            $("#categorySelector").val("<%= request.getAttribute("nextCategory") %>");
+        });
+
+
         <% String catsToNomsMap = (String) request.getAttribute("catsToNomsMap"); %>
         var catsToNomsMap = <%= catsToNomsMap %>
         function categorySelected() {
