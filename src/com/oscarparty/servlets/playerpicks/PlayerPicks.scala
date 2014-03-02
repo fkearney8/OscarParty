@@ -8,6 +8,7 @@ import collection.JavaConversions._
 class PlayerPicks {
 
   var userName : String = ""
+  var paid = false
   val allPicks = new mutable.HashMap[String, CategoryPicks]()
   private val allNominees = new AllOscarNominees()
 

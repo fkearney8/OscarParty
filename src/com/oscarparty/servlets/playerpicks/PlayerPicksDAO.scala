@@ -4,6 +4,8 @@ import java.sql.{ResultSet, PreparedStatement, DriverManager, Connection}
 import scala.collection.mutable.ArrayBuffer
 import com.oscarparty.servlets.selection.AllOscarNominees
 import com.oscarparty.servlets.data.DAO
+import java.util
+import scala.collection.mutable
 
 class PlayerPicksDAO extends DAO {
   def storePicks(playerPicks : PlayerPicks) {
@@ -78,8 +80,9 @@ class PlayerPicksDAO extends DAO {
     playerPicks
   }
 
+  //only reads the last picks for a player with the same name
   def readAllPlayerPicks() : java.util.List[PlayerPicks] = {
-    val returnList = new java.util.LinkedList[PlayerPicks]();
+    val returnMap = new mutable.HashMap[String, PlayerPicks]()
     val conn = getConnection()
     //read in all picks
     val allNoms = new AllOscarNominees
@@ -90,6 +93,9 @@ class PlayerPicksDAO extends DAO {
       val playerPicks = new PlayerPicks
       //set username
       playerPicks.userName = resultSet.getString("username")
+      val paidString: String = resultSet.getString("paid")
+      playerPicks.paid = paidString != null && paidString.equals("true")
+
       for (eachCat <- allNoms.categories) {
         val colPrefixForCat = eachCat.columnPrefix
         for (eachPriority <- Array("topPick", "midPick", "botPick")) {
@@ -99,9 +105,22 @@ class PlayerPicksDAO extends DAO {
           playerPicks.addPick(eachCat.name, eachPriority, valueRead)
         }
       }
+      returnMap += (playerPicks.userName -> playerPicks)
+    }
+    val returnList = new java.util.LinkedList[PlayerPicks]()
+    for ((username, playerPicks) <- returnMap) {
       returnList.add(playerPicks)
     }
     conn.close()
     returnList
+  }
+
+  def updatePaid(userName : String, paid : Boolean) {
+    val conn = getConnection()
+    val updatePaidPs = conn.prepareStatement("update userpicks set paid=? where userName=?" )
+    updatePaidPs.setString(1, if (paid) "true" else "false")
+    updatePaidPs.setString(2, userName)
+    updatePaidPs.executeUpdate()
+    conn.close()
   }
 }
