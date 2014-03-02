@@ -2,7 +2,7 @@
 <head>
     <%@include file="resources.jsp"%>
 </head>
-<body>
+<body style="font-size: 20px;">
     <%@include file="header.jsp"%>
     <%@ page import="java.util.*, com.oscarparty.servlets.playerpicks.*, scala.collection.convert.*" %>
 

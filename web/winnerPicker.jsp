@@ -37,7 +37,7 @@
     <%
     String[] orderedCats = (String[]) request.getAttribute("orderedCatsWithoutWinners");
      %>
-    <div style="padding: 10px; font-size: 18px;">
+    <div style="padding: 10px;font-size: 20px;">
         <form method="POST" action="winnersPicked.do">
             Select Winner for Category:
             <select id="categorySelector" name="winnerCategory" onChange="javascript:categorySelected()">

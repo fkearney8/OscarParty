@@ -2,7 +2,7 @@
 <head>
     <%@include file="resources.jsp"%>
 </head>
-<body>
+<bodystyle="font-size: 20px;">
     <%@include file="header.jsp"%>
     <div style="padding: 10px; font-size: 18px;">
         Winner <%= request.getAttribute("winner") %> saved for category <%= request.getAttribute("category") %>.<br/>

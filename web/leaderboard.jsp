@@ -1,8 +1,9 @@
 <html>
 <head>
+    <META HTTP-EQUIV="Pragma" CONTENT="no-cache"/>
     <%@include file="resources.jsp"%>
 </head>
-<body>
+<body style="font-size: 20px;">
     <%@include file="header.jsp"%>
     <%@ page import="java.util.*, com.oscarparty.servlets.leaderboard.PlayerWithPoints" %>
     <% List usersAndPoints = (List) request.getAttribute("usersAndPoints");
