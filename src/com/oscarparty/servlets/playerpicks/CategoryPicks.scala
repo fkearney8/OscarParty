@@ -19,6 +19,10 @@ class CategoryPicks (val categoryName : String) {
     else if (pickPriority == "botPick") botPick
     else throw new IllegalArgumentException("Unsupported pick priority " + pickPriority)
   }
+
+  def getOrderedPicks: Array[String] = {
+    for (pickPriority <- CategoryPicks.pickPriorities) yield getPickAtPriority(pickPriority)
+  }
 }
 
 object CategoryPicks {

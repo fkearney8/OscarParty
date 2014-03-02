@@ -32,7 +32,10 @@ class PlayerPicks {
   }
 
   def getCategoryPicks(categoryName : String) : CategoryPicks  = {
-    allPicks(categoryName)
+    if (allPicks.contains(categoryName))
+      allPicks(categoryName)
+    else
+      null
   }
 
   def addPick(categoryName : String, pickPriority : String, pick : String) {

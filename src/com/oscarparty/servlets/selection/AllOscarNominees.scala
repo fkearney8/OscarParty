@@ -198,10 +198,7 @@ class AllOscarNominees {
   }
 
   def categoryNames : Array[String] = {
-    val catNames = new ArrayBuffer[String]
-    for (eachCategory <- categories) {
-      catNames += eachCategory.name
-    }
+    val catNames = for (eachCategory <- categories) yield eachCategory.name
     catNames.toArray
   }
 }
