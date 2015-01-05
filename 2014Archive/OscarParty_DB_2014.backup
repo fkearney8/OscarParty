@@ -1,0 +1,192 @@
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: userpicks; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE userpicks (
+    best_picture_toppick character varying(200),
+    best_picture_midpick character varying(200),
+    best_picture_botpick character varying(200),
+    best_actor_in_a_leading_role_toppick character varying(200),
+    best_actor_in_a_leading_role_midpick character varying(200),
+    best_actor_in_a_leading_role_botpick character varying(200),
+    best_actress_in_a_leading_role_toppick character varying(200),
+    best_actress_in_a_leading_role_midpick character varying(200),
+    best_actress_in_a_leading_role_botpick character varying(200),
+    best_actor_in_a_supporting_role_toppick character varying(200),
+    best_actor_in_a_supporting_role_midpick character varying(200),
+    best_actor_in_a_supporting_role_botpick character varying(200),
+    best_actress_in_a_supporting_role_toppick character varying(200),
+    best_actress_in_a_supporting_role_midpick character varying(200),
+    best_actress_in_a_supporting_role_botpick character varying(200),
+    best_director_toppick character varying(200),
+    best_director_midpick character varying(200),
+    best_director_botpick character varying(200),
+    best_animated_feature_toppick character varying(200),
+    best_animated_feature_midpick character varying(200),
+    best_animated_feature_botpick character varying(200),
+    best_cinematography_toppick character varying(200),
+    best_cinematography_midpick character varying(200),
+    best_cinematography_botpick character varying(200),
+    best_costume_design_toppick character varying(200),
+    best_costume_design_midpick character varying(200),
+    best_costume_design_botpick character varying(200),
+    best_documentary_feature_toppick character varying(200),
+    best_documentary_feature_midpick character varying(200),
+    best_documentary_feature_botpick character varying(200),
+    best_documentary_short_toppick character varying(200),
+    best_documentary_short_midpick character varying(200),
+    best_documentary_short_botpick character varying(200),
+    best_film_editing_toppick character varying(200),
+    best_film_editing_midpick character varying(200),
+    best_film_editing_botpick character varying(200),
+    best_foreign_language_film_toppick character varying(200),
+    best_foreign_language_film_midpick character varying(200),
+    best_foreign_language_film_botpick character varying(200),
+    best_makeup_and_hairstyling_toppick character varying(200),
+    best_makeup_and_hairstyling_midpick character varying(200),
+    best_makeup_and_hairstyling_botpick character varying(200),
+    best_original_score_toppick character varying(200),
+    best_original_score_midpick character varying(200),
+    best_original_score_botpick character varying(200),
+    best_original_song_toppick character varying(200),
+    best_original_song_midpick character varying(200),
+    best_original_song_botpick character varying(200),
+    best_production_design_toppick character varying(200),
+    best_production_design_midpick character varying(200),
+    best_production_design_botpick character varying(200),
+    best_animated_short_film_toppick character varying(200),
+    best_animated_short_film_midpick character varying(200),
+    best_animated_short_film_botpick character varying(200),
+    best_live_action_short_film_toppick character varying(200),
+    best_live_action_short_film_midpick character varying(200),
+    best_live_action_short_film_botpick character varying(200),
+    best_sound_editing_toppick character varying(200),
+    best_sound_editing_midpick character varying(200),
+    best_sound_editing_botpick character varying(200),
+    best_sound_mixing_toppick character varying(200),
+    best_sound_mixing_midpick character varying(200),
+    best_sound_mixing_botpick character varying(200),
+    best_visual_effects_toppick character varying(200),
+    best_visual_effects_midpick character varying(200),
+    best_visual_effects_botpick character varying(200),
+    best_adapted_screenplay_toppick character varying(200),
+    best_adapted_screenplay_midpick character varying(200),
+    best_adapted_screenplay_botpick character varying(200),
+    best_original_screenplay_toppick character varying(200),
+    best_original_screenplay_midpick character varying(200),
+    best_original_screenplay_botpick character varying(200),
+    username character varying(200),
+    paid character varying(20)
+);
+
+
+ALTER TABLE public.userpicks OWNER TO postgres;
+
+--
+-- Name: winners; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE winners (
+    category character varying(200),
+    winner character varying(200)
+);
+
+
+ALTER TABLE public.winners OWNER TO postgres;
+
+--
+-- Data for Name: userpicks; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY userpicks (best_picture_toppick, best_picture_midpick, best_picture_botpick, best_actor_in_a_leading_role_toppick, best_actor_in_a_leading_role_midpick, best_actor_in_a_leading_role_botpick, best_actress_in_a_leading_role_toppick, best_actress_in_a_leading_role_midpick, best_actress_in_a_leading_role_botpick, best_actor_in_a_supporting_role_toppick, best_actor_in_a_supporting_role_midpick, best_actor_in_a_supporting_role_botpick, best_actress_in_a_supporting_role_toppick, best_actress_in_a_supporting_role_midpick, best_actress_in_a_supporting_role_botpick, best_director_toppick, best_director_midpick, best_director_botpick, best_animated_feature_toppick, best_animated_feature_midpick, best_animated_feature_botpick, best_cinematography_toppick, best_cinematography_midpick, best_cinematography_botpick, best_costume_design_toppick, best_costume_design_midpick, best_costume_design_botpick, best_documentary_feature_toppick, best_documentary_feature_midpick, best_documentary_feature_botpick, best_documentary_short_toppick, best_documentary_short_midpick, best_documentary_short_botpick, best_film_editing_toppick, best_film_editing_midpick, best_film_editing_botpick, best_foreign_language_film_toppick, best_foreign_language_film_midpick, best_foreign_language_film_botpick, best_makeup_and_hairstyling_toppick, best_makeup_and_hairstyling_midpick, best_makeup_and_hairstyling_botpick, best_original_score_toppick, best_original_score_midpick, best_original_score_botpick, best_original_song_toppick, best_original_song_midpick, best_original_song_botpick, best_production_design_toppick, best_production_design_midpick, best_production_design_botpick, best_animated_short_film_toppick, best_animated_short_film_midpick, best_animated_short_film_botpick, best_live_action_short_film_toppick, best_live_action_short_film_midpick, best_live_action_short_film_botpick, best_sound_editing_toppick, best_sound_editing_midpick, best_sound_editing_botpick, best_sound_mixing_toppick, best_sound_mixing_midpick, best_sound_mixing_botpick, best_visual_effects_toppick, best_visual_effects_midpick, best_visual_effects_botpick, best_adapted_screenplay_toppick, best_adapted_screenplay_midpick, best_adapted_screenplay_botpick, best_original_screenplay_toppick, best_original_screenplay_midpick, best_original_screenplay_botpick, username, paid) FROM stdin;
+American Hustle	Dallas Buyers Club	12 Years a Slave	Christian Bale (American Hustle)	Matthew McConaughey (Dallas Buyers Club)	Chiwetel Ejiofor (12 Years a Slave)	Amy Adams (American Hustle)	Meryl Streep (August: Osage County)	Sandra Bullock (Gravity)	Jared Leto (Dallas Buyers Club)	Barkhad Abdi (Captain Phillips)	Michael Fassbender (12 Years a Slave)	Lupita Nyong'o (12 Years a Slave)	June Squibb (Nebraska)	Jennifer Lawrence (American Hustle)	David O. Russell (American Hustle)	Alfonso Cuarón (Gravity)	Martin Scorsese (The Wolf of Wall Street)	Despicable Me 2 	Frozen 	Ernest & Celestine 	Gravity (Emmanuel Lubezki)	Inside Llewyn Davis (Bruno Delbonnel)	Nebraska (Phedon Papamichael)	The Great Gatsby (Catherine Martin)	American Hustle (Michael Wilkinson)	The Grandmaster (William Chang Suk Ping)	Cutie and the Boxer	Dirty Wars	20 Feet from Stardom	Prison Terminal: The Last Days of Private Jack Hall	Facing Fear	Karama Has No Walls	Gravity	Dallas Buyers Club	American Hustle	The Broken Circle Breakdown (Belgium)	The Hunt (Denmark)	The Missing Picture (Cambodia)	Dallas Buyers Club	Jackass Presents: Bad Grandpa	The Lone Ranger	The Book Thief (John Williams)	Her (William Butler, Owen Pallett)	Gravity (Steven Price)	"The Moon Song" Her	"Ordinary Love" Mandela: Long Walk to Freedom	"Happy" Despicable Me 2	The Great Gatsby	Gravity	American Hustle	Get a Horse!	Room on the Broom	Mr. Hublot	Avant Que De Tout Perdre (Just Before Losing Everything)	Helium	The Voorman Problem	Gravity	The Hobbit: The Desolation of Smaug	Lone Survivor	The Hobbit: The Desolation of Smaug	Inside Llewyn Davis	Gravity	Gravity	The Hobbit: The Desolation of Smaug	Star Trek Into Darkness	12 Years a Slave	Captain Phillips	The Wolf of Wall Street	American Hustle	Dallas Buyers Club	Nebraska	Francis Kearney	true
+American Hustle	Gravity	12 Years a Slave	Matthew McConaughey (Dallas Buyers Club)	Christian Bale (American Hustle)	Leonardo DiCaprio (The Wolf of Wall Street)	Sandra Bullock (Gravity)	Amy Adams (American Hustle)	Cate Blanchett (Blue Jasmine)	Barkhad Abdi (Captain Phillips)	Michael Fassbender (12 Years a Slave)	Bradley Cooper (American Hustle)	Jennifer Lawrence (American Hustle)	Lupita Nyong'o (12 Years a Slave)	Julia Roberts (August: Osage County)	Alfonso Cuarón (Gravity)	David O. Russell (American Hustle)	Martin Scorsese (The Wolf of Wall Street)	The Croods 	Frozen 	Despicable Me 2 	Gravity (Emmanuel Lubezki)	Nebraska (Phedon Papamichael)	Inside Llewyn Davis (Bruno Delbonnel)	American Hustle (Michael Wilkinson)	The Great Gatsby (Catherine Martin)	12 Years a Slave (Patricia Norris)	The Act of Killing	The Square	Cutie and the Boxer	Karama Has No Walls	Facing Fear	The Lady in Number 6: Music Saved My Life	Gravity	American Hustle	12 Years a Slave	Omar (Palestine)	The Hunt (Denmark)	The Missing Picture (Cambodia)	Dallas Buyers Club	The Lone Ranger	Jackass Presents: Bad Grandpa	Gravity (Steven Price)	The Book Thief (John Williams)	Philomena (Alexandre Desplat)	"Ordinary Love" Mandela: Long Walk to Freedom	"The Moon Song" Her	"Let It Go" Frozen	Gravity	American Hustle	The Great Gatsby	Feral	Mr. Hublot	Possessions	Avant Que De Tout Perdre (Just Before Losing Everything)	Aquel No Era Yo (That Wasn't Me)	Helium	Gravity	Lone Survivor	Captain Phillips	Gravity	Lone Survivor	Captain Phillips	Gravity	The Hobbit: The Desolation of Smaug	Star Trek Into Darkness	12 Years a Slave	Captain Phillips	Philomena	Blue Jasmine	American Hustle	Dallas Buyers Club	Jack	true
+Dallas Buyers Club	12 Years a Slave	Captain Phillips	Chiwetel Ejiofor (12 Years a Slave)	Christian Bale (American Hustle)	Matthew McConaughey (Dallas Buyers Club)	Judi Dench (Philomena)	Amy Adams (American Hustle)	Sandra Bullock (Gravity)	Barkhad Abdi (Captain Phillips)	Jared Leto (Dallas Buyers Club)	Bradley Cooper (American Hustle)	June Squibb (Nebraska)	Lupita Nyong'o (12 Years a Slave)	Jennifer Lawrence (American Hustle)	Steve McQueen (12 Years a Slave)	Alfonso Cuarón (Gravity)	Alexander Payne (Nebraska)	Frozen 	Despicable Me 2 	The Wind Rises 	Gravity (Emmanuel Lubezki)	Nebraska (Phedon Papamichael)	Inside Llewyn Davis (Bruno Delbonnel)	The Great Gatsby (Catherine Martin)	American Hustle (Michael Wilkinson)	The Grandmaster (William Chang Suk Ping)	Dirty Wars	20 Feet from Stardom	The Square	The Lady in Number 6: Music Saved My Life	Karama Has No Walls	Facing Fear	Captain Phillips	Gravity	Dallas Buyers Club	Omar (Palestine)	The Hunt (Denmark)	The Missing Picture (Cambodia)	Dallas Buyers Club	The Lone Ranger	Jackass Presents: Bad Grandpa	Her (William Butler, Owen Pallett)	Philomena (Alexandre Desplat)	Gravity (Steven Price)	"Let It Go" Frozen	"Happy" Despicable Me 2	"Ordinary Love" Mandela: Long Walk to Freedom	The Great Gatsby	Gravity	12 Years a Slave	Possessions	Get a Horse!	Mr. Hublot	The Voorman Problem	Helium	Aquel No Era Yo (That Wasn't Me)	Gravity	The Hobbit: The Desolation of Smaug	Captain Phillips	The Hobbit: The Desolation of Smaug	Gravity	Captain Phillips	The Hobbit: The Desolation of Smaug	Gravity	Star Trek Into Darkness	12 Years a Slave	Captain Phillips	Before Midnight	Nebraska	Her	Blue Jasmine	Heeyoung	true
+The Wolf of Wall Street	Gravity	Captain Phillips	Matthew McConaughey (Dallas Buyers Club)	Christian Bale (American Hustle)	Bruce Dern (Nebraska)	Cate Blanchett (Blue Jasmine)	Amy Adams (American Hustle)	Judi Dench (Philomena)	Barkhad Abdi (Captain Phillips)	Jared Leto (Dallas Buyers Club)	Bradley Cooper (American Hustle)	Jennifer Lawrence (American Hustle)	Sally Hawkins (Blue Jasmine)	June Squibb (Nebraska)	Martin Scorsese (The Wolf of Wall Street)	David O. Russell (American Hustle)	Alfonso Cuarón (Gravity)	Frozen 	Despicable Me 2 	The Croods 	Gravity (Emmanuel Lubezki)	Prisoners (Roger A. Deakins)	Nebraska (Phedon Papamichael)	The Great Gatsby (Catherine Martin)	American Hustle (Michael Wilkinson)	12 Years a Slave (Patricia Norris)	Cutie and the Boxer	The Act of Killing	20 Feet from Stardom	Facing Fear	CaveDigger	Karama Has No Walls	Captain Phillips	Gravity	12 Years a Slave	The Great Beauty (Italy)	The Broken Circle Breakdown (Belgium)	The Hunt (Denmark)	Dallas Buyers Club	The Lone Ranger	Jackass Presents: Bad Grandpa	The Book Thief (John Williams)	Saving Mr. Banks (Thomas Newman)	Her (William Butler, Owen Pallett)	"Ordinary Love" Mandela: Long Walk to Freedom	"Let It Go" Frozen	"The Moon Song" Her	The Great Gatsby	American Hustle	12 Years a Slave	Mr. Hublot	Room on the Broom	Feral	Pitääkö Mun Kaikki Hoitaa? (Do I Have to Take Care of Everything?)	Avant Que De Tout Perdre (Just Before Losing Everything)	The Voorman Problem	The Hobbit: The Desolation of Smaug	Lone Survivor	All Is Lost	The Hobbit: The Desolation of Smaug	Inside Llewyn Davis	Lone Survivor	Gravity	The Hobbit: The Desolation of Smaug	Iron Man 3	The Wolf of Wall Street	Captain Phillips	Philomena	Dallas Buyers Club	American Hustle	Blue Jasmine	The Wolf of Clay Street	true
+American Hustle	Dallas Buyers Club	12 Years a Slave	Leonardo DiCaprio (The Wolf of Wall Street)	Christian Bale (American Hustle)	Chiwetel Ejiofor (12 Years a Slave)	Judi Dench (Philomena)	Meryl Streep (August: Osage County)	Cate Blanchett (Blue Jasmine)	Jared Leto (Dallas Buyers Club)	Jonah Hill (The Wolf of Wall Street)	Michael Fassbender (12 Years a Slave)	Lupita Nyong'o (12 Years a Slave)	Julia Roberts (August: Osage County)	June Squibb (Nebraska)	Alfonso Cuarón (Gravity)	David O. Russell (American Hustle)	Martin Scorsese (The Wolf of Wall Street)	Ernest & Celestine 	Frozen 	The Croods 	Gravity (Emmanuel Lubezki)	Inside Llewyn Davis (Bruno Delbonnel)	Nebraska (Phedon Papamichael)	The Grandmaster (William Chang Suk Ping)	The Great Gatsby (Catherine Martin)	American Hustle (Michael Wilkinson)	The Act of Killing	Dirty Wars	The Square	The Lady in Number 6: Music Saved My Life	CaveDigger	Prison Terminal: The Last Days of Private Jack Hall	American Hustle	Captain Phillips	Dallas Buyers Club	The Broken Circle Breakdown (Belgium)	The Great Beauty (Italy)	The Hunt (Denmark)	Dallas Buyers Club	The Lone Ranger	Jackass Presents: Bad Grandpa	The Book Thief (John Williams)	Saving Mr. Banks (Thomas Newman)	Her (William Butler, Owen Pallett)	"Ordinary Love" Mandela: Long Walk to Freedom	"Let It Go" Frozen	"The Moon Song" Her	The Great Gatsby	Gravity	12 Years a Slave	Mr. Hublot	Room on the Broom	Get a Horse!	Avant Que De Tout Perdre (Just Before Losing Everything)	Aquel No Era Yo (That Wasn't Me)	The Voorman Problem	The Hobbit: The Desolation of Smaug	Lone Survivor	Gravity	The Hobbit: The Desolation of Smaug	Inside Llewyn Davis	Captain Phillips	Star Trek Into Darkness	The Hobbit: The Desolation of Smaug	Gravity	Captain Phillips	The Wolf of Wall Street	Philomena	American Hustle	Dallas Buyers Club	Her	kate	true
+Captain Phillips	Dallas Buyers Club	12 Years a Slave	Bruce Dern (Nebraska)	Matthew McConaughey (Dallas Buyers Club)	Leonardo DiCaprio (The Wolf of Wall Street)	Amy Adams (American Hustle)	Judi Dench (Philomena)	Meryl Streep (August: Osage County)	Jared Leto (Dallas Buyers Club)	Barkhad Abdi (Captain Phillips)	Bradley Cooper (American Hustle)	June Squibb (Nebraska)	Lupita Nyong'o (12 Years a Slave)	Julia Roberts (August: Osage County)	Alfonso Cuarón (Gravity)	Steve McQueen (12 Years a Slave)	Martin Scorsese (The Wolf of Wall Street)	Frozen 	The Croods 	Despicable Me 2 	The Grandmaster (Philippe Le Sourd)	Gravity (Emmanuel Lubezki)	Inside Llewyn Davis (Bruno Delbonnel)	American Hustle (Michael Wilkinson)	The Grandmaster (William Chang Suk Ping)	The Great Gatsby (Catherine Martin)	Cutie and the Boxer	20 Feet from Stardom	The Act of Killing	The Lady in Number 6: Music Saved My Life	Karama Has No Walls	Facing Fear	Captain Phillips	Gravity	12 Years a Slave	Omar (Palestine)	The Broken Circle Breakdown (Belgium)	The Great Beauty (Italy)	The Lone Ranger	Jackass Presents: Bad Grandpa	Dallas Buyers Club	Philomena (Alexandre Desplat)	The Book Thief (John Williams)	Gravity (Steven Price)	"Ordinary Love" Mandela: Long Walk to Freedom	"The Moon Song" Her	"Let It Go" Frozen	Gravity	The Great Gatsby	12 Years a Slave	Room on the Broom	Mr. Hublot	Feral	The Voorman Problem	Avant Que De Tout Perdre (Just Before Losing Everything)	Helium	Captain Phillips	The Hobbit: The Desolation of Smaug	Gravity	Gravity	Captain Phillips	The Hobbit: The Desolation of Smaug	The Hobbit: The Desolation of Smaug	Gravity	The Lone Ranger	The Wolf of Wall Street	Captain Phillips	Philomena	Nebraska	American Hustle	Her	Theresa	true
+12 Years a Slave	American Hustle	Gravity	Chiwetel Ejiofor (12 Years a Slave)	Christian Bale (American Hustle)	Leonardo DiCaprio (The Wolf of Wall Street)	Meryl Streep (August: Osage County)	Amy Adams (American Hustle)	Sandra Bullock (Gravity)	Michael Fassbender (12 Years a Slave)	Jonah Hill (The Wolf of Wall Street)	Bradley Cooper (American Hustle)	Jennifer Lawrence (American Hustle)	Julia Roberts (August: Osage County)	Sally Hawkins (Blue Jasmine)	Alfonso Cuarón (Gravity)	Steve McQueen (12 Years a Slave)	David O. Russell (American Hustle)	The Wind Rises 	Ernest & Celestine 	The Croods 	Gravity (Emmanuel Lubezki)	Nebraska (Phedon Papamichael)	Inside Llewyn Davis (Bruno Delbonnel)	The Great Gatsby (Catherine Martin)	12 Years a Slave (Patricia Norris)	American Hustle (Michael Wilkinson)	The Act of Killing	Dirty Wars	The Square	The Lady in Number 6: Music Saved My Life	Karama Has No Walls	Facing Fear	Gravity	12 Years a Slave	American Hustle	The Missing Picture (Cambodia)	Omar (Palestine)	The Great Beauty (Italy)	Dallas Buyers Club	The Lone Ranger	Jackass Presents: Bad Grandpa	Gravity (Steven Price)	Her (William Butler, Owen Pallett)	Saving Mr. Banks (Thomas Newman)	"The Moon Song" Her	"Let It Go" Frozen	"Ordinary Love" Mandela: Long Walk to Freedom	The Great Gatsby	American Hustle	12 Years a Slave	Mr. Hublot	Feral	Get a Horse!	Avant Que De Tout Perdre (Just Before Losing Everything)	Aquel No Era Yo (That Wasn't Me)	Helium	Gravity	Captain Phillips	Lone Survivor	Gravity	Inside Llewyn Davis	Captain Phillips	Gravity	The Lone Ranger	The Hobbit: The Desolation of Smaug	12 Years a Slave	The Wolf of Wall Street	Captain Phillips	American Hustle	Nebraska	Dallas Buyers Club	Jocelyn	true
+Gravity	Dallas Buyers Club	Captain Phillips	Leonardo DiCaprio (The Wolf of Wall Street)	Matthew McConaughey (Dallas Buyers Club)	Chiwetel Ejiofor (12 Years a Slave)	Cate Blanchett (Blue Jasmine)	Meryl Streep (August: Osage County)	Sandra Bullock (Gravity)	Jared Leto (Dallas Buyers Club)	Barkhad Abdi (Captain Phillips)	Michael Fassbender (12 Years a Slave)	Lupita Nyong'o (12 Years a Slave)	June Squibb (Nebraska)	Jennifer Lawrence (American Hustle)	Martin Scorsese (The Wolf of Wall Street)	Alexander Payne (Nebraska)	Alfonso Cuarón (Gravity)	The Wind Rises 	Frozen 	Ernest & Celestine 	Inside Llewyn Davis (Bruno Delbonnel)	Nebraska (Phedon Papamichael)	Gravity (Emmanuel Lubezki)	The Great Gatsby (Catherine Martin)	The Grandmaster (William Chang Suk Ping)	American Hustle (Michael Wilkinson)	The Act of Killing	20 Feet from Stardom	The Square	Karama Has No Walls	The Lady in Number 6: Music Saved My Life	CaveDigger	Dallas Buyers Club	Gravity	Captain Phillips	The Great Beauty (Italy)	The Missing Picture (Cambodia)	Omar (Palestine)	Dallas Buyers Club	Jackass Presents: Bad Grandpa	The Lone Ranger	Her (William Butler, Owen Pallett)	The Book Thief (John Williams)	Saving Mr. Banks (Thomas Newman)	"Let It Go" Frozen	"Happy" Despicable Me 2	"The Moon Song" Her	American Hustle	The Great Gatsby	Gravity	Feral	Room on the Broom	Get a Horse!	Avant Que De Tout Perdre (Just Before Losing Everything)	The Voorman Problem	Helium	Gravity	All Is Lost	The Hobbit: The Desolation of Smaug	Gravity	Lone Survivor	The Hobbit: The Desolation of Smaug	Gravity	Star Trek Into Darkness	Iron Man 3	The Wolf of Wall Street	Captain Phillips	12 Years a Slave	American Hustle	Her	Dallas Buyers Club	Hannah Sherwood	true
+12 Years a Slave	Gravity	American Hustle	Chiwetel Ejiofor (12 Years a Slave)	Matthew McConaughey (Dallas Buyers Club)	Leonardo DiCaprio (The Wolf of Wall Street)	Cate Blanchett (Blue Jasmine)	Amy Adams (American Hustle)	Meryl Streep (August: Osage County)	Jared Leto (Dallas Buyers Club)	Michael Fassbender (12 Years a Slave)	Barkhad Abdi (Captain Phillips)	Lupita Nyong'o (12 Years a Slave)	Jennifer Lawrence (American Hustle)	June Squibb (Nebraska)	Alfonso Cuarón (Gravity)	Steve McQueen (12 Years a Slave)	David O. Russell (American Hustle)	Frozen 	Despicable Me 2 	The Croods 	Gravity (Emmanuel Lubezki)	Inside Llewyn Davis (Bruno Delbonnel)	Nebraska (Phedon Papamichael)	The Great Gatsby (Catherine Martin)	American Hustle (Michael Wilkinson)	The Grandmaster (William Chang Suk Ping)	The Square	The Act of Killing	20 Feet from Stardom	Facing Fear	Prison Terminal: The Last Days of Private Jack Hall	Karama Has No Walls	Gravity	American Hustle	Dallas Buyers Club	The Great Beauty (Italy)	The Hunt (Denmark)	The Missing Picture (Cambodia)	Dallas Buyers Club	Jackass Presents: Bad Grandpa	The Lone Ranger	Her (William Butler, Owen Pallett)	Philomena (Alexandre Desplat)	The Book Thief (John Williams)	"Let It Go" Frozen	"Ordinary Love" Mandela: Long Walk to Freedom	"The Moon Song" Her	Gravity	The Great Gatsby	Her	Get a Horse!	Room on the Broom	Mr. Hublot	Avant Que De Tout Perdre (Just Before Losing Everything)	Pitääkö Mun Kaikki Hoitaa? (Do I Have to Take Care of Everything?)	Helium	Gravity	Lone Survivor	All Is Lost	Gravity	Inside Llewyn Davis	The Hobbit: The Desolation of Smaug	Gravity	Star Trek Into Darkness	Iron Man 3	Philomena	12 Years a Slave	Before Midnight	Her	Dallas Buyers Club	Nebraska	Kyra	true
+12 Years a Slave	American Hustle	Gravity	Matthew McConaughey (Dallas Buyers Club)	Chiwetel Ejiofor (12 Years a Slave)	Christian Bale (American Hustle)	Cate Blanchett (Blue Jasmine)	Meryl Streep (August: Osage County)	Amy Adams (American Hustle)	Jared Leto (Dallas Buyers Club)	Michael Fassbender (12 Years a Slave)	Barkhad Abdi (Captain Phillips)	Lupita Nyong'o (12 Years a Slave)	Jennifer Lawrence (American Hustle)	June Squibb (Nebraska)	Alfonso Cuarón (Gravity)	Steve McQueen (12 Years a Slave)	Martin Scorsese (The Wolf of Wall Street)	Frozen 	The Wind Rises 	Despicable Me 2 	Gravity (Emmanuel Lubezki)	Inside Llewyn Davis (Bruno Delbonnel)	Nebraska (Phedon Papamichael)	The Great Gatsby (Catherine Martin)	12 Years a Slave (Patricia Norris)	American Hustle (Michael Wilkinson)	The Act of Killing	20 Feet from Stardom	Dirty Wars	The Lady in Number 6: Music Saved My Life	Karama Has No Walls	CaveDigger	Captain Phillips	12 Years a Slave	American Hustle	The Great Beauty (Italy)	The Missing Picture (Cambodia)	Omar (Palestine)	Dallas Buyers Club	Jackass Presents: Bad Grandpa	The Lone Ranger	Gravity (Steven Price)	Her (William Butler, Owen Pallett)	Philomena (Alexandre Desplat)	"Let It Go" Frozen	"Happy" Despicable Me 2	"Ordinary Love" Mandela: Long Walk to Freedom	The Great Gatsby	12 Years a Slave	American Hustle	Get a Horse!	Room on the Broom	Possessions	Aquel No Era Yo (That Wasn't Me)	Pitääkö Mun Kaikki Hoitaa? (Do I Have to Take Care of Everything?)	Helium	Gravity	All Is Lost	Captain Phillips	Gravity	Captain Phillips	The Hobbit: The Desolation of Smaug	Gravity	Iron Man 3	The Hobbit: The Desolation of Smaug	12 Years a Slave	Captain Phillips	Philomena	Nebraska	Her	Dallas Buyers Club	Scott	true
+Gravity	Captain Phillips	Her	Christian Bale (American Hustle)	Leonardo DiCaprio (The Wolf of Wall Street)	Bruce Dern (Nebraska)	Sandra Bullock (Gravity)	Amy Adams (American Hustle)	Cate Blanchett (Blue Jasmine)	Barkhad Abdi (Captain Phillips)	Bradley Cooper (American Hustle)	Jonah Hill (The Wolf of Wall Street)	Jennifer Lawrence (American Hustle)	Lupita Nyong'o (12 Years a Slave)	June Squibb (Nebraska)	Alfonso Cuarón (Gravity)	David O. Russell (American Hustle)	Martin Scorsese (The Wolf of Wall Street)	Frozen 	The Wind Rises 	The Croods 	Gravity (Emmanuel Lubezki)	The Grandmaster (Philippe Le Sourd)	Nebraska (Phedon Papamichael)	American Hustle (Michael Wilkinson)	The Grandmaster (William Chang Suk Ping)	12 Years a Slave (Patricia Norris)	Cutie and the Boxer	The Square	20 Feet from Stardom	CaveDigger	Prison Terminal: The Last Days of Private Jack Hall	Karama Has No Walls	Gravity	Captain Phillips	American Hustle	The Hunt (Denmark)	The Missing Picture (Cambodia)	Omar (Palestine)	Dallas Buyers Club	The Lone Ranger	Jackass Presents: Bad Grandpa	Her (William Butler, Owen Pallett)	Gravity (Steven Price)	Philomena (Alexandre Desplat)	"The Moon Song" Her	"Let It Go" Frozen	"Happy" Despicable Me 2	Gravity	Her	American Hustle	Get a Horse!	Room on the Broom	Feral	Helium	Aquel No Era Yo (That Wasn't Me)	The Voorman Problem	Gravity	The Hobbit: The Desolation of Smaug	Captain Phillips	Gravity	The Hobbit: The Desolation of Smaug	Captain Phillips	Gravity	Star Trek Into Darkness	Iron Man 3	The Wolf of Wall Street	Captain Phillips	12 Years a Slave	Her	American Hustle	Nebraska	Pogo	true
+12 Years a Slave	Gravity	Dallas Buyers Club	Matthew McConaughey (Dallas Buyers Club)	Chiwetel Ejiofor (12 Years a Slave)	Leonardo DiCaprio (The Wolf of Wall Street)	Cate Blanchett (Blue Jasmine)	Sandra Bullock (Gravity)	Meryl Streep (August: Osage County)	Jared Leto (Dallas Buyers Club)	Michael Fassbender (12 Years a Slave)	Barkhad Abdi (Captain Phillips)	Lupita Nyong'o (12 Years a Slave)	Jennifer Lawrence (American Hustle)	June Squibb (Nebraska)	Alfonso Cuarón (Gravity)	Steve McQueen (12 Years a Slave)	Alexander Payne (Nebraska)	Frozen 	The Wind Rises 	Despicable Me 2 	Gravity (Emmanuel Lubezki)	Inside Llewyn Davis (Bruno Delbonnel)	Prisoners (Roger A. Deakins)	The Great Gatsby (Catherine Martin)	12 Years a Slave (Patricia Norris)	The Grandmaster (William Chang Suk Ping)	The Act of Killing	Cutie and the Boxer	Dirty Wars	The Lady in Number 6: Music Saved My Life	Prison Terminal: The Last Days of Private Jack Hall	Karama Has No Walls	Gravity	Captain Phillips	12 Years a Slave	The Great Beauty (Italy)	The Hunt (Denmark)	The Missing Picture (Cambodia)	Dallas Buyers Club	The Lone Ranger	Jackass Presents: Bad Grandpa	Gravity (Steven Price)	The Book Thief (John Williams)	Her (William Butler, Owen Pallett)	"Let It Go" Frozen	"Happy" Despicable Me 2	"Ordinary Love" Mandela: Long Walk to Freedom	The Great Gatsby	Gravity	12 Years a Slave	Get a Horse!	Mr. Hublot	Room on the Broom	The Voorman Problem	Helium	Avant Que De Tout Perdre (Just Before Losing Everything)	Gravity	Captain Phillips	Lone Survivor	Lone Survivor	Gravity	Captain Phillips	Gravity	The Hobbit: The Desolation of Smaug	Star Trek Into Darkness	12 Years a Slave	Captain Phillips	The Wolf of Wall Street	Her	Dallas Buyers Club	Nebraska	Grant	true
+\.
+
+
+--
+-- Data for Name: winners; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY winners (category, winner) FROM stdin;
+Best Actor in a Supporting Role	Jared Leto (Dallas Buyers Club)
+Best Costume Design	The Great Gatsby (Catherine Martin)
+Best Makeup and Hairstyling	Dallas Buyers Club
+Best Animated Short Film	Mr. Hublot
+Best Animated Feature	Frozen 
+Best Visual Effects	Gravity
+Best Live Action Short Film	Helium
+Best Documentary Short	The Lady in Number 6: Music Saved My Life
+Best Documentary Feature	20 Feet from Stardom
+Best Foreign Language Film	The Great Beauty (Italy)
+Best Sound Mixing	Gravity
+Best Sound Editing	Gravity
+Best Actress in a Supporting Role	Lupita Nyong'o (12 Years a Slave)
+Best Cinematography	Gravity (Emmanuel Lubezki)
+Best Film Editing	Gravity
+Best Production Design	The Great Gatsby
+Best Original Score	Gravity (Steven Price)
+Best Original Song	"Let It Go" Frozen
+Best Adapted Screenplay	12 Years a Slave
+Best Original Screenplay	Her
+Best Director	Alfonso Cuarón (Gravity)
+Best Actress in a Leading Role	Cate Blanchett (Blue Jasmine)
+Best Actor in a Leading Role	Matthew McConaughey (Dallas Buyers Club)
+Best Picture	12 Years a Slave
+\.
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+

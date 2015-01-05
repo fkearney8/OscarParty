@@ -1,0 +1,3 @@
+#A command that reloads the data into the userpicks table from the tar archive. 
+
+sudo -u postgres pg_restore -t userpicks -a -d OscarParty -v OscarParty_DB_2014.tar
