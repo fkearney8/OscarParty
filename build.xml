@@ -296,7 +296,7 @@
     <target name="remoteDeploy" depends="dist">
         <scp file="${build.dist}/${app.name}.war"
              todir="ubuntu@ec2-54-84-235-11.compute-1.amazonaws.com:/var/lib/tomcat7/webapps/"
-             keyfile="${basedir}/OscarPartyPrivateKey.pem"
+             keyfile="${basedir}/private/OscarPartyPrivateKey.pem"
              trust="yes"
              />
     </target>
