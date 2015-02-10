@@ -1,7 +1,7 @@
 package com.oscarparty.servlets.playerpicks
 
 import scala.collection.mutable
-import com.oscarparty.servlets.selection.AllOscarNominees
+import com.oscarparty.servlets.selection.AllOscarNominees2014
 import scala.collection.mutable.ArrayBuffer
 import collection.JavaConversions._
 
@@ -10,7 +10,7 @@ class PlayerPicks {
   var userName : String = ""
   var paid = false
   val allPicks = new mutable.HashMap[String, CategoryPicks]()
-  private val allNominees = new AllOscarNominees()
+  private val allNominees = new AllOscarNominees2014()
 
   for ((category) <- allNominees.categories) {
     allPicks(category.name) = new CategoryPicks(category.name)

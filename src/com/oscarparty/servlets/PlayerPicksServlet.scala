@@ -6,7 +6,7 @@ import scala.collection.mutable.ArrayBuffer
 import com.oscarparty.servlets.winners.{Winner, WinnerDAO}
 import collection.JavaConversions._
 import collection.JavaConverters._
-import com.oscarparty.servlets.selection.AllOscarNominees
+import com.oscarparty.servlets.selection.AllOscarNominees2014
 
 class PlayerPicksServlet extends HttpServlet {
   override def doGet(req: HttpServletRequest, resp: HttpServletResponse): Unit = {
@@ -24,7 +24,7 @@ class PlayerPicksServlet extends HttpServlet {
 
 class DisplayablePlayerPicks (val playerName : String, val playerPoints : String) {
   val categories = new ArrayBuffer[DisplayableCategory]()
-  val aon = new AllOscarNominees()
+  val aon = new AllOscarNominees2014()
 
   def setPicks(playerPicks : PlayerPicks) {
     val cats = playerPicks.categoryPicksInOrder()

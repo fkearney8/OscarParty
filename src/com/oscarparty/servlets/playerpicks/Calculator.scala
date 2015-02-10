@@ -1,12 +1,12 @@
 package com.oscarparty.servlets.playerpicks
 
-import com.oscarparty.servlets.selection.AllOscarNominees
+import com.oscarparty.servlets.selection.AllOscarNominees2014
 import com.oscarparty.servlets.winners.WinnerDAO
 
 object Calculator {
   def calculatePickPoints(playerPicks: PlayerPicks): Integer = {
     var totalPoints: Integer = 0
-    val aon = new AllOscarNominees
+    val aon = new AllOscarNominees2014
     //for each category
     for (eachCategory <- aon.categories) {
       val categoryPicks = playerPicks.getCategoryPicks(eachCategory.name)

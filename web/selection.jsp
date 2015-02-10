@@ -136,9 +136,9 @@
 
     <p style="width: 40%; font-size: 18px;">
     Hello Friends,
-    We're attempting a grand experiment to add some betting intrigue around the Oscars. Below you will find
+    After last year's success, we're doing this again. Below you will find
     all the Oscar nominations listed by category. Everyone will select their favorites, pony up a fiver, and we'll
-    see who knows the movies the best. Or maybe who can identify the Academy's sentiments the best. Anyway, it should
+    see who knows the movies the best. Or maybe who can identify the Academy's biases the best. Anyway, it should
     make for some extra fun while watching the Oscars.<br/>
     <br/>
     <b>Instructions:</b><br/>

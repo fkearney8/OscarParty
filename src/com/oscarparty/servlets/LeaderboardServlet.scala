@@ -3,13 +3,13 @@ package com.oscarparty.servlets
 import javax.servlet.http.{HttpServletResponse, HttpServletRequest, HttpServlet}
 import com.oscarparty.servlets.playerpicks.{Calculator, PlayerPicks, CategoryPicks, PlayerPicksDAO}
 import com.oscarparty.servlets.winners.WinnerDAO
-import com.oscarparty.servlets.selection.AllOscarNominees
+import com.oscarparty.servlets.selection.AllOscarNominees2014
 import collection.JavaConversions._
 import com.oscarparty.servlets.data.NextCategory
 
 class LeaderboardServlet extends HttpServlet {
   override def doGet(req: HttpServletRequest, resp: HttpServletResponse): Unit = {
-    val aon = new AllOscarNominees
+    val aon = new AllOscarNominees2014
     //we'll show best picture picks if there's no next category assigned
     var nextCategoryToDisplay: String = NextCategory.nextCategory
     if (nextCategoryToDisplay == null || nextCategoryToDisplay.equals("None") || nextCategoryToDisplay.trim.length == 0) {

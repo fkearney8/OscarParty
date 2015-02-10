@@ -1,11 +1,8 @@
 package com.oscarparty.servlets;
 
-import com.oscarparty.servlets.selection.AllOscarNominees;
-import com.oscarparty.servlets.selection.OscarCategory;
+import com.oscarparty.servlets.selection.AllOscarNominees2014;
 
 import java.io.*;
-import java.util.List;
-import java.util.Locale;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
@@ -16,7 +13,7 @@ public class SelectionServlet extends HttpServlet {
 
 
         RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/selection.jsp");
-        AllOscarNominees allOscarNominees = new AllOscarNominees();
+        AllOscarNominees2014 allOscarNominees = new AllOscarNominees2014();
 
         req.setAttribute("allNominees", allOscarNominees);
         requestDispatcher.forward(req, res);

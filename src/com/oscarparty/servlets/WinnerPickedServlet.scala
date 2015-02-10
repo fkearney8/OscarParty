@@ -2,7 +2,7 @@ package com.oscarparty.servlets
 
 import javax.servlet.http.{HttpServletResponse, HttpServletRequest, HttpServlet}
 import com.oscarparty.servlets.winners.{WinnerDAO, Winner}
-import com.oscarparty.servlets.selection.AllOscarNominees
+import com.oscarparty.servlets.selection.AllOscarNominees2014
 import com.oscarparty.servlets.data.NextCategory
 
 class WinnerPickedServlet extends HttpServlet {
@@ -14,7 +14,7 @@ class WinnerPickedServlet extends HttpServlet {
     req.setAttribute("nextCategory", "-None Selected-")
     //validate the next Category and set if we have one
     if (!nextCat.equals("None")) {
-      new AllOscarNominees().findCategory(nextCat)
+      new AllOscarNominees2014().findCategory(nextCat)
       NextCategory.nextCategory = nextCat
       req.setAttribute("nextCategory", nextCat)
     }
@@ -24,7 +24,7 @@ class WinnerPickedServlet extends HttpServlet {
     req.setAttribute("category", "-None Saved-")
     if (!winnerCat.equals("None") && !winnerSelectedString.equals("None")) {
       val winnerObject = new Winner(winnerCat, winnerSelectedString)
-      val winnerOscarCategory = new AllOscarNominees().findCategory(winnerCat)
+      val winnerOscarCategory = new AllOscarNominees2014().findCategory(winnerCat)
       if (!winnerOscarCategory.nominees.contains(winnerSelectedString)) {
         throw new IllegalArgumentException("Winner " + winnerSelectedString + " is not a nominee for " + winnerCat)
       }

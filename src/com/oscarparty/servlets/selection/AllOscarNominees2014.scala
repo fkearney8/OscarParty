@@ -3,7 +3,7 @@ package com.oscarparty.servlets.selection
 import scala.collection.mutable.ArrayBuffer
 import collection.JavaConversions._
 
-class AllOscarNominees {
+class AllOscarNominees2014 {
 
   val categories = new ArrayBuffer[OscarCategory]()
   categories += new OscarCategory("Best Picture",
