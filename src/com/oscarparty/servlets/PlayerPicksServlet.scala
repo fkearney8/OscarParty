@@ -1,12 +1,12 @@
 package com.oscarparty.servlets
 
 import javax.servlet.http.{HttpServletResponse, HttpServletRequest, HttpServlet}
+import com.oscarparty.servlets.data.nominees.AllOscarNominees2014
 import com.oscarparty.servlets.playerpicks.{PlayerPicks, Calculator, PlayerPicksDAO}
 import scala.collection.mutable.ArrayBuffer
 import com.oscarparty.servlets.winners.{Winner, WinnerDAO}
 import collection.JavaConversions._
 import collection.JavaConverters._
-import com.oscarparty.servlets.selection.AllOscarNominees2014
 
 class PlayerPicksServlet extends HttpServlet {
   override def doGet(req: HttpServletRequest, resp: HttpServletResponse): Unit = {

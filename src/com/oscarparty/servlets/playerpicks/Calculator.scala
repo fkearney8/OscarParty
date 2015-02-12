@@ -1,6 +1,6 @@
 package com.oscarparty.servlets.playerpicks
 
-import com.oscarparty.servlets.selection.AllOscarNominees2014
+import com.oscarparty.servlets.data.nominees.AllOscarNominees2014
 import com.oscarparty.servlets.winners.WinnerDAO
 
 object Calculator {
@@ -8,7 +8,7 @@ object Calculator {
     var totalPoints: Integer = 0
     val aon = new AllOscarNominees2014
     //for each category
-    for (eachCategory <- aon.categories) {
+    for (eachCategory <- aon.getCategories) {
       val categoryPicks = playerPicks.getCategoryPicks(eachCategory.name)
       val categoryWinner = WinnerDAO.findCategoryWinner(eachCategory.name)
       //no points if the category doesn't have a winner yet

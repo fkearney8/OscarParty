@@ -1,6 +1,6 @@
 package com.oscarparty.servlets;
 
-import com.oscarparty.servlets.selection.AllOscarNominees2014;
+import com.oscarparty.servlets.data.nominees.AllOscarNominees2014;
 
 import java.io.*;
 import javax.servlet.*;

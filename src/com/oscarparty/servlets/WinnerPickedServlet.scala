@@ -1,8 +1,8 @@
 package com.oscarparty.servlets
 
 import javax.servlet.http.{HttpServletResponse, HttpServletRequest, HttpServlet}
+import com.oscarparty.servlets.data.nominees.AllOscarNominees2014
 import com.oscarparty.servlets.winners.{WinnerDAO, Winner}
-import com.oscarparty.servlets.selection.AllOscarNominees2014
 import com.oscarparty.servlets.data.NextCategory
 
 class WinnerPickedServlet extends HttpServlet {

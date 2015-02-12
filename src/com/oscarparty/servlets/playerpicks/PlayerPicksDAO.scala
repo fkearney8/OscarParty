@@ -1,14 +1,15 @@
 package com.oscarparty.servlets.playerpicks
 
-import java.sql.{ResultSet, PreparedStatement, DriverManager, Connection}
-import scala.collection.mutable.ArrayBuffer
-import com.oscarparty.servlets.selection.AllOscarNominees2014
+import java.sql.{Connection, PreparedStatement}
+
 import com.oscarparty.servlets.data.DAO
-import java.util
+import com.oscarparty.servlets.data.nominees.AllOscarNominees2014
+
 import scala.collection.mutable
+import scala.collection.mutable.ArrayBuffer
 
 class PlayerPicksDAO extends DAO {
-  def storePicks(playerPicks : PlayerPicks) {
+  def storePicks(playerPicks: PlayerPicks) {
     System.out.println("Connecting to database...")
     val conn = getConnection()
     conn.setAutoCommit(true)
@@ -17,7 +18,7 @@ class PlayerPicksDAO extends DAO {
     storePicksStatement.executeUpdate()
   }
 
-  private def prepareInsertStatement(conn : Connection, playerPicks : PlayerPicks) : PreparedStatement = {
+  private def prepareInsertStatement(conn: Connection, playerPicks: PlayerPicks) : PreparedStatement = {
     //database columns are like best_animated_short_film_toppick
     val statementColsSql = new StringBuilder("Insert into userpicks (")
     val statementValuesSql = new StringBuilder("values (")
@@ -65,7 +66,7 @@ class PlayerPicksDAO extends DAO {
     val playerPicks = new PlayerPicks
     while (resultSet.next()) {
       //iterate through each category
-      for (eachCat <- allNoms.categories) {
+      for (eachCat <- allNoms.getCategories) {
         val colPrefixForCat = eachCat.columnPrefix
         for (eachPriority <- Array("topPick", "midPick", "botPick")) {
           val colName = colPrefixForCat + "_" + eachPriority
@@ -96,7 +97,7 @@ class PlayerPicksDAO extends DAO {
       val paidString: String = resultSet.getString("paid")
       playerPicks.paid = paidString != null && paidString.equals("true")
 
-      for (eachCat <- allNoms.categories) {
+      for (eachCat <- allNoms.getCategories) {
         val colPrefixForCat = eachCat.columnPrefix
         for (eachPriority <- Array("topPick", "midPick", "botPick")) {
           val colName = colPrefixForCat + "_" + eachPriority

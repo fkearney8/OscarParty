@@ -1,9 +1,9 @@
 package com.oscarparty.servlets
 
 import javax.servlet.http.{HttpServletResponse, HttpServletRequest, HttpServlet}
+import com.oscarparty.servlets.data.nominees.AllOscarNominees2014
 import com.oscarparty.servlets.playerpicks.{Calculator, PlayerPicks, CategoryPicks, PlayerPicksDAO}
 import com.oscarparty.servlets.winners.WinnerDAO
-import com.oscarparty.servlets.selection.AllOscarNominees2014
 import collection.JavaConversions._
 import com.oscarparty.servlets.data.NextCategory
 

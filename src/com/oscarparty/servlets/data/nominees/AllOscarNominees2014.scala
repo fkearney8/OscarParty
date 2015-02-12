@@ -1,11 +1,13 @@
-package com.oscarparty.servlets.selection
+package com.oscarparty.servlets.data.nominees
 
+import com.oscarparty.servlets.selection.OscarCategory
+
+import scala.collection.JavaConverters._
 import scala.collection.mutable.ArrayBuffer
-import collection.JavaConversions._
 
-class AllOscarNominees2014 {
+class AllOscarNominees2014 extends NomineesInterface {
 
-  val categories = new ArrayBuffer[OscarCategory]()
+  private val categories = new ArrayBuffer[OscarCategory]()
   categories += new OscarCategory("Best Picture",
     Array ("American Hustle",
       "Captain Phillips",
@@ -183,12 +185,13 @@ class AllOscarNominees2014 {
       "Her",
       "Nebraska"))
 
-  def categoriesJava : java.util.List[OscarCategory] = {
-    val jul: java.util.List[OscarCategory] = categories
-    jul
+  override def getCategories = categories
+
+  override def categoriesJava: java.util.List[OscarCategory] = {
+    categories.toList.asJava
   }
 
-  def findCategory(categoryName : String) : OscarCategory = {
+  override def findCategory(categoryName: String): OscarCategory = {
     for (category <- categories) {
       if (category.name == categoryName) {
         return category
@@ -197,7 +200,7 @@ class AllOscarNominees2014 {
     throw new IllegalArgumentException("Could not find category: " + categoryName)
   }
 
-  def categoryNames : Array[String] = {
+  override def categoryNames: Array[String] = {
     val catNames = for (eachCategory <- categories) yield eachCategory.name
     catNames.toArray
   }

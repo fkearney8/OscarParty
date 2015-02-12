@@ -1,6 +1,7 @@
 package com.oscarparty.servlets.winners
 
-import com.oscarparty.servlets.selection.{OscarCategory, AllOscarNominees2014}
+import com.oscarparty.servlets.data.nominees.AllOscarNominees2014
+import com.oscarparty.servlets.selection.OscarCategory
 
 object Categories {
   val aon = new AllOscarNominees2014()

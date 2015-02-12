@@ -1,10 +1,10 @@
 package com.oscarparty.servlets
 
+import com.oscarparty.servlets.data.nominees.AllOscarNominees2014
 import com.oscarparty.servlets.winners.Categories
 import javax.servlet.http.HttpServlet
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
-import com.oscarparty.servlets.selection.AllOscarNominees2014
 import scala.collection.JavaConversions._
 import scala.util.parsing.json.{JSONArray, JSONObject}
 import com.oscarparty.servlets.data.NextCategory
