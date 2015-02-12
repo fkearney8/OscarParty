@@ -3,11 +3,9 @@ import java.util.{List => JList}
 
 import com.oscarparty.servlets.selection.OscarCategory
 
-import scala.collection.mutable.ArrayBuffer
-
 trait NomineesInterface {
 
-  def getCategories: ArrayBuffer[OscarCategory]
+  def getCategories: Seq[OscarCategory]
 
   def categoriesJava: JList[OscarCategory]
 

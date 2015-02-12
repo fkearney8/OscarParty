@@ -1,7 +1,7 @@
 package com.oscarparty.servlets
 
 import javax.servlet.http.{HttpServletResponse, HttpServletRequest, HttpServlet}
-import com.oscarparty.servlets.data.nominees.AllOscarNominees2014
+import com.oscarparty.servlets.data.nominees.AllOscarNominees2015
 import com.oscarparty.servlets.playerpicks.{PlayerPicks, Calculator, PlayerPicksDAO}
 import scala.collection.mutable.ArrayBuffer
 import com.oscarparty.servlets.winners.{Winner, WinnerDAO}
@@ -24,7 +24,7 @@ class PlayerPicksServlet extends HttpServlet {
 
 class DisplayablePlayerPicks (val playerName : String, val playerPoints : String) {
   val categories = new ArrayBuffer[DisplayableCategory]()
-  val aon = new AllOscarNominees2014()
+  val aon = new AllOscarNominees2015()
 
   def setPicks(playerPicks : PlayerPicks) {
     val cats = playerPicks.categoryPicksInOrder()

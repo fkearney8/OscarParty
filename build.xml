@@ -122,8 +122,12 @@
         <fileset dir="${catalina.home}/lib">
             <include name="*.jar"/>
         </fileset>
-        <file name="${scala-library.jar}"/>
-
+        <fileset dir="${scala.home}/lib">
+            <include name="*.jar"/>
+        </fileset>
+        <fileset dir="lib">
+            <include name="*.jar"/>
+        </fileset>
     </path>
 
 

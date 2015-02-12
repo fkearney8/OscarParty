@@ -153,7 +153,7 @@
 
     <div id="modalPopover" style="text-align: center"></div>
 
-    <jsp:useBean id="allNominees" scope="request" class="com.oscarparty.servlets.data.nominees.AllOscarNominees2014" />
+    <jsp:useBean id="allNominees" scope="request" class="com.oscarparty.servlets.data.nominees.AllOscarNominees2015" />
 
     <form method="post" action="submitPicks.do">
     <div class="expander-area">

@@ -3,7 +3,7 @@ package com.oscarparty.servlets.playerpicks
 import java.sql.{Connection, PreparedStatement}
 
 import com.oscarparty.servlets.data.DAO
-import com.oscarparty.servlets.data.nominees.AllOscarNominees2014
+import com.oscarparty.servlets.data.nominees.AllOscarNominees2015
 
 import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
@@ -62,7 +62,7 @@ class PlayerPicksDAO extends DAO {
     val resultSet = readPicksStatement.executeQuery()
     conn.close()
     //read in all picks
-    val allNoms = new AllOscarNominees2014
+    val allNoms = new AllOscarNominees2015
     val playerPicks = new PlayerPicks
     while (resultSet.next()) {
       //iterate through each category
@@ -86,7 +86,7 @@ class PlayerPicksDAO extends DAO {
     val returnMap = new mutable.HashMap[String, PlayerPicks]()
     val conn = getConnection()
     //read in all picks
-    val allNoms = new AllOscarNominees2014
+    val allNoms = new AllOscarNominees2015
     val readPicksStatement = conn.prepareStatement("select * from userpicks")
     val resultSet = readPicksStatement.executeQuery()
     while (resultSet.next()) {
