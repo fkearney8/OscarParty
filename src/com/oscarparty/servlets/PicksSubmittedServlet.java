@@ -22,6 +22,9 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * Servlet for when a player has submitted picks to be saved.
+ */
 public class PicksSubmittedServlet extends HttpServlet {
 
     static {

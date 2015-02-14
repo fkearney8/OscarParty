@@ -7,6 +7,9 @@ import scala.collection.mutable.ArrayBuffer
 import com.oscarparty.servlets.winners.{Winner, WinnerDAO}
 import collection.JavaConverters._
 
+/**
+ * Servlet for showing the picks that a player has made.
+ */
 class PlayerPicksServlet extends HttpServlet {
   override def doGet(req: HttpServletRequest, resp: HttpServletResponse): Unit = {
     val playerName = req.getParameter("playerName")

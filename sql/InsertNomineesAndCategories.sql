@@ -1,18 +1,3 @@
-create table categories (
-  id integer PRIMARY KEY,
-  name varchar,
-  points1 integer,
-  points2 integer,
-  points3 integer
-);
-
-create table nominees (
-  id serial PRIMARY KEY,
-  category integer REFERENCES categories,
-  name varchar
-);
-
-
 insert into categories values (1, 'Best Picture', 15, 12, 9);
 insert into nominees values (DEFAULT, 1, 'American Sniper');
 insert into nominees values (DEFAULT, 1, 'Birdman or (The Unexpected Virtue of Ignorance)');

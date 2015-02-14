@@ -1,85 +1,32 @@
-CREATE TABLE Winners (
-category varchar(200),
-winner varchar(200)
+CREATE TABLE categories (
+  id integer PRIMARY KEY,
+  name varchar,
+  points1 integer,
+  points2 integer,
+  points3 integer
 );
 
-
-CREATE TABLE UserPicks (
-Best_Picture_topPick varchar(200),
-Best_Picture_midPick varchar(200),
-Best_Picture_botPick varchar(200),
-Best_Actor_in_a_Leading_Role_topPick varchar(200),
-Best_Actor_in_a_Leading_Role_midPick varchar(200),
-Best_Actor_in_a_Leading_Role_botPick varchar(200),
-Best_Actress_in_a_Leading_Role_topPick varchar(200),
-Best_Actress_in_a_Leading_Role_midPick varchar(200),
-Best_Actress_in_a_Leading_Role_botPick varchar(200),
-Best_Actor_in_a_Supporting_Role_topPick varchar(200),
-Best_Actor_in_a_Supporting_Role_midPick varchar(200),
-Best_Actor_in_a_Supporting_Role_botPick varchar(200),
-Best_Actress_in_a_Supporting_Role_topPick varchar(200),
-Best_Actress_in_a_Supporting_Role_midPick varchar(200),
-Best_Actress_in_a_Supporting_Role_botPick varchar(200),
-Best_Director_topPick varchar(200),
-Best_Director_midPick varchar(200),
-Best_Director_botPick varchar(200),
-Best_Animated_Feature_topPick varchar(200),
-Best_Animated_Feature_midPick varchar(200),
-Best_Animated_Feature_botPick varchar(200),
-Best_Cinematography_topPick varchar(200),
-Best_Cinematography_midPick varchar(200),
-Best_Cinematography_botPick varchar(200),
-Best_Costume_Design_topPick varchar(200),
-Best_Costume_Design_midPick varchar(200),
-Best_Costume_Design_botPick varchar(200),
-Best_Documentary_Feature_topPick varchar(200),
-Best_Documentary_Feature_midPick varchar(200),
-Best_Documentary_Feature_botPick varchar(200),
-Best_Documentary_Short_topPick varchar(200),
-Best_Documentary_Short_midPick varchar(200),
-Best_Documentary_Short_botPick varchar(200),
-Best_Film_Editing_topPick varchar(200),
-Best_Film_Editing_midPick varchar(200),
-Best_Film_Editing_botPick varchar(200),
-Best_Foreign_Language_Film_topPick varchar(200),
-Best_Foreign_Language_Film_midPick varchar(200),
-Best_Foreign_Language_Film_botPick varchar(200),
-Best_Makeup_and_Hairstyling_topPick varchar(200),
-Best_Makeup_and_Hairstyling_midPick varchar(200),
-Best_Makeup_and_Hairstyling_botPick varchar(200),
-Best_Original_Score_topPick varchar(200),
-Best_Original_Score_midPick varchar(200),
-Best_Original_Score_botPick varchar(200),
-Best_Original_Song_topPick varchar(200),
-Best_Original_Song_midPick varchar(200),
-Best_Original_Song_botPick varchar(200),
-Best_Production_Design_topPick varchar(200),
-Best_Production_Design_midPick varchar(200),
-Best_Production_Design_botPick varchar(200),
-Best_Animated_Short_Film_topPick varchar(200),
-Best_Animated_Short_Film_midPick varchar(200),
-Best_Animated_Short_Film_botPick varchar(200),
-Best_Live_Action_Short_Film_topPick varchar(200),
-Best_Live_Action_Short_Film_midPick varchar(200),
-Best_Live_Action_Short_Film_botPick varchar(200),
-Best_Sound_Editing_topPick varchar(200),
-Best_Sound_Editing_midPick varchar(200),
-Best_Sound_Editing_botPick varchar(200),
-Best_Sound_Mixing_topPick varchar(200),
-Best_Sound_Mixing_midPick varchar(200),
-Best_Sound_Mixing_botPick varchar(200),
-Best_Visual_Effects_topPick varchar(200),
-Best_Visual_Effects_midPick varchar(200),
-Best_Visual_Effects_botPick varchar(200),
-Best_Adapted_Screenplay_topPick varchar(200),
-Best_Adapted_Screenplay_midPick varchar(200),
-Best_Adapted_Screenplay_botPick varchar(200),
-Best_Original_Screenplay_topPick varchar(200),
-Best_Original_Screenplay_midPick varchar(200),
-Best_Original_Screenplay_botPick varchar(200),
-userName varchar(200)
+CREATE TABLE nominees (
+  id serial PRIMARY KEY,
+  category integer REFERENCES categories,
+  name varchar
 );
 
+CREATE TABLE winners (
+ category integer REFERENCES categories,
+ winner integer REFERENCES nominees
+);
 
-ALTER TABLE userpicks
-ADD paid varchar(20);
+CREATE TABLE players (
+  id serial PRIMARY KEY,
+  name varchar(200)
+);
+
+CREATE TABLE playerpicks (
+  player integer REFERENCES players,
+  category integer REFERENCES categories,
+  toppick integer REFERENCES nominees,
+  midpick integer REFERENCES nominees,
+  botpick integer REFERENCES nominees
+);
+
