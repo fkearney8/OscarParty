@@ -89,18 +89,6 @@ public class PicksSubmittedServlet extends HttpServlet {
 
     }
 
-    static final String USER = "postgres";
-    static final String PASS = "Amasa1217";
-    private void storePicks(Map<String, String[]> parameterMap) throws SQLException {
-        System.out.println("Connecting to database...");
-        String dbUrl = "jdbc:postgresql:OscarParty";
-        Connection conn = DriverManager.getConnection(dbUrl, USER, PASS);
-        conn.setAutoCommit(true);
-        Statement storePicksStatement = conn.createStatement();
-        String insertPicksSql = insertPicksSql(parameterMap);
-        storePicksStatement.executeUpdate(insertPicksSql);
-    }
-
     private String insertPicksSql(Map<String, String[]> parameterMap) {
         StringBuilder insertStatement = new StringBuilder("INSERT INTO userpicks");
         StringBuilder columns = new StringBuilder("(");
