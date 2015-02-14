@@ -5,7 +5,6 @@ import com.oscarparty.servlets.data.nominees.AllOscarNominees2015
 import com.oscarparty.servlets.playerpicks.{PlayerPicks, Calculator, PlayerPicksDAO}
 import scala.collection.mutable.ArrayBuffer
 import com.oscarparty.servlets.winners.{Winner, WinnerDAO}
-import collection.JavaConversions._
 import collection.JavaConverters._
 
 class PlayerPicksServlet extends HttpServlet {
@@ -56,7 +55,7 @@ class DisplayablePlayerPicks (val playerName : String, val playerPoints : String
   }
 
   def getDisplayCategoriesJava: java.util.List[DisplayableCategory] = {
-    asJavaList(categories)
+    categories.asJava
   }
 }
 
