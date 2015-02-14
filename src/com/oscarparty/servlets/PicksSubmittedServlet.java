@@ -73,51 +73,6 @@ public class PicksSubmittedServlet extends HttpServlet {
 
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/picksSubmitted.jsp");
         dispatcher.forward(req, res);
-
-//        PlayerPicks readPicks = playerPicksDAO.readLastPicksForUsername(playerPicks.userName());
-//        writer.println("Read picks for user: " + readPicks.userName());
-//        writer.println("Best Pic Top Pick: " + readPicks.getCategoryPicks("Best Picture").topPick());
-
-
-//        try {
-//            storePicks(parameterMap);
-//        } catch (SQLException e) {
-//            throw new ServletException(e);
-//        }
-
-
-
     }
 
-    private String insertPicksSql(Map<String, String[]> parameterMap) {
-        StringBuilder insertStatement = new StringBuilder("INSERT INTO userpicks");
-        StringBuilder columns = new StringBuilder("(");
-        StringBuilder values = new StringBuilder("(");
-
-        boolean first = true;
-        Set<Map.Entry<String, String[]>> paramEntries = parameterMap.entrySet();
-        for (Map.Entry<String, String[]> paramEntry : paramEntries) {
-            String colName = paramEntry.getKey().replace(" ", "_");
-            colName = colName.replace(".", "_");
-            if (!first) {
-                columns.append(", ");
-                values.append(", ");
-            }
-            columns.append(colName);
-            String[] valuesArray = paramEntry.getValue();
-            if (valuesArray.length > 1) {
-                throw new RuntimeException("Incorrect values array size: " + valuesArray.length);
-            } else if (valuesArray.length == 1 && valuesArray[0].trim().length() > 0) {
-                values.append("'").append(valuesArray[0]).append("'");
-            } else {
-                values.append("'").append("none").append("'");
-            }
-            first = false;
-        }
-
-        columns.append(")");
-        values.append(")");
-        insertStatement.append(columns).append(" values ").append(values).append(";");
-        return insertStatement.toString();
-    }
 }
