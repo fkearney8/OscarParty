@@ -8,8 +8,8 @@ import scala.slick.driver.PostgresDriver.simple._
 
 class AllOscarNominees2015 extends SlickDAO with NomineesInterface {
 
-  val categories = TableQuery[Categories]
-  val nominees = TableQuery[Nominees]
+  private val categories = TableQuery[Categories]
+  private val nominees = TableQuery[Nominees]
 
   override def getCategories: Seq[OscarCategory] = DB.withSession { implicit session =>
     categories.list.map { category =>
@@ -23,11 +23,20 @@ class AllOscarNominees2015 extends SlickDAO with NomineesInterface {
 
   override def categoriesJava: java.util.List[OscarCategory] = getCategories.toList.asJava
 
+//  TODO get rid of this
   override def findCategory(categoryName: String): OscarCategory = DB.withSession { implicit session =>
     categories.filter(_.name === categoryName).list.headOption match {
       case None => throw new IllegalArgumentException("Could not find category " + categoryName)
       case Some(category) => toOscarCategory(category)
     }
+  }
+
+  def findNominee(nomineeName: String): Nominee = DB.withSession { implicit session =>
+    nominees.filter(nominee => nominee.name === nomineeName).list.head
+  }
+
+  def findCategory2(categoryName: String): Category = DB.withSession { implicit session =>
+    categories.filter(_.name === categoryName).list.head
   }
 
 

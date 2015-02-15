@@ -6,7 +6,7 @@ import scala.slick.driver.PostgresDriver.simple._
 import scala.slick.lifted.Tag
 
 
-class PlayerPicksDAO extends SlickDAO {
+object PlayerPicksDAO extends SlickDAO {
 
   case class PlayerPick(player: Int, category: Int, topPick: Int, midPick: Int, botPick: Int)
 
@@ -29,6 +29,8 @@ class PlayerPicksDAO extends SlickDAO {
 
   case class Player(id: Int, name: String)
 
+  case class PlayerPickForInsertion(category: Int, topPick: Int, midPick: Int, botPick: Int)
+
   class Players(tag: Tag) extends Table[Player] (tag, "players") {
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
     def name = column[String]("name")
@@ -39,10 +41,14 @@ class PlayerPicksDAO extends SlickDAO {
   val players = TableQuery[Players]
   val playerPicks = TableQuery[PlayerPicks]
 
-  def addPlayerPicks(newPlayer: Player, newPlayerPicks: Seq[PlayerPick]) {
-    DB.withSession { implicit session =>
-      players += newPlayer
-      playerPicks ++= newPlayerPicks
+  def addPlayerPicks(playerName: String, newPicks: List[PlayerPickForInsertion]) = DB.withSession { implicit session =>
+    players += Player(-1, playerName)
+    val newPlayerId = players.filter(_.name === playerName).list.head.id
+    val newPlayerPicks = newPicks.map { eachPick =>
+      new PlayerPick(newPlayerId, eachPick.category, eachPick.topPick, eachPick.midPick, eachPick.botPick)
     }
+    playerPicks ++= newPlayerPicks
   }
+
+
 }

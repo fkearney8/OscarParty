@@ -68,8 +68,7 @@
                 autoOpen: false,
                 draggable: false,
                 modal: true,
-
-
+                position: {my: "bottom", at: "bottom", of: $(".accordion")}
             });
         });
 
