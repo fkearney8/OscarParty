@@ -1,9 +1,10 @@
 package com.oscarparty.servlets
 
-import javax.servlet.http.{HttpServletResponse, HttpServletRequest, HttpServlet}
+import javax.servlet.http.{HttpServlet, HttpServletRequest, HttpServletResponse}
+
+import com.oscarparty.servlets.data.WinnersDAO.WinnerData
 import com.oscarparty.servlets.data.nominees.AllOscarNominees2015
-import com.oscarparty.servlets.winners.{WinnerDAO, Winner}
-import com.oscarparty.servlets.data.NextCategory
+import com.oscarparty.servlets.data.{NextCategory, WinnersDAO}
 
 class WinnerPickedServlet extends HttpServlet {
   override def doPost(req: HttpServletRequest, resp: HttpServletResponse): Unit = {
@@ -14,7 +15,7 @@ class WinnerPickedServlet extends HttpServlet {
     req.setAttribute("nextCategory", "-None Selected-")
     //validate the next Category and set if we have one
     if (!nextCat.equals("None")) {
-      new AllOscarNominees2015().findCategory(nextCat)
+      new AllOscarNominees2015().findCategoryByName(nextCat)
       NextCategory.nextCategory = nextCat
       req.setAttribute("nextCategory", nextCat)
     }
@@ -23,15 +24,18 @@ class WinnerPickedServlet extends HttpServlet {
     req.setAttribute("winner", "-None Saved-")
     req.setAttribute("category", "-None Saved-")
     if (!winnerCat.equals("None") && !winnerSelectedString.equals("None")) {
-      val winnerObject = new Winner(winnerCat, winnerSelectedString)
-      val winnerOscarCategory = new AllOscarNominees2015().findCategory(winnerCat)
-      if (!winnerOscarCategory.nominees.contains(winnerSelectedString)) {
+
+      val aon = new AllOscarNominees2015()
+      val winnerObject = WinnerData(aon.findCategoryByName(winnerCat).id, aon.findNomineeByName(winnerSelectedString).id)
+      val winnerOscarCategory = aon.findCategoryByName(winnerCat)
+      val nomsForCat = aon.categoryNominees(winnerOscarCategory)
+      if (!nomsForCat.contains(winnerSelectedString)) {
         throw new IllegalArgumentException("Winner " + winnerSelectedString + " is not a nominee for " + winnerCat)
       }
       //save
-      new WinnerDAO().saveWinner(winnerObject)
-      req.setAttribute("winner", winnerObject.winner)
-      req.setAttribute("category", winnerObject.category)
+      WinnersDAO.saveWinner(winnerObject)
+      req.setAttribute("winner", winnerCat)
+      req.setAttribute("category", winnerSelectedString)
     }
 
     req.getServletContext.getRequestDispatcher("/winnerPicked.jsp").forward(req, resp)

@@ -148,18 +148,19 @@
      so don't worry about saving your picks. Ways to send Frank $5 will follow after you make your picks. Have fun!
     </p>
 
-    <%@ page import="java.util.*, com.oscarparty.servlets.selection.*" %>
+    <%@ page import="java.util.*, com.oscarparty.servlets.data.nominees.*" %>
 
     <div id="modalPopover" style="text-align: center"></div>
 
+    // TODO stop passing the DAO as a request bean, pass categories and look up the nominees instead.
     <jsp:useBean id="allNominees" scope="request" class="com.oscarparty.servlets.data.nominees.AllOscarNominees2015" />
 
     <form method="post" action="submitPicks.do">
     <div class="expander-area">
     <div id="WinnerSelectionAccordion" class="accordion">
         <%
-        List<OscarCategory> categories = allNominees.categoriesJava();
-        for (OscarCategory eachCategory : categories) {
+        List<Category> categories = allNominees.categoriesJava();
+        for (Category eachCategory : categories) {
             %>
         <h3><%=eachCategory.name()%></h3>
         <div class="accordion-section">
@@ -168,7 +169,7 @@
             List<String> categoryNominees = eachCategory.nomineesJava();
             for (String eachNominee : categoryNominees) {
                 %>
-                <div class="selection"><%=eachNominee%></div>
+                <div class="selection"><%=eachNominee.name()%> <%=eachNominee.id()%></div>
                 <%
             } //end of each nominee
             %>
@@ -178,10 +179,10 @@
             %>
             <div class="drop-area">
                 <div class="drop topPick"><%= points.get(0) %> points pick
-                    <input type="hidden" name="<%=eachCategory.name()%>.topPick"/>
+                    <input type="hidden" name="<%=eachCategory.id()%>.topPick"/>
                 </div>
                 <div class="drop midPick"><%= points.get(1) %> points pick
-                    <input type="hidden" name="<%=eachCategory.name()%>.midPick"/>
+                    <input type="hidden" name="<%=eachCategory.id()%>.midPick"/>
                 </div>
                 <div class="drop botPick">
                     <%
@@ -189,7 +190,7 @@
                     String point_s_string = botPointsVal > 1 ? "points" : "point";
                     %>
                     <%= botPointsVal %> <%= point_s_string %> pick
-                    <input type="hidden" name="<%=eachCategory.name()%>.botPick"/>
+                    <input type="hidden" name="<%=eachCategory.id()%>.botPick"/>
                 </div>
             </div>
         </div>

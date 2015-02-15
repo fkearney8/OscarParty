@@ -111,11 +111,6 @@
         <servlet-class>com.oscarparty.servlets.WinnerPickedServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>paidPlayers</servlet-name>
-        <description>Servlet to input players that have paid.</description>
-        <servlet-class>com.oscarparty.servlets.PaidPlayersServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>leaderboard</servlet-name>
         <description>Servlet for the leaderboard.</description>
         <servlet-class>com.oscarparty.servlets.LeaderboardServlet</servlet-class>
@@ -145,10 +140,6 @@
     <servlet-mapping>
         <servlet-name>winnerPicker</servlet-name>
         <url-pattern>/winnerPicker</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>paidPlayers</servlet-name>
-        <url-pattern>/paidPlayers</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>leaderboard</servlet-name>

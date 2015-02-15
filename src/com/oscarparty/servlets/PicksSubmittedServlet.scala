@@ -42,11 +42,11 @@ class PicksSubmittedServlet extends HttpServlet {
 
     def findPick(categoryName: String, rankName: String): Int = {
       val nomineeNamePicked = playerPicks(EachPickIdentifier(categoryName, rankName))
-      aon.findNominee(nomineeNamePicked).id
+      aon.findNomineeByName(nomineeNamePicked).id
     }
 
     aon.categoryNames.map { categoryName =>
-      PlayerPickForInsertion(aon.findCategory2(categoryName).id,
+      PlayerPickForInsertion(aon.findCategoryByName(categoryName).id,
         findPick(categoryName, "topPick"),
         findPick(categoryName, "midPick"),
         findPick(categoryName, "botPick"))

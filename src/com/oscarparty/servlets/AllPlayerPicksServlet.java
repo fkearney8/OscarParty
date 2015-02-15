@@ -1,7 +1,7 @@
 package com.oscarparty.servlets;
 
-import com.oscarparty.servlets.playerpicks.PlayerPicks;
-import com.oscarparty.servlets.playerpicks.PlayerPicksDAO;
+
+import com.oscarparty.servlets.data.PlayerPicksDAO;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,13 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+import scala.collection.JavaConverters;
+
 public class AllPlayerPicksServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //get all the player picks
-        PlayerPicksDAO playerPicksDao = new PlayerPicksDAO();
-        List<PlayerPicks> allPlayerPicks = playerPicksDao.readAllPlayerPicks();
+        List<PlayerPicksDAO.PlayerPick> allPlayerPicks = JavaConverters.asJavaListConverter(PlayerPicksDAO.allPlayerPicks()).asJava();
         req.setAttribute("allPlayerPicks", allPlayerPicks);
         RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/allPicks.jsp");
         requestDispatcher.forward(req, resp);

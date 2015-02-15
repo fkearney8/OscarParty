@@ -2,56 +2,64 @@ package com.oscarparty.servlets.data.nominees
 
 import javax.servlet.ServletException
 
-import com.oscarparty.servlets.data.SlickDAO
-import com.oscarparty.servlets.selection.OscarCategory
+import com.oscarparty.servlets.data.{WinnersDAO, SlickDAO}
 
 import scala.collection.JavaConverters._
 import scala.slick.driver.PostgresDriver.simple._
 
-class AllOscarNominees2015 extends SlickDAO with NomineesInterface {
+class AllOscarNominees2015 extends SlickDAO {
 
-  private val categories = TableQuery[Categories]
-  private val nominees = TableQuery[Nominees]
+  val categories = TableQuery[Categories]
+  val nominees = TableQuery[Nominees]
 
-  override def getCategories: Seq[OscarCategory] = DB.withSession { implicit session =>
-    categories.list.map { category =>
-      toOscarCategory(category)
-    }
+  def getNominee(id: Int): Nominee = DB.withSession { implicit session =>
+    nominees.filter(_.id === id).list.head
   }
 
-  override def categoryNames: Array[String] = DB.withSession { implicit session =>
+  def getCategory(id: Int): Category = DB.withSession { implicit session =>
+    categories.filter(_.id === id).list.head
+  }
+
+  def getCategories: Seq[Category] = DB.withSession { implicit session =>
+    categories.list
+  }
+
+  def categoryNames: Array[String] = DB.withSession { implicit session =>
     categories.list.map { _.name }.toArray
   }
 
-  override def categoriesJava: java.util.List[OscarCategory] = getCategories.toList.asJava
+  def categoriesJava: java.util.List[Category] = getCategories.toList.asJava
 
-//  TODO get rid of this
-  override def findCategory(categoryName: String): OscarCategory = DB.withSession { implicit session =>
-    categories.filter(_.name === categoryName).list.headOption match {
-      case None => throw new IllegalArgumentException("Could not find category " + categoryName)
-      case Some(category) => toOscarCategory(category)
-    }
+  def categoryNominees(category: Category): List[Nominee] = DB.withSession { implicit session =>
+      nominees.filter(_.categoryId === category.id).list
   }
 
-  def findNominee(nomineeName: String): Nominee = DB.withSession { implicit session =>
+  def categoryNomineesJava(category: Category): java.util.List[Nominee] =
+      categoryNominees(category).asJava
+
+  def findNomineeByName(nomineeName: String): Nominee = DB.withSession { implicit session =>
     nominees.filter(nominee => nominee.name === nomineeName).list.headOption match {
       case Some(nom) => nom
       case None => throw new ServletException(s"No nominee with name $nomineeName")
     }
   }
 
-  def findCategory2(categoryName: String): Category = DB.withSession { implicit session =>
+  def findCategoryByName(categoryName: String): Category = DB.withSession { implicit session =>
     categories.filter(_.name === categoryName).list.headOption match {
-      case Some(nom) => nom
+      case Some(cat) => cat
       case None => throw new ServletException(s"No category with name $categoryName")
     }
   }
 
-
-  //TODO eliminate the need for this, send the Category and Nominee models throughout the code base
-  private def toOscarCategory(category: Categories#TableElementType)(implicit session: Session): OscarCategory = {
-    new OscarCategory(category.name, category.nominees.map(_.name).toArray,
-      Array(category.point1, category.points2, category.points3))
+  def categoriesWithoutWinners: List[Category] = DB.withSession { implicit session =>
+    categories.list.map { category =>
+      val winnerForCat = WinnersDAO.findCategoryWinner(category.id)
+      (category, winnerForCat)
+    }.filter { case (category, winnerOption) =>
+      winnerOption.isEmpty
+    }.map { case (category, winnerOption) =>
+      category
+    }
   }
 }
 

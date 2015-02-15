@@ -1,11 +1,12 @@
 package com.oscarparty.servlets
 
-import javax.servlet.http.{HttpServletResponse, HttpServletRequest, HttpServlet}
+import javax.servlet.http.{HttpServlet, HttpServletRequest, HttpServletResponse}
+
 import com.oscarparty.servlets.data.nominees.AllOscarNominees2015
-import com.oscarparty.servlets.playerpicks.{Calculator, PlayerPicks, CategoryPicks, PlayerPicksDAO}
-import com.oscarparty.servlets.winners.WinnerDAO
-import collection.JavaConversions._
-import com.oscarparty.servlets.data.NextCategory
+import com.oscarparty.servlets.data.{WinnersDAO, NextCategory, PlayerPicksDAO}
+import com.oscarparty.servlets.playerpicks.Calculator
+
+import scala.collection.JavaConversions._
 
 class LeaderboardServlet extends HttpServlet {
   override def doGet(req: HttpServletRequest, resp: HttpServletResponse): Unit = {
@@ -17,22 +18,21 @@ class LeaderboardServlet extends HttpServlet {
     }
 
     //read up all the picks
-    val playerPicks = new PlayerPicksDAO().readAllPlayerPicks()
+    val playerPicks = PlayerPicksDAO.picksPerPlayer
 
-    var playersAndPoints = new Array[(String, Integer, CategoryPicks)](playerPicks.size())
-    //for each player picks, calculate how many points they have
-    for (i <- 0 until playerPicks.size()) {
-      val eachPickSet = playerPicks.get(i)
-      val totalPoints: Integer = Calculator.calculatePickPoints(eachPickSet)
-      playersAndPoints(i) = (eachPickSet.userName, totalPoints, eachPickSet.getCategoryPicks(nextCategoryToDisplay))
-    }
+    val playersAndPointsUnsorted = playerPicks.map { case (player, listOfPicks) =>
+      val playerName = player.name
+      val points = Calculator.calculatePickPoints(listOfPicks)
+      val nextCatPicks = PlayerPicksDAO.playerPicksForCategory(player.id, new AllOscarNominees2015().findCategoryByName(nextCategoryToDisplay).id)
+      (playerName, points, nextCatPicks)
+    }.toArray
 
     //to make things easier on the leaderboard page, we want the users in order by points
-    playersAndPoints = playersAndPoints.sortWith(_._2 > _._2)
+    val playersAndPoints = playersAndPointsUnsorted.sortWith(_._2 > _._2)
     val playerWithPointsArray = for ((player, points, nextCatPicks) <- playersAndPoints) yield {
       new PlayerWithPoints(player, points, {
         if (nextCatPicks != null)
-          nextCatPicks.getOrderedPicks.mkString(", ")
+          List(nextCatPicks.topPick, nextCatPicks.midPick, nextCatPicks.botPick).mkString(", ")
         else
           ""
       })
@@ -42,13 +42,11 @@ class LeaderboardServlet extends HttpServlet {
 
     //get the winners list to put on the leaderboard
     //get the categories in order
-    val categoryNames = aon.categoryNames
+    val categories = aon.getCategories
     //add winners where they exist
-    val categoryWinners = for (categoryName <- categoryNames)
-        yield new CategoryAndWinner(categoryName,
-            { val winner = WinnerDAO.findCategoryWinner(categoryName)
-              if (winner != null) winner.winner else ""
-            })
+    val categoryWinners = categories.map { category =>
+      new CategoryAndWinner(category.name, WinnersDAO.findCategoryWinner(category.id).fold("")(_.winningNominee.name))
+    }
     val javaCategoryWinners : java.util.List[CategoryAndWinner] = asJavaList(categoryWinners)
 
     req.setAttribute("nextCategory", nextCategoryToDisplay)
@@ -62,7 +60,7 @@ class LeaderboardServlet extends HttpServlet {
   }
 }
 
-
+//TODO make these case classes if the JPSs will work nicely with them
 class PlayerWithPoints (val userName : String, val points : Integer, val nextCategoryWinners : String) {
 }
 
