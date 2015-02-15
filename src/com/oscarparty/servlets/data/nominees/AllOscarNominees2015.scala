@@ -1,5 +1,7 @@
 package com.oscarparty.servlets.data.nominees
 
+import javax.servlet.ServletException
+
 import com.oscarparty.servlets.data.SlickDAO
 import com.oscarparty.servlets.selection.OscarCategory
 
@@ -32,11 +34,17 @@ class AllOscarNominees2015 extends SlickDAO with NomineesInterface {
   }
 
   def findNominee(nomineeName: String): Nominee = DB.withSession { implicit session =>
-    nominees.filter(nominee => nominee.name === nomineeName).list.head
+    nominees.filter(nominee => nominee.name === nomineeName).list.headOption match {
+      case Some(nom) => nom
+      case None => throw new ServletException(s"No nominee with name $nomineeName")
+    }
   }
 
   def findCategory2(categoryName: String): Category = DB.withSession { implicit session =>
-    categories.filter(_.name === categoryName).list.head
+    categories.filter(_.name === categoryName).list.headOption match {
+      case Some(nom) => nom
+      case None => throw new ServletException(s"No category with name $categoryName")
+    }
   }
 
 

@@ -79,7 +79,7 @@ class PicksSubmittedServlet extends HttpServlet {
 
   private def isPlayerNameParam(paramEntry: (String, Array[String])): Boolean = {
     paramEntry match {
-      case (key, values) => key == "username"
+      case (key, values) => key == "userName"
       case _ => false
     }
   }
