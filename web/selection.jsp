@@ -4,12 +4,12 @@
     <style>
         .expander-area {max-width: 1000px; min-width: 800px;}
         .accordion-section {
-            height: 320px;
+            height: 375px;
         }
         .selection-area {float: left; width: 520px;}
         .selection {
             width: 125px;
-            height: 70px;
+            height: 92px;
             margin: 10px;
             border: 3px outset;
             padding: 5px;
@@ -23,7 +23,7 @@
             border-style: inset;
             border-width: 5px;
             width: 124px;
-            height: 70px;
+            height: 92px;
             margin: 20px;
             padding-left: 5px;
             text-align: center;

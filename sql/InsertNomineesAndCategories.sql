@@ -51,7 +51,7 @@ insert into nominees values (DEFAULT, 6, 'Meryl Streep – Into the Woods as The
 
 insert into categories values (7, 'Best Original Screenplay', 3, 2, 1);
 
-insert into nominees values (DEFAULT, 7, 'Birdman or (The Unexpected Virtue of Ignorance) – Alejandro González Iñárritu, Nicolás Giacobone, Alexander Dinelaris, Jr. and Armando Bo');
+insert into nominees values (DEFAULT, 7, 'Birdman – Alejandro González Iñárritu, et al');
 insert into nominees values (DEFAULT, 7, 'Boyhood – Richard Linklater');
 insert into nominees values (DEFAULT, 7, 'Foxcatcher – E. Max Frye and Dan Futterman');
 insert into nominees values (DEFAULT, 7, 'The Grand Budapest Hotel – Wes Anderson and Hugo Guinness');
@@ -60,10 +60,10 @@ insert into nominees values (DEFAULT, 7, 'Nightcrawler – Dan Gilroy');
 
 insert into categories values (8, 'Best Adapted Screenplay', 3, 2, 1);
 
-insert into nominees values (DEFAULT, 8, 'American Sniper – Jason Hall from American Sniper by Chris Kyle, Scott McEwen and Jim DeFelice');
-insert into nominees values (DEFAULT, 8, 'The Imitation Game – Graham Moore from Alan Turing: The Enigma by Andrew Hodges');
-insert into nominees values (DEFAULT, 8, 'Inherent Vice – Paul Thomas Anderson from Inherent Vice by Thomas Pynchon');
-insert into nominees values (DEFAULT, 8, 'The Theory of Everything – Anthony McCarten from Travelling to Infinity: My Life with Stephen by Jane Wilde Hawking');
+insert into nominees values (DEFAULT, 8, 'American Sniper – Jason Hall from American Sniper');
+insert into nominees values (DEFAULT, 8, 'The Imitation Game – Graham Moore from Alan Turing: The Enigma');
+insert into nominees values (DEFAULT, 8, 'Inherent Vice – Paul Thomas Anderson from Inherent Vice');
+insert into nominees values (DEFAULT, 8, 'The Theory of Everything – Anthony McCarten from Travelling to Infinity');
 insert into nominees values (DEFAULT, 8, 'Whiplash – Damien Chazelle from his short film of the same name');
 
 insert into categories values (9, 'Best Animated Feature Film', 3, 2, 1);
@@ -125,16 +125,16 @@ insert into nominees values (DEFAULT, 16, 'The Theory of Everything – Jóhann 
 
 insert into categories values (17, 'Best Original Song', 3, 2, 1);
 
-insert into nominees values (DEFAULT, 17, '"Everything Is Awesome" from The Lego Movie – Music and Lyric by Shawn Patterson');
-insert into nominees values (DEFAULT, 17, '"Glory" from Selma – Music and Lyric by John Legend and Common');
-insert into nominees values (DEFAULT, 17, '"Grateful" from Beyond the Lights – Music and Lyric by Diane Warren');
-insert into nominees values (DEFAULT, 17, '"I''m Not Gonna Miss You" from Glen Campbell: I''ll Be Me – Music and Lyric by Glen Campbell and Julian Raymond');
-insert into nominees values (DEFAULT, 17, '"Lost Stars" from Begin Again – Music and Lyric by Gregg Alexander and Danielle Brisebois');
+insert into nominees values (DEFAULT, 17, '"Everything Is Awesome" from The Lego Movie');
+insert into nominees values (DEFAULT, 17, '"Glory" from Selma');
+insert into nominees values (DEFAULT, 17, '"Grateful" from Beyond the Lights');
+insert into nominees values (DEFAULT, 17, '"I''m Not Gonna Miss You" from Glen Campbell: I''ll Be Me');
+insert into nominees values (DEFAULT, 17, '"Lost Stars" from Begin Again');
 
 insert into categories values (18, 'Best Sound Editing', 3, 2, 1);
 
 insert into nominees values (DEFAULT, 18, 'American Sniper – Alan Robert Murray and Bub Asman');
-insert into nominees values (DEFAULT, 18, 'Birdman or (The Unexpected Virtue of Ignorance) – Martin Hernández and Aaron Glascock');
+insert into nominees values (DEFAULT, 18, 'Birdman – Martin Hernández and Aaron Glascock');
 insert into nominees values (DEFAULT, 18, 'The Hobbit: The Battle of the Five Armies – Brent Burge and Jason Canovas');
 insert into nominees values (DEFAULT, 18, 'Interstellar – Richard King');
 insert into nominees values (DEFAULT, 18, 'Unbroken – Becky Sullivan and Andrew DeCristofaro');
@@ -142,18 +142,18 @@ insert into nominees values (DEFAULT, 18, 'Unbroken – Becky Sullivan and Andre
 insert into categories values (19, 'Best Sound Mixing', 3, 2, 1);
 
 insert into nominees values (DEFAULT, 19, 'American Sniper – John Reitz, Gregg Rudloff and Walt Martin');
-insert into nominees values (DEFAULT, 19, 'Birdman or (The Unexpected Virtue of Ignorance) – Jon Taylor, Frank A. Montaño and Thomas Varga');
+insert into nominees values (DEFAULT, 19, 'Birdman – Jon Taylor, Frank A. Montaño and Thomas Varga');
 insert into nominees values (DEFAULT, 19, 'Interstellar – Gary A. Rizzo, Gregg Landaker and Mark Weingarten');
 insert into nominees values (DEFAULT, 19, 'Unbroken – Jon Taylor, Frank A. Montaño and David Lee');
 insert into nominees values (DEFAULT, 19, 'Whiplash – Craig Mann, Ben Wilkins and Thomas Curley');
 
 insert into categories values (20, 'Best Production Design', 3, 2, 1);
 
-insert into nominees values (DEFAULT, 20, 'The Grand Budapest Hotel – Adam Stockhausen (Production Design); Anna Pinnock (Set Decoration)');
-insert into nominees values (DEFAULT, 20, 'The Imitation Game – Maria Djurkovic (Production Design); Tatiana Macdonald (Set Decoration)');
-insert into nominees values (DEFAULT, 20, 'Interstellar – Nathan Crowley (Production Design); Gary Fettis (Set Decoration)');
-insert into nominees values (DEFAULT, 20, 'Into the Woods – Dennis Gassner (Production Design); Anna Pinnock (Set Decoration)');
-insert into nominees values (DEFAULT, 20, 'Mr. Turner – Suzie Davies (Production Design); Charlotte Watts (Set Decoration)');
+insert into nominees values (DEFAULT, 20, 'The Grand Budapest Hotel');
+insert into nominees values (DEFAULT, 20, 'The Imitation Game');
+insert into nominees values (DEFAULT, 20, 'Interstellar');
+insert into nominees values (DEFAULT, 20, 'Into the Woods');
+insert into nominees values (DEFAULT, 20, 'Mr. Turner');
 
 insert into categories values (21, 'Best Cinematography', 3, 2, 1);
 
@@ -187,8 +187,8 @@ insert into nominees values (DEFAULT, 24, 'Whiplash – Tom Cross');
 
 insert into categories values (25, 'Best Visual Effects', 3, 2, 1);
 
-insert into nominees values (DEFAULT, 25, 'Captain America: The Winter Soldier – Dan DeLeeuw, Russell Earl, Bryan Grill and Dan Sudick');
-insert into nominees values (DEFAULT, 25, 'Dawn of the Planet of the Apes – Joe Letteri, Dan Lemmon, Daniel Barrett and Erik Winquist');
-insert into nominees values (DEFAULT, 25, 'Guardians of the Galaxy – Stephane Ceretti, Nicolas Aithadi, Jonathan Fawkner and Paul Corbould');
-insert into nominees values (DEFAULT, 25, 'Interstellar – Paul Franklin, Andrew Lockley, Ian Hunter and Scott Fisher');
-insert into nominees values (DEFAULT, 25, 'X-Men: Days of Future Past – Richard Stammers, Lou Pecora, Tim Crosbie and Cameron Waldbauer');
+insert into nominees values (DEFAULT, 25, 'Captain America: The Winter Soldier');
+insert into nominees values (DEFAULT, 25, 'Dawn of the Planet of the Apes');
+insert into nominees values (DEFAULT, 25, 'Guardians of the Galaxy');
+insert into nominees values (DEFAULT, 25, 'Interstellar');
+insert into nominees values (DEFAULT, 25, 'X-Men: Days of Future Past');
