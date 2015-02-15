@@ -41,8 +41,7 @@ class PicksSubmittedServlet extends HttpServlet {
     //iterate through the categories, finding the picks for each rank and create the PlayerPick object
 
     def findPick(categoryName: String, rankName: String): Int = {
-      //TODO remove the 'Selma' default when not testing
-      val nomineeNamePicked = playerPicks.getOrElse(EachPickIdentifier(categoryName, rankName), "Selma")
+      val nomineeNamePicked = playerPicks(EachPickIdentifier(categoryName, rankName))
       aon.findNominee(nomineeNamePicked).id
     }
 
