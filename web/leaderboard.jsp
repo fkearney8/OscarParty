@@ -17,7 +17,7 @@
         }
         .leaderrow {
             border: solid 1px;
-            margin: 10px;
+            margin: 8px;
             padding 5px;
         }
         .leaderrow-odd {
@@ -28,16 +28,27 @@
         }
         .leadername {
             display: inline-block;
+            margin-left: 5px;
         }
         .leaderpoints {
             font-family: "Comic Sans MS", cursive, sans-serif;
             display: inline-block;
             float: right;
-            padding: 10px 25px 0px 0px
+            padding: 10px 25px 0px 0px;
         }
         .leaderNextCatPicks {
-            font-size: 18px;
+            font-size: 14px;
         }
+
+        .leaderNextCatPicks ul {
+            padding: 2px;
+            margin: 1px;
+        }
+
+        .leaderNextCatPicks ul li {
+            list-style-type: none;
+        }
+
 
         .winnersPanel {
             float: right;
@@ -101,7 +112,14 @@
                     <%= playerWithPoints.points() %>
                 </div>
                 <div class="leaderNextCatPicks">
-                    <%= playerWithPoints.nextCategoryPicks() %>
+                    <ul>
+                    <% for (String eachPick: playerWithPoints.nextCategoryPicks()) {
+                        %>
+                        <li><%= eachPick %></li>
+                        <%
+                    }
+                     %>
+                    </ul>
                 </div>
             </div>
             <%

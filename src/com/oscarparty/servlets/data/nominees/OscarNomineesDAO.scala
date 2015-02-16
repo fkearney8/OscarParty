@@ -12,14 +12,19 @@ object OscarNomineesDAO extends SlickDAO {
   val categories = TableQuery[Categories]
   val nominees = TableQuery[Nominees]
 
-  def getNominee(id: Int): Nominee = DB.withSession { implicit session =>
-    nominees.filter(_.id === id).list.head
+  def getNominee(id: Int): Nominee = DB.withSession { implicit session => getNomineeMaybe(id).get }
+
+  def getNomineeMaybe(id: Int): Option[Nominee] = DB.withSession { implicit session =>
+    nominees.filter(_.id === id).list.lastOption
   }
 
-  def getCategory(id: Int): Category = DB.withSession { implicit session =>
-    val category = categories.filter(_.id === id).list.head
-    val nomineesForCat = nomineesForCategory(category.id)
-    new Category(category, nomineesForCat)
+  def getCategory(id: Int): Category = DB.withSession { implicit session => getCategoryMaybe(id).get }
+
+  def getCategoryMaybe(id: Int): Option[Category] = DB.withSession { implicit session =>
+    categories.filter(_.id === id).list.headOption.map { catData =>
+      val nomineesForCat = nomineesForCategory(catData.id)
+      new Category(catData, nomineesForCat)
+    }
   }
 
   def getCategories: Seq[Category] = DB.withSession { implicit session =>

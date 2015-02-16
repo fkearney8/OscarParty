@@ -3,30 +3,40 @@
     <%@include file="resources.jsp"%>
     <script>
         $(function() {
-            $("#categorySelector").val("<%= request.getAttribute("nextCategory") %>");
+            $(".categorySelector").val("<%= request.getAttribute("nextCategory") %>");
             //in case it didn't get set to something still available
-            var catPreselection = $("#categorySelector").val();
+            var catPreselection = $(".categorySelector").val();
             if (catPreselection == null || catPreselection.trim().length() == 0) {
-                $("#categorySelector").val("None");
+                $(".categorySelector").val("None");
             }
 
+            <%
+                String categoriesWithoutWinners = (String) request.getAttribute("categoriesWithoutWinners");
+            %>
+            var categoriesWithoutWinners = <%= categoriesWithoutWinners %>;
+            $.each(categoriesWithoutWinners, function(index, category) {
+                $(".categorySelector")
+                    .append($("<option></option>")
+                        .attr("value", category.id)
+                        .text(category.name))
+            });
             categorySelected();
         });
 
 
         <% String catsToNomsMap = (String) request.getAttribute("catsToNomsMap"); %>
-        var catsToNomsMap = <%= catsToNomsMap %>
+        var catsToNomsMap = <%= catsToNomsMap %>;
         function categorySelected() {
-            var catSelected = $("#categorySelector").val();
+            var catSelected = $("#winnerCategorySelector").val();
             $("#winnerSelector").empty();
             var nominees = catsToNomsMap[catSelected];
-            if (!nominees) nominees = ["None"];
+            if (!nominees) nominees = [{name: "None", id: -1}];
 
             $.each(nominees, function(index, nominee) {
                  $('#winnerSelector')
                      .append($("<option></option>")
-                     .attr("value", nominee)
-                     .text(nominee));
+                         .attr("value", nominee.id)
+                         .text(nominee.name));
             });
         }
     </script>
@@ -34,19 +44,10 @@
 <body>
     <%@include file="header.jsp"%>
     <%@ page import="java.util.*, com.oscarparty.servlets.selection.*, com.oscarparty.servlets.playerpicks.*" %>
-    <%
-    String[] orderedCats = (String[]) request.getAttribute("orderedCatsWithoutWinners");
-     %>
     <div style="padding: 10px;font-size: 20px;">
         <form method="POST" action="winnersPicked.do">
             Select Winner for Category:
-            <select id="categorySelector" name="winnerCategory" onChange="javascript:categorySelected()">
-                <option value="None">None</option>
-                <%
-                for (String categoryName : orderedCats) {
-                    %><option value="<%= categoryName %>"><%= categoryName %></option><%
-                }
-                %>
+            <select id="winnerCategorySelector" class="categorySelector" name="winnerCategory" onChange="javascript:categorySelected()">
             </select>
 
             <select id="winnerSelector" name="winnerSelected">
@@ -54,13 +55,7 @@
             </select>
             <br/>
             Select the next category, if we know it:
-            <select id="categorySelector" name="nextCategory">
-                <option value="None">None</option>
-                <%
-                for (String categoryName : orderedCats) {
-                    %><option value="<%= categoryName %>"><%= categoryName %></option><%
-                }
-                %>
+            <select class="categorySelector" name="nextCategory">
             </select>
             <br/>
             <input type="submit" value="Submit">

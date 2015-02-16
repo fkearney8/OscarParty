@@ -10,14 +10,16 @@ import scala.collection.JavaConverters._
 
 
 class LeaderboardServlet extends HttpServlet {
+
+  private val pickTruncationSize = 50
+
   override def doGet(req: HttpServletRequest, resp: HttpServletResponse): Unit = {
     resp.setContentType("text/html; charset=UTF-8")
     resp.setCharacterEncoding("UTF-8")
 
     //we'll show best picture picks if there's no next category assigned
-    var nextCategoryToDisplay = NextCategory.nextCategory
-    if (nextCategoryToDisplay == 0) {
-      nextCategoryToDisplay = 1
+    val nextCategory = OscarNomineesDAO.getCategoryMaybe(NextCategory.nextCategory).getOrElse{
+      OscarNomineesDAO.getCategory(1)
     }
 
     //read up all the picks
@@ -26,8 +28,12 @@ class LeaderboardServlet extends HttpServlet {
     val playersAndPointsUnsorted = playerPicks.map { case (player, listOfPicks) =>
       val playerName = player.name
       val points = Calculator.calculatePickPoints(listOfPicks)
-      val nextCatPicks = PlayerPicksDAO.playerPicksForCategory(player.id, OscarNomineesDAO.getCategory(nextCategoryToDisplay).id)
+      val nextCatPicks = PlayerPicksDAO.playerPicksForCategory(player.id, nextCategory.id)
       (playerName, points, nextCatPicks)
+    }
+
+    def truncPick(string: String): String = {
+      string.take(pickTruncationSize) + "..."
     }
 
     //to make things easier on the leaderboard page, we want the users in order by points
@@ -36,9 +42,11 @@ class LeaderboardServlet extends HttpServlet {
       new PlayerWithPoints(player, points,
         {
           nextCatPicks match {
-            case None => ""
+            case None => List.empty[String].asJava
             case Some(nextCatPicksActual) =>
-              List(nextCatPicksActual.pick1.name, nextCatPicksActual.pick2.name, nextCatPicksActual.pick3.name).mkString(", ")
+              List(truncPick(nextCatPicksActual.pick1.name),
+                truncPick(nextCatPicksActual.pick2.name),
+                truncPick(nextCatPicksActual.pick3.name)).asJava
           }
         })
     }
@@ -54,7 +62,7 @@ class LeaderboardServlet extends HttpServlet {
     }
     val javaCategoryWinners : java.util.List[CategoryAndWinner] = categoryWinners.asJava
 
-    req.setAttribute("nextCategory", nextCategoryToDisplay)
+    req.setAttribute("nextCategory", nextCategory.name)
     req.setAttribute("categoryWinners", javaCategoryWinners)
 
     resp.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
@@ -66,8 +74,6 @@ class LeaderboardServlet extends HttpServlet {
 }
 
 //TODO make these case classes if the JPSs will work nicely with them
-class PlayerWithPoints (val userName : String, val points : Integer, val nextCategoryPicks : String) {
-}
+case class PlayerWithPoints (userName: String, points: Integer, nextCategoryPicks: java.util.List[String])
 
-class CategoryAndWinner(val categoryName : String, val winner : String) {
-}
+case class CategoryAndWinner(categoryName: String, winner: String)
