@@ -1,6 +1,7 @@
 package com.oscarparty.servlets;
 
-import com.oscarparty.servlets.data.nominees.AllOscarNominees2015;
+import com.oscarparty.servlets.data.nominees.Category;
+import com.oscarparty.servlets.data.nominees.OscarNomineesDAO;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
 public class SelectionServlet extends HttpServlet {
 
@@ -21,9 +24,13 @@ public class SelectionServlet extends HttpServlet {
         res.setCharacterEncoding("UTF-8");
 
         RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/selection.jsp");
-        AllOscarNominees2015 allOscarNominees = new AllOscarNominees2015();
+        LinkedList<Category> allCategories = new LinkedList<>();
+        //play the JSP game, moving the categories into a LinkedList
+        for (Category eachCategory: OscarNomineesDAO.categoriesJava()) {
+          allCategories.add(eachCategory);
+        }
 
-        req.setAttribute("allNominees", allOscarNominees);
+        req.setAttribute("allCategories", allCategories);
         requestDispatcher.forward(req, res);
     }
 }

@@ -153,20 +153,20 @@
     <div id="modalPopover" style="text-align: center"></div>
 
     // TODO stop passing the DAO as a request bean, pass categories and look up the nominees instead.
-    <jsp:useBean id="allNominees" scope="request" class="com.oscarparty.servlets.data.nominees.AllOscarNominees2015" />
+    <jsp:useBean id="allCategories" scope="request" class="java.util.LinkedList" />
 
     <form method="post" action="submitPicks.do">
     <div class="expander-area">
     <div id="WinnerSelectionAccordion" class="accordion">
         <%
-        List<Category> categories = allNominees.categoriesJava();
-        for (Category eachCategory : categories) {
+        for (int catIndex = 0; catIndex < allCategories.size(); catIndex++) {
+            Category eachCategory = (Category) allCategories.get(catIndex);
             %>
         <h3><%=eachCategory.name()%></h3>
         <div class="accordion-section">
             <div class="selection-area">
             <%
-            List<Nominee> categoryNominees = allNominees.categoryNomineesJava(eachCategory);
+            List<Nominee> categoryNominees = eachCategory.nomineesJava();
             for (Nominee eachNominee : categoryNominees) {
                 %>
                 <div class="selection"><%=eachNominee.name()%> <%=eachNominee.id()%></div>

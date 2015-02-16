@@ -37,10 +37,10 @@ object WinnersDAO extends SlickDAO {
 //  }
 
   def findCategoryWinner(categoryId: Int): Option[Winner] = DB.withSession { implicit session =>
-    val aon = new AllOscarNominees2015()
+
     val winnerDataOption = winners.filter(_.categoryId === categoryId).list.lastOption
     winnerDataOption.map { winnerData =>
-      Winner(aon.getCategory(winnerData.categoryId), aon.getNominee(winnerData.winnerId))
+      Winner(OscarNomineesDAO.getCategory(winnerData.categoryId), OscarNomineesDAO.getNominee(winnerData.winnerId))
     }
   }
 

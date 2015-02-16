@@ -4,7 +4,7 @@ import javax.servlet.http.{HttpServlet, HttpServletRequest, HttpServletResponse}
 
 import com.oscarparty.servlets.data.PlayerPicksDAO.PlayerPick
 import com.oscarparty.servlets.data.WinnersDAO.Winner
-import com.oscarparty.servlets.data.nominees.{AllOscarNominees2015, Nominee}
+import com.oscarparty.servlets.data.nominees.{OscarNomineesDAO, Nominee}
 import com.oscarparty.servlets.data.{PlayerPicksDAO, WinnersDAO}
 import com.oscarparty.servlets.playerpicks.Calculator
 
@@ -29,9 +29,8 @@ class PlayerPicksServlet extends HttpServlet {
 
 class DisplayablePlayerPicks (val playerName : String, val playerPoints : String, playerPicks : List[PlayerPick]) {
 
-  private val aon = new AllOscarNominees2015()
   val categories: Array[DisplayableCategory] = {
-    aon.getCategories.flatMap { cat =>
+    OscarNomineesDAO.getCategories.flatMap { cat =>
       val winningNominee = WinnersDAO.findCategoryWinner(cat.id)
       val displayablePicksOption: Option[Seq[DisplayablePick]] = playerPicks.find(_.category == cat.id).map { picksForCat =>
         val orderedPoints = List(cat.points1, cat.points2, cat.points3)
@@ -39,7 +38,7 @@ class DisplayablePlayerPicks (val playerName : String, val playerPoints : String
         val picksAndPoints = orderedPicks zip orderedPoints
 
         picksAndPoints.map { case (pick, points) =>
-          val nomineePicked = aon.getNominee(pick)
+          val nomineePicked = OscarNomineesDAO.getNominee(pick)
           new DisplayablePick(nomineePicked.name, isAWinner(winningNominee, nomineePicked), points)
         }
       }

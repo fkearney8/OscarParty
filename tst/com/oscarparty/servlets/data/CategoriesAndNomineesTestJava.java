@@ -1,8 +1,8 @@
 package com.oscarparty.servlets.data;
 
-import com.oscarparty.servlets.data.nominees.AllOscarNominees2015;
 import com.oscarparty.servlets.data.nominees.Category;
 import com.oscarparty.servlets.data.nominees.Nominee;
+import com.oscarparty.servlets.data.nominees.OscarNomineesDAO;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -16,12 +16,11 @@ public class CategoriesAndNomineesTestJava {
 
   @Test
   public void testCategoryNomineesWithJava() throws Exception {
-    AllOscarNominees2015 aon = new AllOscarNominees2015();
-    Category bestVis = aon.findCategoryByName("Best Visual Effects");
+    Category bestVis = OscarNomineesDAO.findCategoryByName("Best Visual Effects");
     Assert.assertEquals("Best Visual Effects", bestVis.name());
 
-    //bestVis has the expecte nominees
-    List<Nominee> bestVisNoms = aon.categoryNomineesJava(bestVis);
+    //assert bestVis has the expected nominees
+    List<Nominee> bestVisNoms = bestVis.nomineesJava();
     Assert.assertEquals("Correct number of nominees", 5, bestVisNoms.size());
 
     boolean foundNom = false;

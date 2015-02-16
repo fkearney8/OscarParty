@@ -2,15 +2,14 @@ package com.oscarparty.servlets.playerpicks
 
 import com.oscarparty.servlets.data.PlayerPicksDAO.PlayerPick
 import com.oscarparty.servlets.data.WinnersDAO
-import com.oscarparty.servlets.data.nominees.AllOscarNominees2015
+import com.oscarparty.servlets.data.nominees.OscarNomineesDAO
 
 object Calculator {
   def calculatePickPoints(playerPicks: List[PlayerPick]): Integer = {
 
     var totalPoints: Integer = 0
-    val aon = new AllOscarNominees2015
     //for each category
-    for (eachCategory <- aon.getCategories) {
+    for (eachCategory <- OscarNomineesDAO.getCategories) {
       val playerCategoryPicksOption = playerPicks.filter(_.category == eachCategory.id).lastOption
       //no points if the player doesn't have picks for this category somehow
       playerCategoryPicksOption.map { playerCategoryPicks =>

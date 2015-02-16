@@ -8,7 +8,7 @@ import javax.servlet.{RequestDispatcher, ServletException}
 import com.oscarparty.servlets.PicksSubmittedServlet.EachPickIdentifier
 import com.oscarparty.servlets.data.PlayerPicksDAO
 import com.oscarparty.servlets.data.PlayerPicksDAO.PlayerPickForInsertion
-import com.oscarparty.servlets.data.nominees.AllOscarNominees2015
+import com.oscarparty.servlets.data.nominees.OscarNomineesDAO
 
 import scala.collection.JavaConverters._
 
@@ -16,8 +16,6 @@ import scala.collection.JavaConverters._
  * Servlet for when a player has submitted picks to be saved.
  */
 class PicksSubmittedServlet extends HttpServlet {
-
-  val aon = new AllOscarNominees2015
 
   override def doPost(req: HttpServletRequest, res: HttpServletResponse) {
     val parameterMapJava: JMap[String, Array[String]] = req.getParameterMap
@@ -42,11 +40,11 @@ class PicksSubmittedServlet extends HttpServlet {
 
     def findPick(categoryName: String, rankName: String): Int = {
       val nomineeNamePicked = playerPicks(EachPickIdentifier(categoryName, rankName))
-      aon.findNomineeByName(nomineeNamePicked).id
+      OscarNomineesDAO.findNomineeByName(nomineeNamePicked).id
     }
 
-    aon.categoryNames.map { categoryName =>
-      PlayerPickForInsertion(aon.findCategoryByName(categoryName).id,
+    OscarNomineesDAO.categoryNames.map { categoryName =>
+      PlayerPickForInsertion(OscarNomineesDAO.findCategoryByName(categoryName).id,
         findPick(categoryName, "topPick"),
         findPick(categoryName, "midPick"),
         findPick(categoryName, "botPick"))

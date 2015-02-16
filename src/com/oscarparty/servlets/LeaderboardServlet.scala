@@ -2,7 +2,7 @@ package com.oscarparty.servlets
 
 import javax.servlet.http.{HttpServlet, HttpServletRequest, HttpServletResponse}
 
-import com.oscarparty.servlets.data.nominees.AllOscarNominees2015
+import com.oscarparty.servlets.data.nominees.OscarNomineesDAO
 import com.oscarparty.servlets.data.{WinnersDAO, NextCategory, PlayerPicksDAO}
 import com.oscarparty.servlets.playerpicks.Calculator
 
@@ -10,7 +10,6 @@ import scala.collection.JavaConversions._
 
 class LeaderboardServlet extends HttpServlet {
   override def doGet(req: HttpServletRequest, resp: HttpServletResponse): Unit = {
-    val aon = new AllOscarNominees2015
     //we'll show best picture picks if there's no next category assigned
     var nextCategoryToDisplay: String = NextCategory.nextCategory
     if (nextCategoryToDisplay == null || nextCategoryToDisplay.equals("None") || nextCategoryToDisplay.trim.length == 0) {
@@ -23,7 +22,7 @@ class LeaderboardServlet extends HttpServlet {
     val playersAndPointsUnsorted = playerPicks.map { case (player, listOfPicks) =>
       val playerName = player.name
       val points = Calculator.calculatePickPoints(listOfPicks)
-      val nextCatPicks = PlayerPicksDAO.playerPicksForCategory(player.id, new AllOscarNominees2015().findCategoryByName(nextCategoryToDisplay).id)
+      val nextCatPicks = PlayerPicksDAO.playerPicksForCategory(player.id, OscarNomineesDAO.findCategoryByName(nextCategoryToDisplay).id)
       (playerName, points, nextCatPicks)
     }.toArray
 
@@ -42,7 +41,7 @@ class LeaderboardServlet extends HttpServlet {
 
     //get the winners list to put on the leaderboard
     //get the categories in order
-    val categories = aon.getCategories
+    val categories = OscarNomineesDAO.getCategories
     //add winners where they exist
     val categoryWinners = categories.map { category =>
       new CategoryAndWinner(category.name, WinnersDAO.findCategoryWinner(category.id).fold("")(_.winningNominee.name))

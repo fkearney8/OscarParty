@@ -8,8 +8,6 @@ import scala.slick.lifted.Tag
 
 object PlayerPicksDAO extends SlickDAO {
 
-  private val aon = new AllOscarNominees2015
-
 //  TODO rename to PlayerPickData, make an external facing one tha thas the linkages filled in so I don't have to dereference IDs everywhere in the code
   case class PlayerPick(player: Int, category: Int, topPick: Int, midPick: Int, botPick: Int)
 
@@ -83,9 +81,9 @@ object PlayerPicksDAO extends SlickDAO {
     //TODO refactor away names for ranks
     val playerPicksForCat = playerPicksForCategory(playerId, categoryId)
     rank match {
-      case "topPick" => aon.getNominee(playerPicksForCat.topPick)
-      case "midPick" => aon.getNominee(playerPicksForCat.midPick)
-      case "botPick" => aon.getNominee(playerPicksForCat.botPick)
+      case "topPick" => OscarNomineesDAO.getNominee(playerPicksForCat.topPick)
+      case "midPick" => OscarNomineesDAO.getNominee(playerPicksForCat.midPick)
+      case "botPick" => OscarNomineesDAO.getNominee(playerPicksForCat.botPick)
     }
   }
 }
