@@ -35,19 +35,19 @@ class PicksSubmittedServlet extends HttpServlet {
     dispatcher.forward(req, res)
   }
 
-  private def convertPlayerPicks(playerPicks: Map[EachPickIdentifier, String]): List[PlayerPickForInsertion] = {
+  private def convertPlayerPicks(playerPicks: Map[EachPickIdentifier, Int]): List[PlayerPickForInsertion] = {
     //iterate through the categories, finding the picks for each rank and create the PlayerPick object
 
-    def findPick(categoryName: String, rankName: String): Int = {
-      val nomineeNamePicked = playerPicks(EachPickIdentifier(categoryName, rankName))
-      OscarNomineesDAO.findNomineeByName(nomineeNamePicked).id
+    def findPick(categoryId: Int, rankName: String): Int = {
+      val nomineeNamePicked = playerPicks(EachPickIdentifier(categoryId, rankName))
+      OscarNomineesDAO.getNominee(nomineeNamePicked).id
     }
 
-    OscarNomineesDAO.categoryNames.map { categoryName =>
-      PlayerPickForInsertion(OscarNomineesDAO.findCategoryByName(categoryName).id,
-        findPick(categoryName, "topPick"),
-        findPick(categoryName, "midPick"),
-        findPick(categoryName, "botPick"))
+    OscarNomineesDAO.getCategories.map { category =>
+      PlayerPickForInsertion(category.id,
+        findPick(category.id, "topPick"),
+        findPick(category.id, "midPick"),
+        findPick(category.id, "botPick"))
     }.toList
   }
 
@@ -63,14 +63,14 @@ class PicksSubmittedServlet extends HttpServlet {
   }
 
   //TODO refactor to get the ID of the nominees and categories instead of the names. Have to thread the IDs through to the form on the page.
-  private def filterPicksFromRequest(requestParams: Map[String, Array[String]]): Map[EachPickIdentifier, String] = {
+  private def filterPicksFromRequest(requestParams: Map[String, Array[String]]): Map[EachPickIdentifier, Int] = {
     requestParams.filter(!isPlayerNameParam(_)).map { case (key, selectionList) =>
-      //result params are like "Best Actress in a Supporting Role.botPick" = "[Amy Adams]"
+      //result params are like <id>.<rank> = [<nominee>] aka "2.botPick" = "[Amy Adams]"
       assertOneValue(key, selectionList)
       val splitCategory = key.split('.')
       if (splitCategory.length != 2)
         throw new ServletException(s"Request param key $key does not make sense, no '.' separator for category name and pick rank.")
-      EachPickIdentifier(splitCategory(0), splitCategory(1)) -> selectionList.head
+      EachPickIdentifier(Integer.parseInt(splitCategory(0)), splitCategory(1)) -> Integer.parseInt(selectionList.head)
     }
   }
 
@@ -90,5 +90,5 @@ class PicksSubmittedServlet extends HttpServlet {
 
 
 object PicksSubmittedServlet {
-  private case class EachPickIdentifier(categoryName: String, pickIdentifier: String)
+  private case class EachPickIdentifier(categoryId: Int, pickRank: String)
 }

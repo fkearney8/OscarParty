@@ -83,7 +83,7 @@
             $(this).droppable( "option", "accept", ui.draggable );
 
             //now track the dropped element
-            this.idDropped = ui.draggable.find("#nomineeId")
+            this.idDropped = ui.draggable.find("#nomineeId").text();
 
             //put it in the corresponding hidden input
             $(this).find("input").val(this.idDropped);
