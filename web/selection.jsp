@@ -83,9 +83,10 @@
             $(this).droppable( "option", "accept", ui.draggable );
 
             //now track the dropped element
-            this.textDropped = ui.draggable.text();
+            this.idDropped = ui.draggable.find("#nomineeId")
+
             //put it in the corresponding hidden input
-            $(this).find("input").val(this.textDropped);
+            $(this).find("input").val(this.idDropped);
         }
 
         //whether to revert a draggable back to its original position
@@ -109,13 +110,12 @@
             var inputs = $(".drop").find("input");
             var firstMissing = true;
             inputs.each(function(index) {
-                var inputName = $(this).attr("name");
+                var categoryName = $(this).attr("catName");
                 var inputValue = $(this).val();
-                console.log("For name " + inputName + " Value is " + inputValue);
+                console.log("For name " + categoryName + " Value is " + inputValue);
                 if (inputValue.trim().length == 0) {
                     allValid = false;
                     if (firstMissing) {
-                        var categoryName = inputName.substring(0, inputName.indexOf("."));
                         $("#modalPopover").text("Picks missing for " + categoryName);
                         $("#modalPopover").dialog("open");
                         firstMissing = false;
@@ -152,7 +152,6 @@
 
     <div id="modalPopover" style="text-align: center"></div>
 
-    // TODO stop passing the DAO as a request bean, pass categories and look up the nominees instead.
     <jsp:useBean id="allCategories" scope="request" class="java.util.LinkedList" />
 
     <form method="post" action="submitPicks.do">
@@ -169,17 +168,17 @@
             List<Nominee> categoryNominees = eachCategory.nomineesJava();
             for (Nominee eachNominee : categoryNominees) {
                 %>
-                <div class="selection"><%=eachNominee.name()%> <%=eachNominee.id()%></div>
+                <div class="selection"><span id="nomineeId" style="display:none;"><%=eachNominee.id()%></span><%=eachNominee.name()%></div>
                 <%
             } //end of each nominee
             %>
             </div>
             <div class="drop-area">
                 <div class="drop topPick"><%= eachCategory.points1() %> points pick
-                    <input type="hidden" name="<%=eachCategory.id()%>.topPick"/>
+                    <input type="hidden" catName="<%=eachCategory.name()%>" name="<%=eachCategory.id()%>.topPick"/>
                 </div>
                 <div class="drop midPick"><%= eachCategory.points2() %> points pick
-                    <input type="hidden" name="<%=eachCategory.id()%>.midPick"/>
+                    <input type="hidden" catName="<%=eachCategory.name()%>" name="<%=eachCategory.id()%>.midPick"/>
                 </div>
                 <div class="drop botPick">
                     <%
@@ -187,7 +186,7 @@
                     String point_s_string = botPointsVal > 1 ? "points" : "point";
                     %>
                     <%= botPointsVal %> <%= point_s_string %> pick
-                    <input type="hidden" name="<%=eachCategory.id()%>.botPick"/>
+                    <input type="hidden" catName="<%=eachCategory.name()%>" name="<%=eachCategory.id()%>.botPick"/>
                 </div>
             </div>
         </div>
