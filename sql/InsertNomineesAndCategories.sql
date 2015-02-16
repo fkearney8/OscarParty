@@ -169,7 +169,7 @@ insert into nominees values (DEFAULT, 22, 'Foxcatcher – Bill Corso and Dennis 
 insert into nominees values (DEFAULT, 22, 'The Grand Budapest Hotel – Frances Hannon and Mark Coulier');
 insert into nominees values (DEFAULT, 22, 'Guardians of the Galaxy – Elizabeth Yianni-Georgiou and David White');
 
-insert into categories values (23. 'Best Costume Design', 3, 2, 1);
+insert into categories values (23, 'Best Costume Design', 3, 2, 1);
 
 insert into nominees values (DEFAULT, 23, 'The Grand Budapest Hotel – Milena Canonero');
 insert into nominees values (DEFAULT, 23, 'Inherent Vice – Mark Bridges');
