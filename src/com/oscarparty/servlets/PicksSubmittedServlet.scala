@@ -18,6 +18,9 @@ import scala.collection.JavaConverters._
 class PicksSubmittedServlet extends HttpServlet {
 
   override def doPost(req: HttpServletRequest, res: HttpServletResponse) {
+    res.setContentType("text/html; charset=UTF-8")
+    res.setCharacterEncoding("UTF-8")
+
     val parameterMapJava: JMap[String, Array[String]] = req.getParameterMap
     val parameterMap = parameterMapJava.asScala.toMap
 

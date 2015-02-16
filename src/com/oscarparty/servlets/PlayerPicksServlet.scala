@@ -15,6 +15,9 @@ import scala.collection.JavaConverters._
  */
 class PlayerPicksServlet extends HttpServlet {
   override def doGet(req: HttpServletRequest, resp: HttpServletResponse): Unit = {
+    resp.setContentType("text/html; charset=UTF-8")
+    resp.setCharacterEncoding("UTF-8")
+
     val playerName = req.getParameter("playerName")
     val player = PlayerPicksDAO.getPlayer(playerName).get
     val playerPicks = PlayerPicksDAO.picksByPlayer(player.id)

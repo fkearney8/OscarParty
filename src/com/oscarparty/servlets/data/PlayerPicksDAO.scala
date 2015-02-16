@@ -30,7 +30,7 @@ object PlayerPicksDAO extends SlickDAO {
 
   case class Player(id: Int, name: String)
 
-  case class PlayerPickForInsertion(category: Int, topPick: Int, midPick: Int, botPick: Int)
+  case class PlayerPickForInsertion(category: Int, pick1: Int, pick2: Int, pick3: Int)
 
   class Players(tag: Tag) extends Table[Player] (tag, "players") {
     def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
@@ -46,11 +46,15 @@ object PlayerPicksDAO extends SlickDAO {
     players.filter(_.name === playerName).list.lastOption
   }
 
+  def getPlayer(playerId: Int): Player = DB.withSession { implicit session =>
+    players.filter(_.id === playerId).list.last
+  }
+
   def addPlayerPicks(playerName: String, newPicks: List[PlayerPickForInsertion]) = DB.withSession { implicit session =>
     players += Player(-1, playerName)
     val newPlayerId = players.filter(_.name === playerName).list.head.id
     val newPlayerPicks = newPicks.map { eachPick =>
-      new PlayerPick(newPlayerId, eachPick.category, eachPick.topPick, eachPick.midPick, eachPick.botPick)
+      new PlayerPick(newPlayerId, eachPick.category, eachPick.pick1, eachPick.pick2, eachPick.pick3)
     }
     playerPicks ++= newPlayerPicks
   }
@@ -73,17 +77,17 @@ object PlayerPicksDAO extends SlickDAO {
     }.toMap
   }
 
-  def playerPicksForCategory(playerId: Int, categoryId: Int): PlayerPick = DB.withSession{ implicit session =>
-    playerPicks.filter(_.playerId === playerId).filter(_.categoryId === categoryId).list.head
-  }
+  case class PlayerPickWithReferences(player: Player, category: Category, pick1: Nominee, pick2: Nominee, pick3: Nominee)
 
-  def playerPicksForCategoryAtPriority(playerId: Int, categoryId: Int, rank: String): Nominee = {
-    //TODO refactor away names for ranks
-    val playerPicksForCat = playerPicksForCategory(playerId, categoryId)
-    rank match {
-      case "topPick" => OscarNomineesDAO.getNominee(playerPicksForCat.topPick)
-      case "midPick" => OscarNomineesDAO.getNominee(playerPicksForCat.midPick)
-      case "botPick" => OscarNomineesDAO.getNominee(playerPicksForCat.botPick)
+  def playerPicksForCategory(playerId: Int, categoryId: Int): Option[PlayerPickWithReferences] = DB.withSession { implicit session =>
+    playerPicks.filter(_.playerId === playerId).filter(_.categoryId === categoryId).list.headOption.map {
+      playerPick =>
+        val player = getPlayer(playerPick.player)
+        val category = OscarNomineesDAO.getCategory(categoryId)
+        val pick1 = OscarNomineesDAO.getNominee(playerPick.topPick)
+        val pick2 = OscarNomineesDAO.getNominee(playerPick.midPick)
+        val pick3 = OscarNomineesDAO.getNominee(playerPick.botPick)
+        PlayerPickWithReferences(player, category, pick1, pick2, pick3)
     }
   }
 }

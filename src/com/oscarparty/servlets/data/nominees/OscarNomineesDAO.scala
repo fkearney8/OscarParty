@@ -18,15 +18,19 @@ object OscarNomineesDAO extends SlickDAO {
 
   def getCategory(id: Int): Category = DB.withSession { implicit session =>
     val category = categories.filter(_.id === id).list.head
-    val nomineesForCat = nominees.filter(_.categoryId === category.id).list
+    val nomineesForCat = nomineesForCategory(category.id)
     new Category(category, nomineesForCat)
   }
 
   def getCategories: Seq[Category] = DB.withSession { implicit session =>
-    categories.list.map { categoryData =>
-      val noms = nominees.filter(_.categoryId === categoryData.id).list
+    categories.sortBy(_.id).list.map { categoryData =>
+      val noms = nomineesForCategory(categoryData.id)
       new Category(categoryData, noms)
     }
+  }
+
+  private def nomineesForCategory(categoryId: Int)(implicit session: Session): List[Nominees#TableElementType] = {
+    nominees.filter(_.categoryId === categoryId).list
   }
 
   def categoryNames: Array[String] = DB.withSession { implicit session =>
@@ -45,18 +49,18 @@ object OscarNomineesDAO extends SlickDAO {
 
   def findCategoryByName(categoryName: String): Category = DB.withSession { implicit session =>
     val categoryData = categories.filter(_.name === categoryName).list.head
-    val noms = nominees.filter(_.categoryId === categoryData.id).list
+    val noms = nomineesForCategory(categoryData.id)
     new Category(categoryData, noms)
   }
 
-  def categoriesWithoutWinners: List[CategoryData] = DB.withSession { implicit session =>
+  def categoriesWithoutWinners: List[Category] = DB.withSession { implicit session =>
     categories.list.map { category =>
       val winnerForCat = WinnersDAO.findCategoryWinner(category.id)
       (category, winnerForCat)
     }.filter { case (category, winnerOption) =>
       winnerOption.isEmpty
     }.map { case (category, winnerOption) =>
-      category
+      new Category(category, nomineesForCategory(category.id))
     }
   }
 }

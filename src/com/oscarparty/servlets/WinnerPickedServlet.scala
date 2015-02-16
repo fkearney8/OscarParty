@@ -8,16 +8,18 @@ import com.oscarparty.servlets.data.{NextCategory, WinnersDAO}
 
 class WinnerPickedServlet extends HttpServlet {
   override def doPost(req: HttpServletRequest, resp: HttpServletResponse): Unit = {
+    resp.setContentType("text/html; charset=UTF-8")
+    resp.setCharacterEncoding("UTF-8")
+
     val winnerCat = req.getParameter("winnerCategory")
     val winnerSelectedString = req.getParameter("winnerSelected")
-    val nextCat = req.getParameter("nextCategory")
+    val nextCatString = req.getParameter("nextCategory")
 
     req.setAttribute("nextCategory", "-None Selected-")
     //validate the next Category and set if we have one
-    if (!nextCat.equals("None")) {
-      OscarNomineesDAO.findCategoryByName(nextCat)
-      NextCategory.nextCategory = nextCat
-      req.setAttribute("nextCategory", nextCat)
+    if (!nextCatString.equals("None")) {
+      NextCategory.nextCategory = Integer.parseInt(nextCatString)
+      req.setAttribute("nextCategory", nextCatString)
     }
 
     //validate the winner category and nominee, and save

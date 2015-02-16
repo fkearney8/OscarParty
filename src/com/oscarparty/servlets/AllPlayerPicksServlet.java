@@ -17,6 +17,10 @@ public class AllPlayerPicksServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html; charset=UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+
+
         //get all the player picks
         List<PlayerPicksDAO.PlayerPick> allPlayerPicks = JavaConverters.asJavaListConverter(PlayerPicksDAO.allPlayerPicks()).asJava();
         req.setAttribute("allPlayerPicks", allPlayerPicks);

@@ -101,7 +101,7 @@
                     <%= playerWithPoints.points() %>
                 </div>
                 <div class="leaderNextCatPicks">
-                    <%= playerWithPoints.nextCategoryWinners() %>
+                    <%= playerWithPoints.nextCategoryPicks() %>
                 </div>
             </div>
             <%
