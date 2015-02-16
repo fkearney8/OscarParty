@@ -166,27 +166,24 @@
         <div class="accordion-section">
             <div class="selection-area">
             <%
-            List<String> categoryNominees = eachCategory.nomineesJava();
-            for (String eachNominee : categoryNominees) {
+            List<Nominee> categoryNominees = allNominees.categoryNomineesJava(eachCategory);
+            for (Nominee eachNominee : categoryNominees) {
                 %>
                 <div class="selection"><%=eachNominee.name()%> <%=eachNominee.id()%></div>
                 <%
             } //end of each nominee
             %>
             </div>
-            <%
-            List<Integer> points = eachCategory.pointsJava();
-            %>
             <div class="drop-area">
-                <div class="drop topPick"><%= points.get(0) %> points pick
+                <div class="drop topPick"><%= eachCategory.points1() %> points pick
                     <input type="hidden" name="<%=eachCategory.id()%>.topPick"/>
                 </div>
-                <div class="drop midPick"><%= points.get(1) %> points pick
+                <div class="drop midPick"><%= eachCategory.points2() %> points pick
                     <input type="hidden" name="<%=eachCategory.id()%>.midPick"/>
                 </div>
                 <div class="drop botPick">
                     <%
-                    int botPointsVal = points.get(2);
+                    int botPointsVal = eachCategory.points3();
                     String point_s_string = botPointsVal > 1 ? "points" : "point";
                     %>
                     <%= botPointsVal %> <%= point_s_string %> pick

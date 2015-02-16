@@ -13,6 +13,7 @@ import java.util.List;
  * to check what will happen on the JPS.
  */
 public class CategoriesAndNomineesTestJava {
+
   @Test
   public void testCategoryNomineesWithJava() throws Exception {
     AllOscarNominees2015 aon = new AllOscarNominees2015();
@@ -31,7 +32,6 @@ public class CategoriesAndNomineesTestJava {
       }
     }
     Assert.assertTrue("Found the nominee.", foundNom);
-
   }
 
 }
