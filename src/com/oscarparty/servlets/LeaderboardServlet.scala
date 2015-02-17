@@ -33,7 +33,7 @@ class LeaderboardServlet extends HttpServlet {
     }
 
     def truncPick(string: String): String = {
-      string.take(pickTruncationSize) + "..."
+      string.take(pickTruncationSize) + {if (string.length > pickTruncationSize) "..." else ""}
     }
 
     //to make things easier on the leaderboard page, we want the users in order by points
