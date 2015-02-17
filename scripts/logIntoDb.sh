@@ -1,1 +1,1 @@
-sudo -u postgres psql -U oscar -d OscarParty -h localhost
+psql -U oscar -W -h localhost -d OscarParty
