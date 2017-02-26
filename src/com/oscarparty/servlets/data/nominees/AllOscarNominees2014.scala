@@ -1,19 +1,11 @@
 package com.oscarparty.servlets.data.nominees
 
-import com.oscarparty.servlets.data.nominees.AllOscarNominees2014.OscarCategory
-
-import scala.collection.JavaConverters._
 import scala.collection.mutable.ArrayBuffer
-
-
-object AllOscarNominees2014 {
-  case class OscarCategory(categoryName: String, nominees: Array[String], points: Array[Int] = Array(3, 2, 1))
-}
 
 class AllOscarNominees2014 {
 
-  private val categories = new ArrayBuffer[OscarCategory]()
-  categories += new OscarCategory("Best Picture",
+  private val categories = new ArrayBuffer[OscarCategoryNominees]()
+  categories += new OscarCategoryNominees("Best Picture",
     Array ("American Hustle",
       "Captain Phillips",
       "Dallas Buyers Club",
@@ -24,7 +16,7 @@ class AllOscarNominees2014 {
       "12 Years a Slave",
       "The Wolf of Wall Street"),
     Array (15, 12, 9))
-  categories += new OscarCategory("Best Actor in a Leading Role",
+  categories += new OscarCategoryNominees("Best Actor in a Leading Role",
     Array (
       "Christian Bale (American Hustle)",
       "Bruce Dern (Nebraska)",
@@ -32,7 +24,7 @@ class AllOscarNominees2014 {
       "Chiwetel Ejiofor (12 Years a Slave)",
       "Matthew McConaughey (Dallas Buyers Club)"),
     Array(5,4,3))
-  categories += new OscarCategory("Best Actress in a Leading Role",
+  categories += new OscarCategoryNominees("Best Actress in a Leading Role",
     Array (
       "Amy Adams (American Hustle)",
       "Cate Blanchett (Blue Jasmine)",
@@ -40,7 +32,7 @@ class AllOscarNominees2014 {
       "Judi Dench (Philomena)",
       "Meryl Streep (August: Osage County)"),
     Array(5,4,3))
-  categories += new OscarCategory("Best Actor in a Supporting Role",
+  categories += new OscarCategoryNominees("Best Actor in a Supporting Role",
     Array (
       "Barkhad Abdi (Captain Phillips)",
       "Bradley Cooper (American Hustle)",
@@ -48,7 +40,7 @@ class AllOscarNominees2014 {
       "Jonah Hill (The Wolf of Wall Street)",
       "Jared Leto (Dallas Buyers Club)"),
     Array(5,4,3))
-  categories += new OscarCategory("Best Actress in a Supporting Role",
+  categories += new OscarCategoryNominees("Best Actress in a Supporting Role",
     Array (
       "Sally Hawkins (Blue Jasmine)",
       "Jennifer Lawrence (American Hustle)",
@@ -56,7 +48,7 @@ class AllOscarNominees2014 {
       "Julia Roberts (August: Osage County)",
       "June Squibb (Nebraska)"),
     Array(5,4,3))
-  categories += new OscarCategory("Best Director",
+  categories += new OscarCategoryNominees("Best Director",
     Array (
       "David O. Russell (American Hustle)",
       "Alfonso Cuarón (Gravity)",
@@ -64,109 +56,109 @@ class AllOscarNominees2014 {
       "Steve McQueen (12 Years a Slave)",
       "Martin Scorsese (The Wolf of Wall Street)"),
     Array(5,4,3))
-  categories += new OscarCategory("Best Animated Feature",
+  categories += new OscarCategoryNominees("Best Animated Feature",
     Array (
       "The Croods ",
       "Despicable Me 2 ",
       "Ernest & Celestine ",
       "Frozen ",
       "The Wind Rises "))
-  categories += new OscarCategory("Best Cinematography",
+  categories += new OscarCategoryNominees("Best Cinematography",
     Array (
       "The Grandmaster (Philippe Le Sourd)",
       "Gravity (Emmanuel Lubezki)",
       "Inside Llewyn Davis (Bruno Delbonnel)",
       "Nebraska (Phedon Papamichael)",
       "Prisoners (Roger A. Deakins)"))
-  categories += new OscarCategory("Best Costume Design",
+  categories += new OscarCategoryNominees("Best Costume Design",
     Array (
       "American Hustle (Michael Wilkinson)",
       "The Grandmaster (William Chang Suk Ping)",
       "The Great Gatsby (Catherine Martin)",
       "The Invisible Woman (Michael O'Connor)",
       "12 Years a Slave (Patricia Norris)"))
-  categories += new OscarCategory("Best Documentary Feature",
+  categories += new OscarCategoryNominees("Best Documentary Feature",
     Array (
       "The Act of Killing",
       "Cutie and the Boxer",
       "Dirty Wars",
       "The Square",
       "20 Feet from Stardom"))
-  categories += new OscarCategory("Best Documentary Short",
+  categories += new OscarCategoryNominees("Best Documentary Short",
     Array (
       "CaveDigger",
       "Facing Fear",
       "Karama Has No Walls",
       "The Lady in Number 6: Music Saved My Life",
       "Prison Terminal: The Last Days of Private Jack Hall"))
-  categories += new OscarCategory("Best Film Editing",
+  categories += new OscarCategoryNominees("Best Film Editing",
     Array (
       "American Hustle",
       "Captain Phillips",
       "Dallas Buyers Club",
       "Gravity",
       "12 Years a Slave"))
-  categories += new OscarCategory("Best Foreign Language Film",
+  categories += new OscarCategoryNominees("Best Foreign Language Film",
     Array (
       "The Broken Circle Breakdown (Belgium)",
       "The Great Beauty (Italy)",
       "The Hunt (Denmark)",
       "The Missing Picture (Cambodia)",
       "Omar (Palestine)"))
-  categories += new OscarCategory("Best Makeup and Hairstyling",
+  categories += new OscarCategoryNominees("Best Makeup and Hairstyling",
     Array (
       "Dallas Buyers Club",
       "Jackass Presents: Bad Grandpa",
       "The Lone Ranger"))
-  categories += new OscarCategory("Best Original Score",
+  categories += new OscarCategoryNominees("Best Original Score",
     Array (
       "The Book Thief (John Williams)",
       "Gravity (Steven Price)",
       "Her (William Butler, Owen Pallett)",
       "Philomena (Alexandre Desplat)",
       "Saving Mr. Banks (Thomas Newman)"))
-  categories += new OscarCategory("Best Original Song",
+  categories += new OscarCategoryNominees("Best Original Song",
     Array (
       "\"Happy\" Despicable Me 2",
       "\"Let It Go\" Frozen",
       "\"The Moon Song\" Her",
       "\"Ordinary Love\" Mandela: Long Walk to Freedom"))
-  categories += new OscarCategory("Best Production Design",
+  categories += new OscarCategoryNominees("Best Production Design",
     Array (
       "American Hustle",
       "Gravity",
       "The Great Gatsby",
       "Her",
       "12 Years a Slave"))
-  categories += new OscarCategory("Best Animated Short Film",
+  categories += new OscarCategoryNominees("Best Animated Short Film",
     Array (
       "Feral",
       "Get a Horse!",
       "Mr. Hublot",
       "Possessions",
       "Room on the Broom"))
-  categories += new OscarCategory("Best Live Action Short Film",
+  categories += new OscarCategoryNominees("Best Live Action Short Film",
     Array (
       "Aquel No Era Yo (That Wasn't Me)",
       "Avant Que De Tout Perdre (Just Before Losing Everything)",
       "Helium",
       "Pitääkö Mun Kaikki Hoitaa? (Do I Have to Take Care of Everything?)",
       "The Voorman Problem"))
-  categories += new OscarCategory("Best Sound Editing",
+  categories += new OscarCategoryNominees("Best Sound Editing",
     Array (
       "All Is Lost",
       "Captain Phillips",
       "Gravity",
       "The Hobbit: The Desolation of Smaug",
       "Lone Survivor"))
-  categories += new OscarCategory("Best Sound Mixing",
+  categories += new OscarCategoryNominees("Best Sound Mixing",
     Array (
       "Captain Phillips",
       "Gravity",
       "The Hobbit: The Desolation of Smaug",
       "Inside Llewyn Davis",
       "Lone Survivor"))
-  categories += new OscarCategory("Best Visual Effects",
+  categories += new OscarCategoryNominees("Best Visual Effects",
     Array (
       "Gravity",
       "The Hobbit: The Desolation of Smaug",
@@ -174,7 +166,7 @@ class AllOscarNominees2014 {
       "The Lone Ranger",
       "Star Trek Into Darkness"))
 
-  categories += new OscarCategory("Best Adapted Screenplay",
+  categories += new OscarCategoryNominees("Best Adapted Screenplay",
     Array (
       "Before Midnight",
       "Captain Phillips",
@@ -182,7 +174,7 @@ class AllOscarNominees2014 {
       "12 Years a Slave",
       "The Wolf of Wall Street"))
 
-  categories += new OscarCategory("Best Original Screenplay",
+  categories += new OscarCategoryNominees("Best Original Screenplay",
     Array (
       "American Hustle",
       "Blue Jasmine",
