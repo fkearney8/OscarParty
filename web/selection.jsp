@@ -131,13 +131,13 @@
 </head>
 <body>
     <%@include file="header.jsp"%>
-    <h2>Welcome to the Oscar Party!</h2>
+    <h2>Party like a Oscar!</h2>
 
     <p style="width: 40%; font-size: 18px;">
-    Hello Friends,
-    After last year's success, we're doing this again. Below you will find
-    all the Oscar nominations listed by category. Everyone will select their favorites, pony up a fiver, and we'll
-    see who knows the movies the best. Or maybe who can identify the Academy's biases the best. Anyway, it should
+    Hello Friends,<br/>
+    Below you will find all the Oscar nominations listed by category. Everyone will
+    select their favorites, pony up a fiver, and we'll
+    see who's the movie buff. Or maybe who can identify the Academy's biases the best. Anyway, it should
     make for some extra fun while watching the Oscars.<br/>
     <br/>
     <b>Instructions:</b><br/>

@@ -1,3 +1,7 @@
+update categories set points1=12, points2=9, points3=6 where id=1;
+update categories set points1=8, points2=6, points3=4 where id=3;
+update categories set points1=8, points2=6, points3=4 where id=4;
+
 insert into nominees values (DEFAULT, 1, 'Arrival');
 insert into nominees values (DEFAULT, 1, 'Fences');
 insert into nominees values (DEFAULT, 1, 'Hacksaw Ridge');
@@ -50,11 +54,11 @@ insert into nominees values (DEFAULT, 21, 'Lion - Greig Fraser');
 insert into nominees values (DEFAULT, 21, 'Moonlight - James Laxton');
 insert into nominees values (DEFAULT, 21, 'Silence - Rodrigo Prieto');
 
-insert into nominees values (DEFAULT, 23, 'Allied - Joanna Johnston');
-insert into nominees values (DEFAULT, 23, 'Fantastic Beasts and Where to Find Them - Colleen Atwood');
-insert into nominees values (DEFAULT, 23, 'Florence Foster Jenkins - Consolata Boyle');
-insert into nominees values (DEFAULT, 23, 'Jackie - Madeline Fontaine');
-insert into nominees values (DEFAULT, 23, 'La La Land - Mary Zophres');
+insert into nominees values (DEFAULT, 23, 'Allied');
+insert into nominees values (DEFAULT, 23, 'Fantastic Beasts and Where to Find Them');
+insert into nominees values (DEFAULT, 23, 'Florence Foster Jenkins');
+insert into nominees values (DEFAULT, 23, 'Jackie');
+insert into nominees values (DEFAULT, 23, 'La La Land');
 
 insert into nominees values (DEFAULT, 11, 'Fire at Sea');
 insert into nominees values (DEFAULT, 11, 'I Am Not Your Negro');
@@ -64,7 +68,7 @@ insert into nominees values (DEFAULT, 11, '13th');
 
 insert into nominees values (DEFAULT, 12, 'Extremis');
 insert into nominees values (DEFAULT, 12, '4.1 Miles');
-insert into nominees values (DEFAULT, 12, 'Joe\'s Violin');
+insert into nominees values (DEFAULT, 12, 'Joe''s Violin');
 insert into nominees values (DEFAULT, 12, 'Watani: My Homeland');
 insert into nominees values (DEFAULT, 12, 'The White Helmets');
 
@@ -90,11 +94,11 @@ insert into nominees values (DEFAULT, 16, 'Lion');
 insert into nominees values (DEFAULT, 16, 'Moonlight');
 insert into nominees values (DEFAULT, 16, 'Passengers');
 
-insert into nominees values (DEFAULT, 17, 'Audition (The Fools Who Dream) - La La Land; Music by Justin Hurwitz; Lyric by Benj Pasek and Justin Paul');
-insert into nominees values (DEFAULT, 17, 'Can\'t Stop The Feeling - Trolls; Music and Lyric by Justin Timberlake, Max Martin and Karl Johan Schuster');
-insert into nominees values (DEFAULT, 17, 'City of Stars - La La Land; Music by Justin Hurwitz; Lyric by Benj Pasek and Justin Paul');
-insert into nominees values (DEFAULT, 17, 'The Empty Chair - Jim: The James Foley Story; Music and Lyric by J. Ralph and Sting');
-insert into nominees values (DEFAULT, 17, 'How Far I\'ll Go - from Moana; Music and Lyric by Lin-Manuel Miranda');
+insert into nominees values (DEFAULT, 17, 'Audition (The Fools Who Dream) - La La Land');
+insert into nominees values (DEFAULT, 17, 'Can''t Stop The Feeling - Trolls');
+insert into nominees values (DEFAULT, 17, 'City of Stars - La La Land');
+insert into nominees values (DEFAULT, 17, 'The Empty Chair - Jim: The James Foley Story');
+insert into nominees values (DEFAULT, 17, 'How Far I''ll Go - from Moana');
 
 insert into nominees values (DEFAULT, 20, 'Arrival');
 insert into nominees values (DEFAULT, 20, 'Fantastic Beasts and Where to Find Them');
