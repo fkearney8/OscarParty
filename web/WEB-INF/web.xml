@@ -52,8 +52,7 @@
         <param-name>webmaster</param-name>
         <param-value>fkearney8@gmail.com</param-value>
         <description>
-            The EMAIL address of the administrator to whom questions
-            and comments about this application should be addressed.
+            Party like an Os-car!
         </description>
     </context-param>
 
@@ -82,73 +81,89 @@
 
          You can define any number of servlets, including zero.
     -->
-    <servlet>
-        <servlet-name>submitPicks</servlet-name>
-        <description>Servlet to handle the picks being submitted.
-        </description>
-        <servlet-class>com.oscarparty.servlets.PicksSubmittedServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>selection</servlet-name>
-        <description>Servlet to create the list of picks and allow the gambler to make
-            their selections.
-        </description>
-        <servlet-class>com.oscarparty.servlets.SelectionServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>seeAllPicks</servlet-name>
-        <description>Servlet to see the list of submitted picks</description>
-        <servlet-class>com.oscarparty.servlets.AllPlayerPicksServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>winnerPicker</servlet-name>
-        <description>Servlet to select the winners and the next likely category</description>
-        <servlet-class>com.oscarparty.servlets.WinnerPickerServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>submitWinner</servlet-name>
-        <description>Servlet to handle the winner selection and save.</description>
-        <servlet-class>com.oscarparty.servlets.WinnerPickedServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>leaderboard</servlet-name>
-        <description>Servlet for the leaderboard.</description>
-        <servlet-class>com.oscarparty.servlets.LeaderboardServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>playerPicks</servlet-name>
-        <description>Servlet for seeing an individual's picks off the leaderboard.</description>
-        <servlet-class>com.oscarparty.servlets.PlayerPicksServlet</servlet-class>
-    </servlet>
 
-    <servlet-mapping>
-        <servlet-name>submitPicks</servlet-name>
-        <url-pattern>/submitPicks.do</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>submitWinner</servlet-name>
-        <url-pattern>/winnersPicked.do</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>selection</servlet-name>
-        <url-pattern>/selection</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>seeAllPicks</servlet-name>
-        <url-pattern>/seeAllPicks</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>winnerPicker</servlet-name>
-        <url-pattern>/winnerPicker</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>leaderboard</servlet-name>
-        <url-pattern>/leaderboard</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>playerPicks</servlet-name>
-        <url-pattern>/playerPicks</url-pattern>
-    </servlet-mapping>
+    <!--FXK: Using GuiceFilter to set up servlets with a dependency injection framework.-->
+    <filter>
+        <filter-name>guiceFilter</filter-name>
+        <filter-class>com.google.inject.servlet.GuiceFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>guiceFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <listener>
+        <listener-class>stock.regret.guice.StockRegretGuiceServletConfig</listener-class>
+    </listener>
+
+    <!--<servlet>-->
+        <!--<servlet-name>submitPicks</servlet-name>-->
+        <!--<description>Servlet to handle the picks being submitted.-->
+        <!--</description>-->
+        <!--<servlet-class>com.oscarparty.servlets.PicksSubmittedServlet</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet>-->
+        <!--<servlet-name>selection</servlet-name>-->
+        <!--<description>Servlet to create the list of picks and allow the gambler to make-->
+            <!--their selections.-->
+        <!--</description>-->
+        <!--<servlet-class>com.oscarparty.servlets.SelectionServlet</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet>-->
+        <!--<servlet-name>seeAllPicks</servlet-name>-->
+        <!--<description>Servlet to see the list of submitted picks</description>-->
+        <!--<servlet-class>com.oscarparty.servlets.AllPlayerPicksServlet</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet>-->
+        <!--<servlet-name>winnerPicker</servlet-name>-->
+        <!--<description>Servlet to select the winners and the next likely category</description>-->
+        <!--<servlet-class>com.oscarparty.servlets.WinnerPickerServlet</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet>-->
+        <!--<servlet-name>submitWinner</servlet-name>-->
+        <!--<description>Servlet to handle the winner selection and save.</description>-->
+        <!--<servlet-class>com.oscarparty.servlets.WinnerPickedServlet</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet>-->
+        <!--<servlet-name>leaderboard</servlet-name>-->
+        <!--<description>Servlet for the leaderboard.</description>-->
+        <!--<servlet-class>com.oscarparty.servlets.LeaderboardServlet</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet>-->
+        <!--<servlet-name>playerPicks</servlet-name>-->
+        <!--<description>Servlet for seeing an individual's picks off the leaderboard.</description>-->
+        <!--<servlet-class>com.oscarparty.servlets.PlayerPicksServlet</servlet-class>-->
+    <!--</servlet>-->
+
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>submitPicks</servlet-name>-->
+        <!--<url-pattern>/submitPicks.do</url-pattern>-->
+    <!--</servlet-mapping>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>submitWinner</servlet-name>-->
+        <!--<url-pattern>/winnersPicked.do</url-pattern>-->
+    <!--</servlet-mapping>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>selection</servlet-name>-->
+        <!--<url-pattern>/selection</url-pattern>-->
+    <!--</servlet-mapping>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>seeAllPicks</servlet-name>-->
+        <!--<url-pattern>/seeAllPicks</url-pattern>-->
+    <!--</servlet-mapping>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>winnerPicker</servlet-name>-->
+        <!--<url-pattern>/winnerPicker</url-pattern>-->
+    <!--</servlet-mapping>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>leaderboard</servlet-name>-->
+        <!--<url-pattern>/leaderboard</url-pattern>-->
+    <!--</servlet-mapping>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>playerPicks</servlet-name>-->
+        <!--<url-pattern>/playerPicks</url-pattern>-->
+    <!--</servlet-mapping>-->
 
     <!-- Define the default session timeout for your application,
          in minutes.  From a servlet or JSP page, you can modify
@@ -156,7 +171,7 @@
          HttpSession.getMaxInactiveInterval(). -->
 
     <session-config>
-        <session-timeout>30</session-timeout>    <!-- 30 minutes -->
+        <session-timeout>300</session-timeout>
     </session-config>
 
 
