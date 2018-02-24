@@ -2,11 +2,10 @@ package com.oscarparty.servlets.data.nominees
 
 import scala.collection.mutable.ArrayBuffer
 
-object AllOscarNominees2018 {
-  private val categories = new ArrayBuffer[OscarCategoryNominees]()
+object Nominees2018 {
+  private val categories = new ArrayBuffer[CategoryNominees]()
 
-
-  categories += OscarCategoryNominees("Best Picture", Array(
+  categories += CategoryNominees(CategoryName.BestPicture, Array(
     "Call Me by Your Name",
     "Darkest Hour",
     "Dunkirk",
@@ -18,7 +17,7 @@ object AllOscarNominees2018 {
     "Three Billboards Outside Ebbing, Missouri"
   ))
 
-  categories += OscarCategoryNominees("Best Director", Array(
+  categories += CategoryNominees(CategoryName.Director, Array(
     "Christopher Nolan - Dunkirk",
     "Jordan Peele - Get Out",
     "Greta Gerwig - Lady Bird",
@@ -26,7 +25,7 @@ object AllOscarNominees2018 {
     "Guillermo del Toro - The Shape of Water"
   ))
 
-  categories += OscarCategoryNominees("Best Actor", Array(
+  categories += CategoryNominees(CategoryName.Actor, Array(
     "Timothée Chalamet - Call Me by Your Name as Elio Perlman",
     "Daniel Day-Lewis - Phantom Thread as Reynolds Woodcock",
     "Daniel Kaluuya - Get Out as Chris Washington",
@@ -34,7 +33,7 @@ object AllOscarNominees2018 {
     "Denzel Washington - Roman J. Israel, Esq. as Roman J. Israel"
   ))
 
-  categories += OscarCategoryNominees("Best Actress", Array(
+  categories += CategoryNominees(CategoryName.Actress, Array(
     "Sally Hawkins - The Shape of Water as Elisa Esposito",
     "Frances McDormand - Three Billboards Outside Ebbing, Missouri as Mildred Hayes",
     "Margot Robbie - I, Tonya as Tonya Harding",
@@ -42,7 +41,7 @@ object AllOscarNominees2018 {
     "Meryl Streep - The Post as Katharine Graham"
   ))
 
-  categories += OscarCategoryNominees("Best Supporting Actor", Array(
+  categories += CategoryNominees(CategoryName.SupportingActor, Array(
     "Willem Dafoe - The Florida Project as Bobby Hicks",
     "Woody Harrelson - Three Billboards Outside Ebbing, Missouri as Chief Bill Willoughby",
     "Richard Jenkins - The Shape of Water as Giles",
@@ -50,7 +49,7 @@ object AllOscarNominees2018 {
     "Sam Rockwell - Three Billboards Outside Ebbing, Missouri as Officer Jason Dixon"
   ))
 
-  categories += OscarCategoryNominees("Best Supporting Actress", Array(
+  categories += CategoryNominees(CategoryName.SupportingActress, Array(
     "Mary J. Blige - Mudbound as Florence Jackson",
     "Allison Janney - I, Tonya as LaVona Golden",
     "Lesley Manville - Phantom Thread as Cyril Woodcock",
@@ -58,7 +57,7 @@ object AllOscarNominees2018 {
     "Octavia Spencer - The Shape of Water as Zelda Delilah Fuller"
   ))
 
-  categories += OscarCategoryNominees("Best Original Screenplay", Array(
+  categories += CategoryNominees(CategoryName.OriginalScreenplay, Array(
     "The Big Sick - Written by Emily V. Gordon and Kumail Nanjiani",
     "Get Out - Written by Jordan Peele",
     "Lady Bird - Written by Greta Gerwig",
@@ -66,7 +65,7 @@ object AllOscarNominees2018 {
     "Three Billboards Outside Ebbing, Missouri - Written by Martin McDonagh"
   ))
 
-  categories += OscarCategoryNominees("Best Adapted Screenplay", Array(
+  categories += CategoryNominees(CategoryName.AdaptedScreenplay, Array(
     "Call Me by Your Name",
     "The Disaster Artist",
     "Logan",
@@ -74,7 +73,7 @@ object AllOscarNominees2018 {
     "Mudbound"
   ))
 
-  categories += OscarCategoryNominees("Best Animated Feature Film", Array(
+  categories += CategoryNominees(CategoryName.AnimatedFeatureFilm, Array(
     "The Boss Baby",
     "The Breadwinner",
     "Coco",
@@ -82,7 +81,7 @@ object AllOscarNominees2018 {
     "Loving Vincent"
   ))
 
-  categories += OscarCategoryNominees("Best Foreign Language Film", Array(
+  categories += CategoryNominees(CategoryName.ForeignLanguageFilm, Array(
     "A Fantastic Woman (Chile)) in Spanish",
   "The Insult (Lebanon)) in Arabic",
   "Loveless (Russia)) in Russian",
@@ -90,7 +89,7 @@ object AllOscarNominees2018 {
   "The Square (Sweden)) in Swedish"
   ))
 
-  categories += OscarCategoryNominees("Best Documentary Feature", Array(
+  categories += CategoryNominees(CategoryName.DocumentaryFeature, Array(
     "Abacus: Small Enough to Jail",
     "Faces Places",
     "Icarus",
@@ -98,7 +97,7 @@ object AllOscarNominees2018 {
     "Strong Island"
   ))
 
-  categories += OscarCategoryNominees("Best Documentary Short Subject", Array(
+  categories += CategoryNominees(CategoryName.DocumentaryShortSubject, Array(
     "Edith+Eddie",
     "Heaven Is a Traffic Jam on the 405",
     "Heroin(e))",
@@ -106,7 +105,7 @@ object AllOscarNominees2018 {
     "Traffic Stop"
   ))
 
-  categories += OscarCategoryNominees("Best Live Action Short Film", Array(
+  categories += CategoryNominees(CategoryName.LiveActionShortFilm, Array(
     "DeKalb Elementary",
     "The Eleven O'Clock",
     "My Nephew Emmett",
@@ -114,7 +113,7 @@ object AllOscarNominees2018 {
     "Watu Wote/All of Us"
   ))
 
-  categories += OscarCategoryNominees("Best Animated Short Film", Array(
+  categories += CategoryNominees(CategoryName.AnimatedShortFilm, Array(
     "Dear Basketball",
     "Garden Party",
     "Lou",
@@ -122,7 +121,7 @@ object AllOscarNominees2018 {
     "Revolting Rhymes"
   ))
 
-  categories += OscarCategoryNominees("Best Original Score", Array(
+  categories += CategoryNominees(CategoryName.OriginalScore, Array(
     "Dunkirk - Hans Zimmer",
     "Phantom Thread - Jonny Greenwood",
     "The Shape of Water - Alexandre Desplat",
@@ -130,7 +129,7 @@ object AllOscarNominees2018 {
     "Three Billboards Outside Ebbing, Missouri - Carter Burwell"
   ))
 
-  categories += OscarCategoryNominees("Best Original Song", Array(
+  categories += CategoryNominees(CategoryName.OriginalSong, Array(
     "\"Mighty River\" from Mudbound - Music and Lyrics by Mary J. Blige, Raphael Saadiq and Taura Stinson",
     "\"Mystery of Love\" from Call Me by Your Name - Music and Lyrics by Sufjan Stevens",
     "\"Remember Me\" from Coco - Music and Lyrics by Kristen Anderson-Lopez and Robert Lopez",
@@ -138,7 +137,7 @@ object AllOscarNominees2018 {
     "\"This Is Me\" from The Greatest Showman - Music and Lyrics by Benj Pasek and Justin Paul"
   ))
 
-  categories += OscarCategoryNominees("Best Sound Editing", Array(
+  categories += CategoryNominees(CategoryName.SoundEditing, Array(
     "Baby Driver",
     "Blade Runner 2049",
     "Dunkirk",
@@ -146,7 +145,7 @@ object AllOscarNominees2018 {
     "Star Wars: The Last Jedi"
   ))
 
-  categories += OscarCategoryNominees("Best Sound Mixing", Array(
+  categories += CategoryNominees(CategoryName.SoundMixing, Array(
     "Baby Driver",
     "Blade Runner 2049",
     "Dunkirk",
@@ -154,7 +153,7 @@ object AllOscarNominees2018 {
     "Star Wars: The Last Jedi"
   ))
 
-  categories += OscarCategoryNominees("Best Production Design", Array(
+  categories += CategoryNominees(CategoryName.ProductionDesign, Array(
     "Beauty and the Beast",
     "Blade Runner 2049",
     "Darkest Hour",
@@ -162,7 +161,7 @@ object AllOscarNominees2018 {
     "The Shape of Water"
   ))
 
-  categories += OscarCategoryNominees("Best Cinematography", Array(
+  categories += CategoryNominees(CategoryName.Cinematography, Array(
     "Blade Runner 2049",
     "Darkest Hour",
     "Dunkirk",
@@ -170,13 +169,13 @@ object AllOscarNominees2018 {
     "The Shape of Water"
   ))
 
-  categories += OscarCategoryNominees("Best Makeup and Hairstyling", Array(
+  categories += CategoryNominees(CategoryName.MakeupAndHairstyling, Array(
     "Darkest Hour",
     "Victoria & Abdul",
     "Wonder"
   ))
 
-  categories += OscarCategoryNominees("Best Costume Design", Array(
+  categories += CategoryNominees(CategoryName.CostumeDesign, Array(
     "Beauty and the Beast",
     "Darkest Hour",
     "Phantom Thread",
@@ -184,7 +183,7 @@ object AllOscarNominees2018 {
     "Victoria & Abdul - Consolata Boyle"
   ))
 
-  categories += OscarCategoryNominees("Best Film Editing", Array(
+  categories += CategoryNominees(CategoryName.FilmEditing,Array(
     "Baby Driver",
     "Dunkirk",
     "I, Tonya",
@@ -192,7 +191,7 @@ object AllOscarNominees2018 {
     "Three Billboards Outside Ebbing, Missouri"
   ))
 
-  categories += OscarCategoryNominees("Best Visual Effects", Array(
+  categories += CategoryNominees(CategoryName.VisualEffects, Array(
     "Blade Runner 2049",
     "Guardians of the Galaxy Vol. 2",
     "Kong: Skull Island",

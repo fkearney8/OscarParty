@@ -136,7 +136,7 @@
     <p style="width: 40%; font-size: 18px;">
     Hello Friends,<br/>
     Below you will find all the Oscar nominations listed by category. Everyone will
-    select their favorites, pony up a fiver, and we'll
+    select their favorites, pony up 10 buckaroos, and we'll
     see who's the movie buff. Or maybe who can identify the Academy's biases the best. Anyway, it should
     make for some extra fun while watching the Oscars.<br/>
     <br/>

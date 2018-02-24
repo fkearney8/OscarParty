@@ -5,24 +5,41 @@ import scala.slick.lifted.Tag
 
 import scala.collection.JavaConverters._
 
-case class CategoryData(id: Int, name: String, points1: Int, points2: Int, points3: Int)
+/** The points for each choice in a category. */
+sealed case class CategoryPoints(points1st: Int, points2nd: Int, points3rd: Int)
+object HighPoints extends CategoryPoints(12, 9, 6)
+object PrettyHighPoints extends CategoryPoints(8, 6, 4)
+object MediumPoints extends CategoryPoints(5,4,3)
+object MinimumPoints extends CategoryPoints(3, 2, 1)
 
-case class Category(id: Int, name: String, points1: Int, points2: Int, points3: Int, nominees: List[Nominee]) {
-  def this(categoryData: CategoryData, nominees: List[Nominee]) = {
-    this(categoryData.id, categoryData.name, categoryData.points1, categoryData.points2, categoryData.points3, nominees)
-  }
+object CategoryName extends Enumeration {
+  protected case class Val(displayName: String, points: CategoryPoints = MinimumPoints) extends super.Val
 
-  def nomineesJava: java.util.List[Nominee] = nominees.asJava
+  val BestPicture = Val("Best Picture", HighPoints)
+  val Actor = Val("Best Actor", PrettyHighPoints)
+  val Actress = Val("Best Actress", PrettyHighPoints)
+  val Director = Val("Best Director", PrettyHighPoints)
+  val SupportingActor = Val("Best Supporting Actor", MediumPoints)
+  val SupportingActress = Val("Best Supporting Actress", MediumPoints)
+  val OriginalScreenplay = Val("Best Original Screenplay")
+  val AdaptedScreenplay = Val("Best Adapted Screenplay")
+  val AnimatedFeatureFilm = Val("Best Animated Feature Film")
+  val ForeignLanguageFilm = Val("Best Foreign Language Film")
+  val DocumentaryFeature = Val("Best Documentary Feature")
+  val DocumentaryShortSubject = Val("Best Documentary Short Subject")
+  val LiveActionShortFilm = Val("Best Live Action Short Film")
+  val AnimatedShortFilm = Val("Best Animated Short Film")
+  val OriginalScore = Val("Best Original Score")
+  val OriginalSong = Val("Best Original Song")
+  val SoundEditing = Val("Best Sound Editing")
+  val SoundMixing = Val("Best Sound Mixing")
+  val ProductionDesign = Val("Best Production Design")
+  val Cinematography = Val("Best Cinematography")
+  val MakeupAndHairstyling = Val("Best Makeup and Hairstyling")
+  val CostumeDesign = Val("Best Costume Design")
+  val FilmEditing = Val("Best Film Editing")
+  val VisualEffects = Val("Best Visual Effects")
 }
 
-class Categories(tag: Tag) extends Table[CategoryData] (tag, "categories") {
-  def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
-  def name = column[String]("name")
-  def points1 = column[Int]("points1")
-  def points2 = column[Int]("points2")
-  def points3 = column[Int]("points3")
-
-  def * = (id, name, points1, points2, points3) <> (CategoryData.tupled, CategoryData.unapply)
-}
 
 
