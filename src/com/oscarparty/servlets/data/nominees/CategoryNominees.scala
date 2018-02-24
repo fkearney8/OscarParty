@@ -1,7 +1,7 @@
 package com.oscarparty.servlets.data.nominees
 
 object CategoryNominees {
-  def CategoryNominees(categoryName: CategoryName.Value, nomineeNames: Seq[String]): CategoryNominees = {
+  def apply(categoryName: CategoryName.Value, nomineeNames: Seq[String]): CategoryNominees = {
     val nomNameWithIndex: Seq[(String, Int)] = nomineeNames.zipWithIndex
     new CategoryNominees(categoryName,
       nomNameWithIndex.map {

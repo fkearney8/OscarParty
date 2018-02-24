@@ -1,10 +1,5 @@
 package com.oscarparty.servlets.data.nominees
 
-import scala.slick.driver.PostgresDriver.simple._
-import scala.slick.lifted.Tag
-
-import scala.collection.JavaConverters._
-
 /** The points for each choice in a category. */
 sealed case class CategoryPoints(points1st: Int, points2nd: Int, points3rd: Int)
 object HighPoints extends CategoryPoints(12, 9, 6)
