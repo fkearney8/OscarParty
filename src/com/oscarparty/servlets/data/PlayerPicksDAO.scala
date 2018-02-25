@@ -21,25 +21,6 @@ case class Player(id: Int, name: String)
 
 class PlayerPicksDAO @Inject() (dynamoDb: AmazonDynamoDB) {
 
-  val playerDynamoMapper = new DynamoDBMapper(dynamoDb)
-  val playerDataMapper = new PlayerDataObjectMapper
-
-  def getPlayer(playerName: String): Option[Player] = {
-
-    val eav: util.Map[String, AttributeValue] = collection.Map(":name" -> new AttributeValue().withS(playerName)).asJava
-    val queryExpr: DynamoDBQueryExpression[PlayerDataObject] = new DynamoDBQueryExpression()
-        .withKeyConditionExpression(PlayerDataObject.NAME_ATTRIBUTE + " = :name")
-        .withExpressionAttributeValues(eav)
-
-    val queryResult = playerDynamoMapper.query(classOf[PlayerDataObject], queryExpr).asScala
-    val maybePlayerDo = queryResult.find(_.getName == playerName)
-    maybePlayerDo.map(playerDataMapper.convertToDomainObject)
-  }
-
-  def getPlayer(playerId: Int): Player = {
-    val playerDo = playerDynamoMapper.load(classOf[PlayerDataObject], new java.lang.Integer(playerId))
-    playerDataMapper.convertToDomainObject(playerDo)
-  }
 
 //  def addPlayerPicks(playerName: String, newPicks: List[PlayerPickForInsertion]) = DB.withSession { implicit session =>
 //    players += Player(-1, playerName)
