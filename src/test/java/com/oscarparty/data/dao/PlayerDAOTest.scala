@@ -21,13 +21,20 @@ class PlayerDAOTest {
     assertEquals("frank", player.name)
   }
 
-
   @Test
   def tryToDoubleAddPlayer(): Unit = {
     playerDao.savePlayer("John")
     val trySaveAgain = Try { playerDao.savePlayer("John") }
     assertTrue(trySaveAgain.isFailure)
     trySaveAgain.failed.get.printStackTrace()
+  }
+
+  @Test
+  def getAllPlayers(): Unit = {
+    playerDao.savePlayer("Thing1")
+    playerDao.savePlayer("Thing2")
+    playerDao.savePlayer("Thing3")
+    assertTrue(playerDao.allPlayers.length >= 3)
   }
 
 }

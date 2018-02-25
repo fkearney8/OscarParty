@@ -12,7 +12,7 @@ class PlayerPicksDAOTest {
   def testFindPlayerPicks(): Unit = {
     val localDynamo = new DataConfig().createLocalDynamoDb
     val playerDao = new PlayerDAO(localDynamo)
-    val playerPicksDao = new PlayerPicksDAO(localDynamo)
+    val playerPicksDao = new PlayerPicksDAO(localDynamo, playerDao)
 
     val playerId = playerDao.savePlayer("theresa").id
     val picks = List(CategoryPicks(CategoryName.Actor, 0, 1, 3))

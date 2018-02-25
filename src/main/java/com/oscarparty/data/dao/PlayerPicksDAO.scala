@@ -4,16 +4,16 @@ import javax.inject.Inject
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper
-import com.oscarparty.data.PlayerPicks
 import com.oscarparty.data.dao.mappers.PlayerPicksMapper
 import com.oscarparty.data.nominees._
+import com.oscarparty.data.{Player, PlayerPicks}
 
-import scala.collection.immutable
 import scala.collection.immutable.Iterable
 
 
 
-class PlayerPicksDAO @Inject() (dynamoDb: AmazonDynamoDB) {
+class PlayerPicksDAO @Inject() (dynamoDb: AmazonDynamoDB,
+                                playerDao: PlayerDAO) {
 
   private val playerPicksDataMapper = new PlayerPicksMapper()
   private val playerPicksDynamoMapper = new DynamoDBMapper(dynamoDb)
@@ -37,36 +37,11 @@ class PlayerPicksDAO @Inject() (dynamoDb: AmazonDynamoDB) {
     playerPicksDataMapper.toDomainObject(playerId, playerPicksDoList.toSeq)
   }
 
+  def allPlayerPicks: Map[Player, PlayerPicks] = {
+    playerDao.allPlayers.map { player =>
+      val playerPicks = getPlayerPicks(player.id)
+      player -> playerPicks
+    }.toMap
+  }
 
-//  def allPlayerPicks: List[PlayerPick] = DB.withSession { implicit session =>
-//    playerPicks.list
-//  }
-//
-//  def allPlayers: List[Player] = DB.withSession { implicit session =>
-//    players.list
-//  }
-//
-//  def picksByPlayer(playerId: Int): List[PlayerPick] = DB.withSession { implicit session =>
-//    playerPicks.filter(_.playerId === playerId).list
-//  }
-//
-//  def picksPerPlayer: Map[Player, List[PlayerPick]] = DB.withSession { implicit session =>
-//    allPlayers.map { player =>
-//      player -> picksByPlayer(player.id)
-//    }.toMap
-//  }
-//
-//  case class PlayerPickWithReferences(player: Player, category: Category, pick1: Nominee, pick2: Nominee, pick3: Nominee)
-//
-//  def playerPicksForCategory(playerId: Int, categoryId: Int): Option[PlayerPickWithReferences] = DB.withSession { implicit session =>
-//    playerPicks.filter(_.playerId === playerId).filter(_.categoryId === categoryId).list.headOption.map {
-//      playerPick =>
-//        val player = getPlayer(playerPick.player)
-//        val category = OscarNomineesDAO.getCategory(categoryId)
-//        val pick1 = OscarNomineesDAO.getNominee(playerPick.topPick)
-//        val pick2 = OscarNomineesDAO.getNominee(playerPick.midPick)
-//        val pick3 = OscarNomineesDAO.getNominee(playerPick.botPick)
-//        PlayerPickWithReferences(player, category, pick1, pick2, pick3)
-//    }
-//  }
 }

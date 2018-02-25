@@ -4,7 +4,7 @@ import java.util
 import javax.inject.Inject
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB
-import com.amazonaws.services.dynamodbv2.datamodeling.{DynamoDBMapper, DynamoDBQueryExpression}
+import com.amazonaws.services.dynamodbv2.datamodeling.{DynamoDBMapper, DynamoDBQueryExpression, DynamoDBScanExpression}
 import com.amazonaws.services.dynamodbv2.model.AttributeValue
 import com.oscarparty.OscarException
 import com.oscarparty.data.Player
@@ -44,5 +44,12 @@ class PlayerDAO @Inject() (dynamoDb: AmazonDynamoDB) {
     val playerDo = playerDataMapper.toDataObject(playerName)
     playerDynamoMapper.save(playerDo)
     playerDataMapper.toDomainObject(playerDo)
+  }
+
+  def allPlayers: Seq[Player] = {
+    playerDynamoMapper.scan(classOf[PlayerDataObject],
+      new DynamoDBScanExpression())
+        .asScala
+        .map(playerDataMapper.toDomainObject)
   }
 }
