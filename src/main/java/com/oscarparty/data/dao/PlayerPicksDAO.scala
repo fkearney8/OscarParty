@@ -4,7 +4,7 @@ import javax.inject.Inject
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper
-import com.oscarparty.data.dao.mappers.PlayerPicksMapper
+import com.oscarparty.data.dao.mappers.{PlayerPicksDataObject, PlayerPicksMapper}
 import com.oscarparty.data.nominees._
 import com.oscarparty.data.{Player, PlayerPicks}
 

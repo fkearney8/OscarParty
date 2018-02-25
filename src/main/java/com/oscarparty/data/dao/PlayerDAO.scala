@@ -8,7 +8,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.{DynamoDBMapper, DynamoDBQ
 import com.amazonaws.services.dynamodbv2.model.AttributeValue
 import com.oscarparty.OscarException
 import com.oscarparty.data.Player
-import com.oscarparty.data.dao.mappers.PlayerMapper
+import com.oscarparty.data.dao.mappers.{PlayerDataObject, PlayerMapper}
 
 import collection.JavaConverters._
 

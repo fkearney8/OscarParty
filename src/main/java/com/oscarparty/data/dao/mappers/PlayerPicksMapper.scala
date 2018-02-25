@@ -1,7 +1,7 @@
 package com.oscarparty.data.dao.mappers
 
 import com.oscarparty.data.{CategoryPicks, PlayerPicks}
-import com.oscarparty.data.dao.PlayerPicksDataObject
+import PlayerPicksDataObject
 import com.oscarparty.data.nominees.CategoryName
 
 class PlayerPicksMapper {

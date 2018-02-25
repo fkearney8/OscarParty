@@ -1,8 +1,8 @@
-package com.oscarparty.data.dao;
+package com.oscarparty.data.dao.mappers;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
 
-import static com.oscarparty.data.dao.PlayerDataObject.PLAYER_TABLE;
+import static com.oscarparty.data.dao.mappers.PlayerDataObject.PLAYER_TABLE;
 
 @DynamoDBTable(tableName = PLAYER_TABLE)
 public class PlayerDataObject {

@@ -1,11 +1,11 @@
-package com.oscarparty.data.dao;
+package com.oscarparty.data.dao.mappers;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 
-import static com.oscarparty.data.dao.PlayerPicksDataObject.PLAYER_PICKS_TABLE;
+import static com.oscarparty.data.dao.mappers.PlayerPicksDataObject.PLAYER_PICKS_TABLE;
 
 @DynamoDBTable(tableName = PLAYER_PICKS_TABLE)
 public class PlayerPicksDataObject {

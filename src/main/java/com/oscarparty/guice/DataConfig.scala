@@ -4,7 +4,7 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDB
 import com.amazonaws.services.dynamodbv2.local.embedded.DynamoDBEmbedded
 import com.amazonaws.services.dynamodbv2.model._
 import com.google.inject.AbstractModule
-import com.oscarparty.data.dao.{PlayerDataObject, PlayerPicksDataObject}
+import com.oscarparty.data.dao.mappers.{PlayerDataObject, PlayerPicksDataObject}
 
 import collection.JavaConverters._
 
