@@ -16,7 +16,4 @@ case class CategoryNominees(categoryName: CategoryName.Value, nominees: Seq[Nomi
   }
 }
 
-case class Nominee(name: String, id: Int) {
-
-}
-
+case class Nominee(name: String, id: Int)

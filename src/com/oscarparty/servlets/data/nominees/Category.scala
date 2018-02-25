@@ -8,6 +8,7 @@ object MediumPoints extends CategoryPoints(5,4,3)
 object MinimumPoints extends CategoryPoints(3, 2, 1)
 
 object CategoryName extends Enumeration {
+
   protected case class Val(displayName: String, points: CategoryPoints = MinimumPoints) extends super.Val
 
   val BestPicture = Val("Best Picture", HighPoints)

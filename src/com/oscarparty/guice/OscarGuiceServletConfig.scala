@@ -13,6 +13,8 @@ class OscarGuiceServletConfig extends GuiceServletContextListener {
 
 class StockRegretServletModule extends ServletModule {
   override def configureServlets(): Unit = {
+    install(new DataConfig)
+
 //    serve("/hw").`with`(classOf[OscarHelloWorldServlet])
     serve("submitPicks").`with`(classOf[PicksSubmittedServlet])
   }
