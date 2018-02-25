@@ -12,11 +12,10 @@ import scala.collection.immutable.Iterable
 
 
 
-class PlayerPicksDAO @Inject() (dynamoDb: AmazonDynamoDB,
+class PlayerPicksDAO @Inject() (dynamoMapper: DynamoDBMapper,
                                 playerDao: PlayerDAO) {
 
   private val playerPicksDataMapper = new PlayerPicksMapper()
-  private val playerPicksDynamoMapper = new DynamoDBMapper(dynamoDb)
 
   def savePlayerPicks(picks: PlayerPicks): Unit = {
 
@@ -24,13 +23,13 @@ class PlayerPicksDAO @Inject() (dynamoDb: AmazonDynamoDB,
         playerPicksDataMapper.toDataObject(picks.playerId, categoryPicks)
     }
 
-    pickDos.foreach(pickDo => playerPicksDynamoMapper.save(pickDo))
+    pickDos.foreach(pickDo => dynamoMapper.save(pickDo))
   }
 
   def getPlayerPicks(playerId: String): PlayerPicks = {
     //for each category load their picks
     val playerPicksDoList = CategoryName.values.flatMap { eachCategory =>
-      val picksForCat = playerPicksDynamoMapper.load(classOf[PlayerPicksDataObject], playerId, eachCategory.toString)
+      val picksForCat = dynamoMapper.load(classOf[PlayerPicksDataObject], playerId, eachCategory.toString)
       Option(picksForCat)
     }
     //convert to domain object from the list of data objects

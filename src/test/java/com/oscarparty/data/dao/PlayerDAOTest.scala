@@ -1,5 +1,6 @@
 package com.oscarparty.data.dao
 
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper
 import com.oscarparty.data.Player
 import com.oscarparty.guice.DataConfig
 import org.junit.Assert._
@@ -10,7 +11,7 @@ import scala.util.Try
 class PlayerDAOTest {
 
   val localDynamo = new DataConfig().createLocalDynamoDb
-  val playerDao = new PlayerDAO(localDynamo)
+  val playerDao = new PlayerDAO(new DynamoDBMapper(localDynamo))
 
   @Test
   def testFindPlayerById(): Unit = {

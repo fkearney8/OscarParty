@@ -1,9 +1,12 @@
 package com.oscarparty.guice
 
+import javax.inject.Singleton
+
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper
 import com.amazonaws.services.dynamodbv2.local.embedded.DynamoDBEmbedded
 import com.amazonaws.services.dynamodbv2.model._
-import com.google.inject.AbstractModule
+import com.google.inject.{AbstractModule, Provides}
 import com.oscarparty.data.dao.mappers.{PlayerDataObject, PlayerPicksDataObject, WinnerDataObject}
 
 import collection.JavaConverters._
@@ -13,6 +16,10 @@ class DataConfig extends AbstractModule {
     //TODO move to test and make this the real thing
     bind(classOf[AmazonDynamoDB]).toInstance(createLocalDynamoDb)
   }
+
+  @Singleton
+  @Provides
+  def dynamoMapper(dynamoDb: AmazonDynamoDB): DynamoDBMapper = new DynamoDBMapper(dynamoDb)
 
   def createLocalDynamoDb: AmazonDynamoDB = {
     System.setProperty("sqlite4java.library.path", "native-libs")

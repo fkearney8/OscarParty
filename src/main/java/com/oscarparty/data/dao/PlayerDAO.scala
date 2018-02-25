@@ -12,9 +12,8 @@ import com.oscarparty.data.dao.mappers.{PlayerDataObject, PlayerMapper}
 
 import collection.JavaConverters._
 
-class PlayerDAO @Inject() (dynamoDb: AmazonDynamoDB) {
+class PlayerDAO @Inject() (dynamoMapper: DynamoDBMapper) {
 
-  val playerDynamoMapper = new DynamoDBMapper(dynamoDb)
   val playerDataMapper = new PlayerMapper
 
   def getPlayerByName(playerName: String): Option[Player] = {
@@ -26,13 +25,13 @@ class PlayerDAO @Inject() (dynamoDb: AmazonDynamoDB) {
         .withKeyConditionExpression(PlayerDataObject.NAME_ATTRIBUTE + " = :playerName")
         .withExpressionAttributeValues(eav)
 
-    val queryResult = playerDynamoMapper.query(classOf[PlayerDataObject], queryExpr).asScala
+    val queryResult = dynamoMapper.query(classOf[PlayerDataObject], queryExpr).asScala
     val maybePlayerDo = queryResult.find(_.getPlayerName == playerName)
     maybePlayerDo.map(playerDataMapper.toDomainObject)
   }
 
   def getPlayerById(playerId: String): Player = {
-    val playerDo = playerDynamoMapper.load(classOf[PlayerDataObject], playerId)
+    val playerDo = dynamoMapper.load(classOf[PlayerDataObject], playerId)
     playerDataMapper.toDomainObject(playerDo)
   }
 
@@ -42,12 +41,12 @@ class PlayerDAO @Inject() (dynamoDb: AmazonDynamoDB) {
       throw new OscarException(s"Already have someone by the name $playerName in the game. Please choose another name.")
     }
     val playerDo = playerDataMapper.toDataObject(playerName)
-    playerDynamoMapper.save(playerDo)
+    dynamoMapper.save(playerDo)
     playerDataMapper.toDomainObject(playerDo)
   }
 
   def allPlayers: Seq[Player] = {
-    playerDynamoMapper.scan(classOf[PlayerDataObject],
+    dynamoMapper.scan(classOf[PlayerDataObject],
       new DynamoDBScanExpression())
         .asScala
         .map(playerDataMapper.toDomainObject)

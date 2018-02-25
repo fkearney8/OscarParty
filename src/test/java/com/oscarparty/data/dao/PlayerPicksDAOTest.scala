@@ -1,5 +1,6 @@
 package com.oscarparty.data.dao
 
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper
 import com.oscarparty.data.nominees.{CategoryName, Nominee}
 import com.oscarparty.data.{CategoryPicks, Player, PlayerPicks}
 import com.oscarparty.guice.DataConfig
@@ -11,8 +12,9 @@ class PlayerPicksDAOTest {
   @Test
   def testFindPlayerPicks(): Unit = {
     val localDynamo = new DataConfig().createLocalDynamoDb
-    val playerDao = new PlayerDAO(localDynamo)
-    val playerPicksDao = new PlayerPicksDAO(localDynamo, playerDao)
+    val dynamoMapper = new DynamoDBMapper(localDynamo)
+    val playerDao = new PlayerDAO(dynamoMapper)
+    val playerPicksDao = new PlayerPicksDAO(dynamoMapper, playerDao)
 
     val playerId = playerDao.savePlayer("theresa").id
     val picks = List(CategoryPicks(CategoryName.Actor, 0, 1, 3))
