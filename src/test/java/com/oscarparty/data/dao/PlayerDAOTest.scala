@@ -5,17 +5,29 @@ import com.oscarparty.guice.DataConfig
 import org.junit.Assert._
 import org.junit._
 
+import scala.util.Try
+
 class PlayerDAOTest {
+
+  val localDynamo = new DataConfig().createLocalDynamoDb
+  val playerDao = new PlayerDAO(localDynamo)
 
   @Test
   def testFindPlayerById(): Unit = {
-    val localDynamo = new DataConfig().createLocalDynamoDb
-    val playerDao = new PlayerDAO(localDynamo)
-    playerDao.savePlayer("frank")
-
-    val player = playerDao.getPlayer(0)
+    val playerId = playerDao.savePlayer("frank").id
+    println(s"Looking for player $playerId")
+    val player = playerDao.getPlayerById(playerId)
     assertNotNull(player)
     assertEquals("frank", player.name)
+  }
+
+
+  @Test
+  def tryToDoubleAddPlayer(): Unit = {
+    playerDao.savePlayer("John")
+    val trySaveAgain = Try { playerDao.savePlayer("John") }
+    assertTrue(trySaveAgain.isFailure)
+    trySaveAgain.failed.get.printStackTrace()
   }
 
 }

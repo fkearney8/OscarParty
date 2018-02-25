@@ -6,19 +6,19 @@ import com.oscarparty.data.dao.PlayerDataObject
 class PlayerMapper {
 
   def toDomainObject(playerDo: PlayerDataObject): Player = {
-    Player(playerDo.getId, playerDo.getName)
+    Player(playerDo.getId, playerDo.getPlayerName)
   }
 
   def toDataObject(player: Player): PlayerDataObject = {
     val pdo = new PlayerDataObject()
     pdo.setId(player.id)
-    pdo.setName(player.name)
+    pdo.setPlayerName(player.name)
     pdo
   }
 
   def toDataObject(playerName: String): PlayerDataObject = {
     val pdo = new PlayerDataObject()
-    pdo.setName(playerName)
+    pdo.setPlayerName(playerName)
     pdo
   }
 

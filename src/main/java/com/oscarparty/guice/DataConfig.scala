@@ -2,7 +2,7 @@ package com.oscarparty.guice
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB
 import com.amazonaws.services.dynamodbv2.local.embedded.DynamoDBEmbedded
-import com.amazonaws.services.dynamodbv2.model.{AttributeDefinition, KeySchemaElement, KeyType, ProvisionedThroughput}
+import com.amazonaws.services.dynamodbv2.model._
 import com.google.inject.AbstractModule
 import com.oscarparty.data.dao.{PlayerDataObject, PlayerPicksDataObject}
 
@@ -18,16 +18,36 @@ class DataConfig extends AbstractModule {
     System.setProperty("sqlite4java.library.path", "native-libs")
     val localDynamoDb: AmazonDynamoDB = DynamoDBEmbedded.create().amazonDynamoDB()
 
-    localDynamoDb.createTable(
+    val createPlayerTableReq = new CreateTableRequest(
       List(
-        new AttributeDefinition(PlayerDataObject.ID_ATTRIBUTE, "S")
+        new AttributeDefinition(PlayerDataObject.ID_ATTRIBUTE, "S"),
+        new AttributeDefinition(PlayerDataObject.NAME_ATTRIBUTE, "S")
       ).asJava,
       PlayerDataObject.PLAYER_TABLE,
       List(
-        new KeySchemaElement().withAttributeName(PlayerDataObject.ID_ATTRIBUTE).withKeyType(KeyType.HASH)
+        new KeySchemaElement()
+            .withAttributeName(PlayerDataObject.ID_ATTRIBUTE)
+            .withKeyType(KeyType.HASH)
       ).asJava,
       new ProvisionedThroughput(5L, 5L)
     )
+
+    createPlayerTableReq
+        .withGlobalSecondaryIndexes(
+          Seq(
+            new GlobalSecondaryIndex()
+                .withIndexName(PlayerDataObject.NAME_INDEX)
+                .withKeySchema(Seq(
+                  new KeySchemaElement()
+                      .withAttributeName(PlayerDataObject.NAME_ATTRIBUTE)
+                      .withKeyType(KeyType.HASH)
+                ).asJava)
+            .withProvisionedThroughput(new ProvisionedThroughput(5L, 5L))
+            .withProjection(new Projection().withProjectionType(ProjectionType.KEYS_ONLY))
+          ).asJava
+        )
+
+    localDynamoDb.createTable(createPlayerTableReq)
 
     localDynamoDb.createTable(
       List(
@@ -36,8 +56,12 @@ class DataConfig extends AbstractModule {
       ).asJava,
       PlayerPicksDataObject.PLAYER_PICKS_TABLE,
       List(
-        new KeySchemaElement().withAttributeName(PlayerPicksDataObject.PLAYER_ID_ATTR).withKeyType(KeyType.HASH),
-        new KeySchemaElement().withAttributeName(PlayerPicksDataObject.CATEGORY_ATTR).withKeyType(KeyType.RANGE)
+        new KeySchemaElement()
+            .withAttributeName(PlayerPicksDataObject.PLAYER_ID_ATTR)
+            .withKeyType(KeyType.HASH),
+        new KeySchemaElement()
+            .withAttributeName(PlayerPicksDataObject.CATEGORY_ATTR)
+            .withKeyType(KeyType.RANGE)
       ).asJava,
       new ProvisionedThroughput(5L, 5L)
     )
