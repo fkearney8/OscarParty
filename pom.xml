@@ -53,6 +53,7 @@
             <groupId>com.almworks.sqlite4java</groupId>
             <artifactId>libsqlite4java-linux-amd64</artifactId>
             <version>1.0.392</version>
+            <scope>test</scope>
             <type>so</type>
         </dependency>
         <dependency>
@@ -60,6 +61,14 @@
             <artifactId>log4j</artifactId>
             <version>1.2.17</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/junit/junit -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <repositories>
