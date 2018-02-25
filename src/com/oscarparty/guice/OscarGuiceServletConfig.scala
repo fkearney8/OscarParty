@@ -1,10 +1,8 @@
 package com.oscarparty.guice
 
-import com.google.inject.Injector
-import com.google.inject.servlet.GuiceServletContextListener
-import com.google.inject.Guice
-import com.google.inject.servlet.ServletModule
-import com.oscarparty.servlets.PicksSubmittedServlet
+import com.google.inject.{Guice, Injector}
+import com.google.inject.servlet.{GuiceServletContextListener, ServletModule}
+import com.oscarparty.servlets.HelloWorldServlet
 
 
 class OscarGuiceServletConfig extends GuiceServletContextListener {
@@ -15,7 +13,7 @@ class StockRegretServletModule extends ServletModule {
   override def configureServlets(): Unit = {
     install(new DataConfig)
 
-//    serve("/hw").`with`(classOf[OscarHelloWorldServlet])
-    serve("submitPicks").`with`(classOf[PicksSubmittedServlet])
+    serve("/hw").`with`(classOf[HelloWorldServlet])
+//    serve("submitPicks").`with`(classOf[PicksSubmittedServlet])
   }
 }
