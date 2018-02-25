@@ -54,7 +54,7 @@
     <property name="build.dist" value="${build.home}/dist"/>
     <property name="manager.url" value="http://localhost:8080/manager/text"/>
     <property name="src.home" value="${basedir}/src"/>
-    <property name="web.home" value="${basedir}/web"/>
+    <property name="web.home" value="${basedir}/src/main/webapp"/>
 
 
     <property name="scala.home" value="/home/fkearney8/utils/Scala/scala-2.10.3"/>
@@ -115,19 +115,7 @@
         -->
 
         <!-- Include all elements that Tomcat exposes to applications -->
-        <fileset dir="${catalina.home}/bin">
-            <include name="*.jar"/>
-        </fileset>
-        <pathelement location="${catalina.home}/lib"/>
-        <fileset dir="${catalina.home}/lib">
-            <include name="*.jar"/>
-        </fileset>
-        <fileset dir="${scala.home}/lib">
-            <include name="*.jar"/>
-        </fileset>
-        <fileset dir="lib">
-            <include name="*.jar"/>
-        </fileset>
+        <pathelement location="${basedir}/target/OscarParty-1.0-SNAPSHOT/WEB-INF/lib"/>
     </path>
 
 
@@ -216,15 +204,6 @@
 
     -->
 
-    <target name="deploy" depends="compile">
-        <copy todir="${catalina.home}/webapps/${app.path}">
-            <fileset dir="${build.home}"/>
-        </copy>
-    </target>
-
-
-    <target name="deployAndBounce" depends="deploy, bounceTomcat"/>
-
     <target name="compile" depends="prepare"
             description="Compile Java sources">
 
@@ -254,6 +233,14 @@
         </copy>
 
     </target>
+
+    <target name="deploy" depends="compile">
+        <copy todir="${catalina.home}/webapps/${app.path}">
+            <fileset dir="target/OscarParty-1.0-SNAPSHOT"/>
+        </copy>
+    </target>
+
+    <target name="deployAndBounce" depends="deploy, bounceTomcat"/>
 
     <target name="bounceTomcat">
         <exec executable="/home/fkearney8/utils/Tomcat/apache-tomcat-7.0.50/bin/shutdown.sh"/>

@@ -7,7 +7,7 @@ import javax.servlet.http.{HttpServlet, HttpServletRequest, HttpServletResponse}
 class HelloWorldServlet @Inject() extends HttpServlet {
 
   override def doGet(req: HttpServletRequest, resp: HttpServletResponse): Unit = {
-    resp.getWriter.println("Hello world!")
+    resp.getWriter.println("Hello world! I can really be updated!")
   }
 
 }
