@@ -3,22 +3,41 @@ package com.oscarparty.data.dao
 import javax.inject.Inject
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper
+import com.oscarparty.data.PlayerPicks
+import com.oscarparty.data.dao.mappers.PlayerPicksMapper
 import com.oscarparty.data.nominees._
+
+import scala.collection.immutable
+import scala.collection.immutable.Iterable
 
 
 
 class PlayerPicksDAO @Inject() (dynamoDb: AmazonDynamoDB) {
 
+  private val playerPicksDataMapper = new PlayerPicksMapper()
+  private val playerPicksDynamoMapper = new DynamoDBMapper(dynamoDb)
 
-//  def addPlayerPicks(playerName: String, newPicks: List[PlayerPickForInsertion]) = DB.withSession { implicit session =>
-//    players += Player(-1, playerName)
-//    val newPlayerId = players.filter(_.name === playerName).list.head.id
-//    val newPlayerPicks = newPicks.map { eachPick =>
-//      new PlayerPick(newPlayerId, eachPick.category, eachPick.pick1, eachPick.pick2, eachPick.pick3)
-//    }
-//    playerPicks ++= newPlayerPicks
-//  }
-//
+  def savePlayerPicks(picks: PlayerPicks): Unit = {
+
+    val pickDos: Iterable[PlayerPicksDataObject] = picks.picksByCat.map { case (_, categoryPicks) =>
+        playerPicksDataMapper.toDataObject(picks.playerId, categoryPicks)
+    }
+
+    pickDos.foreach(pickDo => playerPicksDynamoMapper.save(pickDo))
+  }
+
+  def getPlayerPicks(playerId: Int): PlayerPicks = {
+    //for each category load their picks
+    val playerPicksDoList = CategoryName.values.flatMap { eachCategory =>
+      val picksForCat = playerPicksDynamoMapper.load(classOf[PlayerPicksDataObject], playerId, eachCategory.toString)
+      Option(picksForCat)
+    }
+    //convert to domain object from the list of data objects
+    playerPicksDataMapper.toDomainObject(playerId, playerPicksDoList.toSeq)
+  }
+
+
 //  def allPlayerPicks: List[PlayerPick] = DB.withSession { implicit session =>
 //    playerPicks.list
 //  }

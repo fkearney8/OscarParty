@@ -1,6 +1,8 @@
 package com.oscarparty.data.dao;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 
 import static com.oscarparty.data.dao.PlayerPicksDataObject.PLAYER_PICKS_TABLE;
@@ -11,11 +13,11 @@ public class PlayerPicksDataObject {
   public static final String PLAYER_PICKS_TABLE = "PlayerPicks";
 
   public static final String PLAYER_ID_ATTR = "playerId";
-  @DynamoDBAttribute(attributeName = PLAYER_ID_ATTR)
+  @DynamoDBHashKey(attributeName = PLAYER_ID_ATTR)
   private int playerId;
 
   public static final String CATEGORY_ATTR = "category";
-  @DynamoDBAttribute(attributeName = CATEGORY_ATTR)
+  @DynamoDBRangeKey(attributeName = CATEGORY_ATTR)
   private String category;
 
   public static final String FIRST_PICK_ATTR = "firstPick";

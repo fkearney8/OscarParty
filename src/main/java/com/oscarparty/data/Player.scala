@@ -1,3 +1,3 @@
 package com.oscarparty.data
 
-case class Player(id: Int, name: String)
+case class Player(/*Todo make into String*/id: Int, name: String)

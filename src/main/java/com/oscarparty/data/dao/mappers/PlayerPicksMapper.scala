@@ -1,5 +1,31 @@
 package com.oscarparty.data.dao.mappers
 
+import com.oscarparty.data.{CategoryPicks, PlayerPicks}
+import com.oscarparty.data.dao.PlayerPicksDataObject
+import com.oscarparty.data.nominees.CategoryName
+
 class PlayerPicksMapper {
 
+  def toDomainObject(playerId: Int, playerPicksDoList: Seq[PlayerPicksDataObject]): PlayerPicks = {
+    val catPicks = playerPicksDoList.map { eachPickDo =>
+      CategoryPicks(CategoryName.withName(eachPickDo.getCategory),
+        eachPickDo.getFirstPick,
+        eachPickDo.getSecondPick,
+        eachPickDo.getThirdPick)
+    }
+
+    PlayerPicks(playerId, catPicks)
+  }
+
+  def toDataObject(playerId: Int, catPicks: CategoryPicks): PlayerPicksDataObject = {
+    val ppdo = new PlayerPicksDataObject()
+    ppdo.setPlayerId(playerId)
+    ppdo.setCategory(catPicks.categoryName.toString)
+    ppdo.setFirstPick(catPicks.pick1.index)
+    ppdo.setSecondPick(catPicks.pick2.index)
+    ppdo.setThirdPick(catPicks.pick3.index)
+
+
+    ppdo
+  }
 }
