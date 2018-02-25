@@ -16,6 +16,7 @@ public class PlayerPicksDataObject {
   @DynamoDBHashKey(attributeName = PLAYER_ID_ATTR)
   private String playerId;
 
+  /** Uses a range key so that we can have a composite primary key with both player and category. */
   public static final String CATEGORY_ATTR = "category";
   @DynamoDBRangeKey(attributeName = CATEGORY_ATTR)
   private String category;

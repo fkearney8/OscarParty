@@ -1,7 +1,6 @@
 package com.oscarparty.data.dao.mappers
 
 import com.oscarparty.data.Player
-import PlayerDataObject
 
 class PlayerMapper {
 

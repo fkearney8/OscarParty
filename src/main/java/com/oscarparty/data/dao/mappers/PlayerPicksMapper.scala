@@ -1,7 +1,6 @@
 package com.oscarparty.data.dao.mappers
 
 import com.oscarparty.data.{CategoryPicks, PlayerPicks}
-import PlayerPicksDataObject
 import com.oscarparty.data.nominees.CategoryName
 
 class PlayerPicksMapper {
@@ -24,7 +23,6 @@ class PlayerPicksMapper {
     ppdo.setFirstPick(catPicks.pick1.index)
     ppdo.setSecondPick(catPicks.pick2.index)
     ppdo.setThirdPick(catPicks.pick3.index)
-
 
     ppdo
   }
