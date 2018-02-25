@@ -21,7 +21,6 @@ class DataConfig extends AbstractModule {
     localDynamoDb.createTable(
       List(
         new AttributeDefinition(PlayerDataObject.ID_ATTRIBUTE, "N")
-//        new AttributeDefinition(PlayerDataObject.NAME_ATTRIBUTE, "S")
       ).asJava,
       PlayerDataObject.PLAYER_TABLE,
       List(
