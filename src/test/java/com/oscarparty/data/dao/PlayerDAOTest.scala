@@ -9,6 +9,7 @@ import org.junit._
 import scala.util.Try
 
 class PlayerDAOTest {
+  System.setProperty("sqlite4java.library.path", "native-libs")
 
   val localDynamo = new DataConfig().createLocalDynamoDb
   val playerDao = new PlayerDAO(new DynamoDBMapper(localDynamo))

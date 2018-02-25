@@ -94,7 +94,7 @@
     </filter-mapping>
 
     <listener>
-        <listener-class>stock.regret.guice.StockRegretGuiceServletConfig</listener-class>
+        <listener-class>com.oscarparty.guice.OscarGuiceServletConfig</listener-class>
     </listener>
 
     <!--<servlet>-->

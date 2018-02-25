@@ -22,7 +22,6 @@ class DataConfig extends AbstractModule {
   def dynamoMapper(dynamoDb: AmazonDynamoDB): DynamoDBMapper = new DynamoDBMapper(dynamoDb)
 
   def createLocalDynamoDb: AmazonDynamoDB = {
-    System.setProperty("sqlite4java.library.path", "native-libs")
     val localDynamoDb: AmazonDynamoDB = DynamoDBEmbedded.create().amazonDynamoDB()
 
     createPlayerTable

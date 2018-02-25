@@ -8,6 +8,7 @@ import org.junit.Assert.{assertEquals, assertNotNull}
 import org.junit.Test
 
 class PlayerPicksDAOTest {
+  System.setProperty("sqlite4java.library.path", "native-libs")
 
   @Test
   def testFindPlayerPicks(): Unit = {
