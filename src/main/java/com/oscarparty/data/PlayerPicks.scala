@@ -3,12 +3,12 @@ package com.oscarparty.data
 import com.oscarparty.data.nominees.{CategoryName, Nominee, Nominees2018}
 
 object PlayerPicks {
-  def apply(playerId: Int, picks: Seq[CategoryPicks]): PlayerPicks = {
+  def apply(playerId: String, picks: Seq[CategoryPicks]): PlayerPicks = {
     PlayerPicks(playerId, picks.map(eachPick => eachPick.categoryName -> eachPick).toMap)
   }
 }
 
-case class PlayerPicks(playerId: Int, picksByCat: Map[CategoryName.Value, CategoryPicks]) {
+case class PlayerPicks(playerId: String, picksByCat: Map[CategoryName.Value, CategoryPicks]) {
   def picksForCategory(category: CategoryName.Value): CategoryPicks = picksByCat(category)
 }
 

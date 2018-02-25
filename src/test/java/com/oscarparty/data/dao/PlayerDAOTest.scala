@@ -11,7 +11,7 @@ class PlayerDAOTest {
   def testFindPlayerById(): Unit = {
     val localDynamo = new DataConfig().createLocalDynamoDb
     val playerDao = new PlayerDAO(localDynamo)
-    playerDao.savePlayer(Player(0, "frank"))
+    playerDao.savePlayer("frank")
 
     val player = playerDao.getPlayer(0)
     assertNotNull(player)

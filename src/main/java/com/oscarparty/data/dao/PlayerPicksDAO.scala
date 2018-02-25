@@ -27,7 +27,7 @@ class PlayerPicksDAO @Inject() (dynamoDb: AmazonDynamoDB) {
     pickDos.foreach(pickDo => playerPicksDynamoMapper.save(pickDo))
   }
 
-  def getPlayerPicks(playerId: Int): PlayerPicks = {
+  def getPlayerPicks(playerId: String): PlayerPicks = {
     //for each category load their picks
     val playerPicksDoList = CategoryName.values.flatMap { eachCategory =>
       val picksForCat = playerPicksDynamoMapper.load(classOf[PlayerPicksDataObject], playerId, eachCategory.toString)

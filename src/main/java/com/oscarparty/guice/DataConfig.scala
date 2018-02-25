@@ -20,7 +20,7 @@ class DataConfig extends AbstractModule {
 
     localDynamoDb.createTable(
       List(
-        new AttributeDefinition(PlayerDataObject.ID_ATTRIBUTE, "N")
+        new AttributeDefinition(PlayerDataObject.ID_ATTRIBUTE, "S")
       ).asJava,
       PlayerDataObject.PLAYER_TABLE,
       List(
@@ -31,16 +31,13 @@ class DataConfig extends AbstractModule {
 
     localDynamoDb.createTable(
       List(
-        new AttributeDefinition(PlayerPicksDataObject.PLAYER_ID_ATTR, "N"),
-        new AttributeDefinition(PlayerPicksDataObject.CATEGORY_ATTR, "S"),
-//        new AttributeDefinition(PlayerPicksDataObject.FIRST_PICK_ATTR, "N"),
-//        new AttributeDefinition(PlayerPicksDataObject.SECOND_PICK_ATTR, "N"),
-//        new AttributeDefinition(PlayerPicksDataObject.THIRD_PICK_ATTR, "N")
+        new AttributeDefinition(PlayerPicksDataObject.PLAYER_ID_ATTR, "S"),
+        new AttributeDefinition(PlayerPicksDataObject.CATEGORY_ATTR, "S")
       ).asJava,
       PlayerPicksDataObject.PLAYER_PICKS_TABLE,
       List(
-        new KeySchemaElement(PlayerPicksDataObject.PLAYER_ID_ATTR, "N").withKeyType(KeyType.HASH),
-        new KeySchemaElement(PlayerPicksDataObject.CATEGORY_ATTR, "S").withKeyType(KeyType.RANGE)
+        new KeySchemaElement().withAttributeName(PlayerPicksDataObject.PLAYER_ID_ATTR).withKeyType(KeyType.HASH),
+        new KeySchemaElement().withAttributeName(PlayerPicksDataObject.CATEGORY_ATTR).withKeyType(KeyType.RANGE)
       ).asJava,
       new ProvisionedThroughput(5L, 5L)
     )

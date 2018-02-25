@@ -14,11 +14,11 @@ class PlayerPicksDAOTest {
     val playerDao = new PlayerDAO(localDynamo)
     val playerPicksDao = new PlayerPicksDAO(localDynamo)
 
-    playerDao.savePlayer(Player(0, "frank"))
+    val playerId = playerDao.savePlayer("theresa").id
     val picks = List(CategoryPicks(CategoryName.Actor, 0, 1, 3))
-    playerPicksDao.savePlayerPicks(PlayerPicks(0, picks))
+    playerPicksDao.savePlayerPicks(PlayerPicks(playerId, picks))
 
-    val retrievedPicks = playerPicksDao.getPlayerPicks(0)
+    val retrievedPicks = playerPicksDao.getPlayerPicks(playerId)
     val actorPicks = retrievedPicks.picksForCategory(CategoryName.Actor)
     assertEquals(0, actorPicks.pick1.index)
     assertEquals(1, actorPicks.pick2.index)

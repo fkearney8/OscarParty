@@ -16,4 +16,10 @@ class PlayerMapper {
     pdo
   }
 
+  def toDataObject(playerName: String): PlayerDataObject = {
+    val pdo = new PlayerDataObject()
+    pdo.setName(playerName)
+    pdo
+  }
+
 }

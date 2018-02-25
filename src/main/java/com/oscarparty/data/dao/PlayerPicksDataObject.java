@@ -14,7 +14,7 @@ public class PlayerPicksDataObject {
 
   public static final String PLAYER_ID_ATTR = "playerId";
   @DynamoDBHashKey(attributeName = PLAYER_ID_ATTR)
-  private int playerId;
+  private String playerId;
 
   public static final String CATEGORY_ATTR = "category";
   @DynamoDBRangeKey(attributeName = CATEGORY_ATTR)
@@ -32,11 +32,11 @@ public class PlayerPicksDataObject {
   @DynamoDBAttribute(attributeName = THIRD_PICK_ATTR)
   private int thirdPick;
 
-  public int getPlayerId() {
+  public String getPlayerId() {
     return playerId;
   }
 
-  public void setPlayerId(int playerId) {
+  public void setPlayerId(String playerId) {
     this.playerId = playerId;
   }
 

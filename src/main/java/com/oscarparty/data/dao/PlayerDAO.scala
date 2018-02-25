@@ -33,8 +33,9 @@ class PlayerDAO @Inject() (dynamoDb: AmazonDynamoDB) {
     playerDataMapper.toDomainObject(playerDo)
   }
 
-  def savePlayer(player: Player): Unit = {
-    val playerDo = playerDataMapper.toDataObject(player)
+  def savePlayer(playerName: String): Player = {
+    val playerDo = playerDataMapper.toDataObject(playerName)
     playerDynamoMapper.save(playerDo)
+    playerDataMapper.toDomainObject(playerDo)
   }
 }
