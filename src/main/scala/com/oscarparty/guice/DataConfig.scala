@@ -2,7 +2,8 @@ package com.oscarparty.guice
 
 import javax.inject.Singleton
 
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDB
+import com.amazonaws.client.builder.AwsClientBuilder
+import com.amazonaws.services.dynamodbv2.{AmazonDynamoDB, AmazonDynamoDBClientBuilder}
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper
 import com.amazonaws.services.dynamodbv2.local.embedded.DynamoDBEmbedded
 import com.amazonaws.services.dynamodbv2.model._
@@ -20,6 +21,12 @@ class DataConfig extends AbstractModule {
   @Singleton
   @Provides
   def dynamoMapper(dynamoDb: AmazonDynamoDB): DynamoDBMapper = new DynamoDBMapper(dynamoDb)
+
+  def localhostDynamoDb: AmazonDynamoDB = {
+    AmazonDynamoDBClientBuilder.standard().withEndpointConfiguration(
+      new AwsClientBuilder.EndpointConfiguration("http://localhost:8120", "us-west-2"))
+        .build()
+  }
 
   def createLocalDynamoDb: AmazonDynamoDB = {
     //To run this, you need to set up a native library path.

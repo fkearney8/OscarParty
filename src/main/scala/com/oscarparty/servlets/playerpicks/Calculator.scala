@@ -1,33 +1,35 @@
-//package com.oscarparty.servlets.playerpicks
-//
-//import com.oscarparty.data.PlayerPicksDAO.PlayerPick
-//import com.oscarparty.data.WinnersDAO
-//import com.oscarparty.data.nominees.OscarNomineesDAO
-//
-//object Calculator {
-//  def calculatePickPoints(playerPicks: List[PlayerPick]): Integer = {
-//
-//    var totalPoints: Integer = 0
-//    //for each category
-//    for (eachCategory <- OscarNomineesDAO.getCategories) {
-//      val playerCategoryPicksOption = playerPicks.filter(_.category == eachCategory.id).lastOption
-//      //no points if the player doesn't have picks for this category somehow
-//      playerCategoryPicksOption.map { playerCategoryPicks =>
-//        //no points if the category doesn't have a winner yet
-//        WinnersDAO.findCategoryWinner(eachCategory.id).map { categoryWinner =>
-//
-//          val picksInOrder = Array(playerCategoryPicks.topPick, playerCategoryPicks.midPick, playerCategoryPicks.botPick)
-//          val picksAndPoints = picksInOrder zip Array(eachCategory.points1, eachCategory.points2, eachCategory.points3)
-//
-//          for (pickAndPointValue <- picksAndPoints) {
-//            if (pickAndPointValue._1.equals(categoryWinner.winningNominee.id)) {
-//              //if this pick is right
-//              totalPoints = totalPoints + pickAndPointValue._2 //they get that many points
-//            }
-//          }
-//        }
-//      }
-//    }
-//    totalPoints
-//  }
-//}
+package com.oscarparty.servlets.playerpicks
+
+import javax.inject.Inject
+
+import com.oscarparty.data.{CategoryPicks, PlayerPicks, Winner}
+import com.oscarparty.data.dao.WinnersDAO
+import com.oscarparty.data.nominees.{CategoryName, Nominee}
+
+class Calculator @Inject() (winnersDao: WinnersDAO) {
+
+  def calculatePickPoints(playerPicks: PlayerPicks): Int = {
+
+    //for each category, get the player picks
+    val categoryPicks = playerPicks.picksByCat.values
+
+    //map this into points won
+    val pointsWonPerCat: Iterable[Int] = categoryPicks.flatMap { picksInCat: CategoryPicks =>
+      val category = picksInCat.categoryName
+      val maybeWinner: Option[Winner] = winnersDao.winnerForCategory(category)
+      //if no winner yet, map to none
+      val maybeWinnerPicked: Option[(Nominee, Int)] = maybeWinner.flatMap { winner =>
+        val picksAndPoints = picksInCat.picksInOrder.zip(category.points.pointsInOrder)
+        picksAndPoints.find {
+          case (nomPicked, pointsIfRight) =>
+            winner.winningNominee.index == nomPicked.index
+        }
+      }
+      maybeWinnerPicked.map(_._2)
+    }
+  }
+
+  def calculatePickPointJava(playerPicks: PlayerPicks): Integer = {
+    calculatePickPoints(playerPicks)
+  }
+}

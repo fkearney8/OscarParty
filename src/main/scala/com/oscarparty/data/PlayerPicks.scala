@@ -9,7 +9,7 @@ object PlayerPicks {
 }
 
 case class PlayerPicks(playerId: String, picksByCat: Map[CategoryName.Value, CategoryPicks]) {
-  def picksForCategory(category: CategoryName.Value): CategoryPicks = picksByCat(category)
+  def picksForCategory(category: CategoryName.Value): Option[CategoryPicks] = picksByCat.get(category)
 }
 
 object CategoryPicks {
@@ -22,6 +22,8 @@ object CategoryPicks {
   }
 }
 
-case class CategoryPicks(categoryName: CategoryName.Value, pick1: Nominee, pick2: Nominee, pick3: Nominee)
+case class CategoryPicks(categoryName: CategoryName.Value, pick1: Nominee, pick2: Nominee, pick3: Nominee) {
+  def picksInOrder = List(pick1, pick2, pick3)
+}
 
 

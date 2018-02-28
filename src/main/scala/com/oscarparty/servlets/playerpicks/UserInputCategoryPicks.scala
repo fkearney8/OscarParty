@@ -1,6 +1,6 @@
 package com.oscarparty.servlets.playerpicks
 
-class CategoryPicks (val categoryName : String) {
+class UserInputCategoryPicks(val categoryName : String) {
 
   var topPick = "none"
   var midPick = "none"
@@ -21,10 +21,10 @@ class CategoryPicks (val categoryName : String) {
   }
 
   def getOrderedPicks: Array[String] = {
-    for (pickPriority <- CategoryPicks.pickPriorities) yield getPickAtPriority(pickPriority)
+    for (pickPriority <- UserInputCategoryPicks.pickPriorities) yield getPickAtPriority(pickPriority)
   }
 }
 
-object CategoryPicks {
+object UserInputCategoryPicks {
   val pickPriorities = Array("topPick", "midPick", "botPick")
 }

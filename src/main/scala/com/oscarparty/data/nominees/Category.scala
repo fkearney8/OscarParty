@@ -1,7 +1,9 @@
 package com.oscarparty.data.nominees
 
 /** The points for each choice in a category. */
-sealed case class CategoryPoints(points1st: Int, points2nd: Int, points3rd: Int)
+sealed case class CategoryPoints(points1st: Int, points2nd: Int, points3rd: Int) {
+  def pointsInOrder = List(points1st, points2nd, points3rd)
+}
 object HighPoints extends CategoryPoints(12, 9, 6)
 object PrettyHighPoints extends CategoryPoints(8, 6, 4)
 object MediumPoints extends CategoryPoints(5,4,3)
@@ -9,7 +11,9 @@ object MinimumPoints extends CategoryPoints(3, 2, 1)
 
 object CategoryName extends Enumeration {
 
-  protected case class Val(displayName: String, points: CategoryPoints = MinimumPoints) extends super.Val
+  case class Val(displayName: String, points: CategoryPoints = MinimumPoints) extends super.Val
+
+  implicit def valueToCategoryVal(cat: Value): Val = cat.asInstanceOf[Val]
 
   val BestPicture = Val("Best Picture", HighPoints)
   val Actor = Val("Best Actor", PrettyHighPoints)
