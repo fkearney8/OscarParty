@@ -3,6 +3,7 @@ package com.oscarparty.guice
 import javax.inject.Singleton
 
 import com.amazonaws.client.builder.AwsClientBuilder
+import com.amazonaws.regions.Regions
 import com.amazonaws.services.dynamodbv2.{AmazonDynamoDB, AmazonDynamoDBClientBuilder}
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper
 import com.amazonaws.services.dynamodbv2.local.embedded.DynamoDBEmbedded
@@ -15,12 +16,16 @@ import collection.JavaConverters._
 class DataModule extends AbstractModule {
   override def configure(): Unit = {
     //TODO move to test and make this the real thing
-    bind(classOf[AmazonDynamoDB]).toInstance(localhostDynamoDb)
+    bind(classOf[AmazonDynamoDB]).toInstance(productionDynamoDb)
   }
 
   @Singleton
   @Provides
   def dynamoMapper(dynamoDb: AmazonDynamoDB): DynamoDBMapper = new DynamoDBMapper(dynamoDb)
+
+  def productionDynamoDb: AmazonDynamoDB = {
+    AmazonDynamoDBClientBuilder.standard().withRegion(Regions.US_WEST_2).build()
+  }
 
   def localhostDynamoDb: AmazonDynamoDB = {
     AmazonDynamoDBClientBuilder.standard().withEndpointConfiguration(
