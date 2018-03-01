@@ -6,6 +6,7 @@
 //import com.oscarparty.data.nominees.OscarNomineesDAO
 //import com.oscarparty.data.{NextCategory, WinnersDAO}
 //
+//@Singleton
 //class WinnerPickedServlet extends HttpServlet {
 //  override def doPost(req: HttpServletRequest, resp: HttpServletResponse) {
 //    resp.setContentType("text/html; charset=UTF-8")

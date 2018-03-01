@@ -15,7 +15,7 @@ import collection.JavaConverters._
 class DataConfig extends AbstractModule {
   override def configure(): Unit = {
     //TODO move to test and make this the real thing
-    bind(classOf[AmazonDynamoDB]).toInstance(createLocalDynamoDb)
+    bind(classOf[AmazonDynamoDB]).toInstance(localhostDynamoDb)
   }
 
   @Singleton

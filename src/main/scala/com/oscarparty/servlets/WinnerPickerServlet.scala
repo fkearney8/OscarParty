@@ -8,6 +8,7 @@
 //import scala.util.parsing.json.{JSONArray, JSONObject}
 //import com.oscarparty.data.NextCategory
 //
+//@Singleton
 //class WinnerPickerServlet extends HttpServlet {
 //  protected override def doGet(req: HttpServletRequest, resp: HttpServletResponse) {
 //

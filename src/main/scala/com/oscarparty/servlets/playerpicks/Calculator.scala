@@ -2,9 +2,9 @@ package com.oscarparty.servlets.playerpicks
 
 import javax.inject.Inject
 
-import com.oscarparty.data.{CategoryPicks, PlayerPicks, Winner}
 import com.oscarparty.data.dao.WinnersDAO
-import com.oscarparty.data.nominees.{CategoryName, Nominee}
+import com.oscarparty.data.nominees.Nominee
+import com.oscarparty.data.{CategoryPicks, PlayerPicks, Winner}
 
 class Calculator @Inject() (winnersDao: WinnersDAO) {
 
@@ -27,6 +27,8 @@ class Calculator @Inject() (winnersDao: WinnersDAO) {
       }
       maybeWinnerPicked.map(_._2)
     }
+
+    pointsWonPerCat.sum
   }
 
   def calculatePickPointJava(playerPicks: PlayerPicks): Integer = {

@@ -1,10 +1,10 @@
 package com.oscarparty.data.dao
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper
-import com.oscarparty.data.nominees.{CategoryName, Nominee}
-import com.oscarparty.data.{CategoryPicks, Player, PlayerPicks}
+import com.oscarparty.data.nominees.CategoryName
+import com.oscarparty.data.{CategoryPicks, PlayerPicks}
 import com.oscarparty.guice.DataConfig
-import org.junit.Assert.{assertEquals, assertNotNull}
+import org.junit.Assert._
 import org.junit.Test
 
 class PlayerPicksDAOTest {
@@ -22,7 +22,9 @@ class PlayerPicksDAOTest {
     playerPicksDao.savePlayerPicks(PlayerPicks(playerId, picks))
 
     val retrievedPicks = playerPicksDao.getPlayerPicks(playerId)
-    val actorPicks = retrievedPicks.picksForCategory(CategoryName.Actor)
+    val maybeActorPicks = retrievedPicks.picksForCategory(CategoryName.Actor)
+    assertTrue(maybeActorPicks.isDefined)
+    val actorPicks = maybeActorPicks.get
     assertEquals(0, actorPicks.pick1.index)
     assertEquals(1, actorPicks.pick2.index)
     assertEquals(3, actorPicks.pick3.index)

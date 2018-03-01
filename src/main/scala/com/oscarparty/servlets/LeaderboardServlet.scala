@@ -9,6 +9,7 @@
 //import scala.collection.JavaConverters._
 //
 //
+//@Singleton
 //class LeaderboardServlet extends HttpServlet {
 //
 //  private val pickTruncationSize = 50

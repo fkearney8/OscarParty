@@ -15,6 +15,7 @@
 ///**
 // * Servlet for when a player has submitted picks to be saved.
 // */
+//@Singleton
 //class PicksSubmittedServlet extends HttpServlet {
 //
 //  override def doPost(req: HttpServletRequest, res: HttpServletResponse) {
