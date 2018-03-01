@@ -1,14 +1,12 @@
 package com.oscarparty.servlets
 
 import java.util.{List => JList}
-import java.util.LinkedList
 import javax.inject.Singleton
-import javax.servlet.RequestDispatcher
 import javax.servlet.http.{HttpServlet, HttpServletRequest, HttpServletResponse}
 
 import com.oscarparty.data.nominees.CategoryName
 
-import collection.JavaConverters._
+import scala.collection.JavaConverters._
 
 @Singleton
 class NewPlayerSelectionsServlet extends HttpServlet {
@@ -19,7 +17,7 @@ class NewPlayerSelectionsServlet extends HttpServlet {
     res.setContentType("text/html; charset=UTF-8")
     res.setCharacterEncoding("UTF-8")
 
-    val allCategories: JList[CategoryName.Value] = CategoryName.values.toSeq.asJava
+    val allCategories: JList[CategoryName.Val] = CategoryName.javaValues
     //play the JSP game, moving the categories into a LinkedList
     req.setAttribute("allCategories", allCategories)
 

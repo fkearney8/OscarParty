@@ -148,7 +148,7 @@
      so don't worry about saving your picks. Ways to send Frank $5 will follow after you make your picks. Have fun!
     </p>
 
-    <%@ page import="java.util.*, com.oscarparty.servlets.data.nominees.*" %>
+    <%@ page import="java.util.*, com.oscarparty.data.nominees.*" %>
 
     <div id="modalPopover" style="text-align: center"></div>
 
@@ -159,34 +159,38 @@
     <div id="WinnerSelectionAccordion" class="accordion">
         <%
         for (int catIndex = 0; catIndex < allCategories.size(); catIndex++) {
-            Category eachCategory = (Category) allCategories.get(catIndex);
+            CategoryName.Val eachCategory = (CategoryName.Val) allCategories.get(catIndex);
             %>
-        <h3><%=eachCategory.name()%></h3>
+        <h3><%=eachCategory.displayName()%></h3>
         <div class="accordion-section">
             <div class="selection-area">
             <%
-            List<Nominee> categoryNominees = eachCategory.nomineesJava();
+            CategoryNominees nomineesForCategory = Nominees2018.nomineesForCategory(eachCategory);
+            List<Nominee> categoryNominees = nomineesForCategory.nomineesJava();
             for (Nominee eachNominee : categoryNominees) {
                 %>
-                <div class="selection"><span id="nomineeId" style="display:none;"><%=eachNominee.id()%></span><%=eachNominee.name()%></div>
+                <div class="selection">
+                    <span id="nomineeId" style="display:none;"><%=eachNominee.index()%></span>
+                    <%=eachNominee.name()%>
+                </div>
                 <%
             } //end of each nominee
             %>
             </div>
             <div class="drop-area">
-                <div class="drop topPick"><%= eachCategory.points1() %> points pick
-                    <input type="hidden" catName="<%=eachCategory.name()%>" name="<%=eachCategory.id()%>.topPick"/>
+                <div class="drop topPick"><%= eachCategory.points().points1st() %> points pick
+                    <input type="hidden" catName="<%=eachCategory.toString()%>" name="<%=eachCategory.toString()%>.topPick"/>
                 </div>
-                <div class="drop midPick"><%= eachCategory.points2() %> points pick
-                    <input type="hidden" catName="<%=eachCategory.name()%>" name="<%=eachCategory.id()%>.midPick"/>
+                <div class="drop midPick"><%= eachCategory.points().points2nd() %> points pick
+                    <input type="hidden" catName="<%=eachCategory.toString()%>" name="<%=eachCategory.toString()%>.midPick"/>
                 </div>
                 <div class="drop botPick">
                     <%
-                    int botPointsVal = eachCategory.points3();
+                    int botPointsVal = eachCategory.points().points3rd();
                     String point_s_string = botPointsVal > 1 ? "points" : "point";
                     %>
                     <%= botPointsVal %> <%= point_s_string %> pick
-                    <input type="hidden" catName="<%=eachCategory.name()%>" name="<%=eachCategory.id()%>.botPick"/>
+                    <input type="hidden" catName="<%=eachCategory.toString()%>" name="<%=eachCategory.toString()%>.botPick"/>
                 </div>
             </div>
         </div>
@@ -197,7 +201,7 @@
      </div>
      </div>
      <br/>
-     <div>Give a player name, so we can track a winner: <input id="userName" name="userName" type="text" label"Your Name"/></div>
+     <div>I need a player name, so you can follow your progress on the leaderboard: <input id="userName" name="userName" type="text" label"Your Name"/></div>
     <input type="button" value="Submit Picks!" onclick="submitForm()"/>
     </form>
 </body>

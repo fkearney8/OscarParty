@@ -1,5 +1,8 @@
 package com.oscarparty.data.nominees
 
+import collection.JavaConverters._
+import java.util.{LinkedList => JBeanList}
+
 /** The points for each choice in a category. */
 sealed case class CategoryPoints(points1st: Int, points2nd: Int, points3rd: Int) {
   def pointsInOrder = List(points1st, points2nd, points3rd)
@@ -10,6 +13,10 @@ object MediumPoints extends CategoryPoints(5,4,3)
 object MinimumPoints extends CategoryPoints(3, 2, 1)
 
 object CategoryName extends Enumeration {
+
+  def javaValues: JBeanList[CategoryName.Val] = {
+    new JBeanList(values.toSeq.map(_.asInstanceOf[Val]).asJava)
+  }
 
   case class Val(displayName: String, points: CategoryPoints = MinimumPoints) extends super.Val
 

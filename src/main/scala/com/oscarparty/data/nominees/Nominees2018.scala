@@ -12,8 +12,9 @@ object Nominees2018 {
     }.toMap
   }
 
+  def nomineesForCategory(category: CategoryName.Value): CategoryNominees = categoryNominees(category)
 
-  def input(categoryName: CategoryName.Value, nomineeNames: Seq[String]): CategoryNominees = {
+  private def input(categoryName: CategoryName.Value, nomineeNames: Seq[String]): CategoryNominees = {
     val nomNameWithIndex: Seq[(String, Int)] = nomineeNames.zipWithIndex
     CategoryNominees(categoryName,
       nomNameWithIndex.map {
@@ -76,11 +77,11 @@ object Nominees2018 {
   ))
 
   categoryNomineesForInput += input(CategoryName.OriginalScreenplay, Array(
-    "The Big Sick - Written by Emily V. Gordon and Kumail Nanjiani",
-    "Get Out - Written by Jordan Peele",
-    "Lady Bird - Written by Greta Gerwig",
-    "The Shape of Water - Screenplay by Guillermo del Toro and Vanessa Taylor; Story by Guillermo del Toro",
-    "Three Billboards Outside Ebbing, Missouri - Written by Martin McDonagh"
+    "The Big Sick - Emily V. Gordon and Kumail Nanjiani",
+    "Get Out - Jordan Peele",
+    "Lady Bird - Greta Gerwig",
+    "The Shape of Water - Guillermo del Toro and Vanessa Taylor",
+    "Three Billboards Outside Ebbing, Missouri - Martin McDonagh"
   ))
 
   categoryNomineesForInput += input(CategoryName.AdaptedScreenplay, Array(
@@ -148,11 +149,11 @@ object Nominees2018 {
   ))
 
   categoryNomineesForInput += input(CategoryName.OriginalSong, Array(
-    "\"Mighty River\" from Mudbound - Music and Lyrics by Mary J. Blige, Raphael Saadiq and Taura Stinson",
-    "\"Mystery of Love\" from Call Me by Your Name - Music and Lyrics by Sufjan Stevens",
-    "\"Remember Me\" from Coco - Music and Lyrics by Kristen Anderson-Lopez and Robert Lopez",
-    "\"Stand Up for Something\" from Marshall - Music by Diane Warren; Lyrics by Common and Diane Warren",
-    "\"This Is Me\" from The Greatest Showman - Music and Lyrics by Benj Pasek and Justin Paul"
+    "\"Mighty River\" from Mudbound - Mary J. Blige",
+    "\"Mystery of Love\" from Call Me by Your Name - Sufjan Stevens",
+    "\"Remember Me\" from Coco - Kristen Anderson-Lopez and Robert Lopez",
+    "\"Stand Up for Something\" from Marshall - Diane Warren",
+    "\"This Is Me\" from The Greatest Showman - Benj Pasek and Justin Paul"
   ))
 
   categoryNomineesForInput += input(CategoryName.SoundEditing, Array(
