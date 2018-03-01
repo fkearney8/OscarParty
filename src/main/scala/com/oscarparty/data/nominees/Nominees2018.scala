@@ -33,7 +33,7 @@ object Nominees2018 {
     "Phantom Thread",
     "The Post",
     "The Shape of Water",
-    "Three Billboards Outside Ebbing, Missouri"
+    "Three Billboards Outside Ebbing, MO"
   ))
 
   categoryNomineesForInput += input(CategoryName.Director, Array(
@@ -54,7 +54,7 @@ object Nominees2018 {
 
   categoryNomineesForInput += input(CategoryName.Actress, Array(
     "Sally Hawkins - The Shape of Water as Elisa Esposito",
-    "Frances McDormand - Three Billboards Outside Ebbing, Missouri as Mildred Hayes",
+    "Frances McDormand - Three Billboards Outside Ebbing, MO as Mildred Hayes",
     "Margot Robbie - I, Tonya as Tonya Harding",
     "Saoirse Ronan - Lady Bird as Christine \"Lady Bird\" McPherson",
     "Meryl Streep - The Post as Katharine Graham"
@@ -62,10 +62,10 @@ object Nominees2018 {
 
   categoryNomineesForInput += input(CategoryName.SupportingActor, Array(
     "Willem Dafoe - The Florida Project as Bobby Hicks",
-    "Woody Harrelson - Three Billboards Outside Ebbing, Missouri as Chief Bill Willoughby",
+    "Woody Harrelson - Three Billboards Outside Ebbing, MO as Chief Bill Willoughby",
     "Richard Jenkins - The Shape of Water as Giles",
     "Christopher Plummer - All the Money in the World as J. Paul Getty",
-    "Sam Rockwell - Three Billboards Outside Ebbing, Missouri as Officer Jason Dixon"
+    "Sam Rockwell - Three Billboards Outside Ebbing, MO as Officer Jason Dixon"
   ))
 
   categoryNomineesForInput += input(CategoryName.SupportingActress, Array(
@@ -81,7 +81,7 @@ object Nominees2018 {
     "Get Out - Jordan Peele",
     "Lady Bird - Greta Gerwig",
     "The Shape of Water - Guillermo del Toro and Vanessa Taylor",
-    "Three Billboards Outside Ebbing, Missouri - Martin McDonagh"
+    "Three Billboards Outside Ebbing, MO - Martin McDonagh"
   ))
 
   categoryNomineesForInput += input(CategoryName.AdaptedScreenplay, Array(
@@ -101,11 +101,11 @@ object Nominees2018 {
   ))
 
   categoryNomineesForInput += input(CategoryName.ForeignLanguageFilm, Array(
-    "A Fantastic Woman (Chile)) in Spanish",
-  "The Insult (Lebanon)) in Arabic",
-  "Loveless (Russia)) in Russian",
-  "On Body and Soul (Hungary)) in Hungarian",
-  "The Square (Sweden)) in Swedish"
+    "A Fantastic Woman (Chile) in Spanish",
+  "The Insult (Lebanon) in Arabic",
+  "Loveless (Russia) in Russian",
+  "On Body and Soul (Hungary) in Hungarian",
+  "The Square (Sweden) in Swedish"
   ))
 
   categoryNomineesForInput += input(CategoryName.DocumentaryFeature, Array(
@@ -119,7 +119,7 @@ object Nominees2018 {
   categoryNomineesForInput += input(CategoryName.DocumentaryShortSubject, Array(
     "Edith+Eddie",
     "Heaven Is a Traffic Jam on the 405",
-    "Heroin(e))",
+    "Heroin(e)",
     "Knife Skills",
     "Traffic Stop"
   ))
@@ -145,7 +145,7 @@ object Nominees2018 {
     "Phantom Thread - Jonny Greenwood",
     "The Shape of Water - Alexandre Desplat",
     "Star Wars: The Last Jedi - John Williams",
-    "Three Billboards Outside Ebbing, Missouri - Carter Burwell"
+    "Three Billboards Outside Ebbing, MO - Carter Burwell"
   ))
 
   categoryNomineesForInput += input(CategoryName.OriginalSong, Array(
@@ -207,7 +207,7 @@ object Nominees2018 {
     "Dunkirk",
     "I, Tonya",
     "The Shape of Water",
-    "Three Billboards Outside Ebbing, Missouri"
+    "Three Billboards Outside Ebbing, MO"
   ))
 
   categoryNomineesForInput += input(CategoryName.VisualEffects, Array(
