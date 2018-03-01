@@ -3,7 +3,7 @@ package com.oscarparty.data.dao
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper
 import com.oscarparty.data.nominees.CategoryName
 import com.oscarparty.data.{CategoryPicks, PlayerPicks}
-import com.oscarparty.guice.DataConfig
+import com.oscarparty.guice.DataModule
 import org.junit.Assert._
 import org.junit.Test
 
@@ -12,7 +12,7 @@ class PlayerPicksDAOTest {
 
   @Test
   def testFindPlayerPicks(): Unit = {
-    val localDynamo = new DataConfig().createLocalDynamoDb
+    val localDynamo = new DataModule().createLocalDynamoDb
     val dynamoMapper = new DynamoDBMapper(localDynamo)
     val playerDao = new PlayerDAO(dynamoMapper)
     val playerPicksDao = new PlayerPicksDAO(dynamoMapper, playerDao)

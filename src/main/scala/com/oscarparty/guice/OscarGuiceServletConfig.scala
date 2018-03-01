@@ -2,7 +2,7 @@ package com.oscarparty.guice
 
 import com.google.inject.{Guice, Injector}
 import com.google.inject.servlet.{GuiceServletContextListener, ServletModule}
-import com.oscarparty.servlets.{HelloWorldServlet, NewPlayerSelectionsServlet}
+import com.oscarparty.servlets.{HelloWorldServlet, NewPlayerSelectionsServlet, PicksSubmittedServlet}
 
 
 class OscarGuiceServletConfig extends GuiceServletContextListener {
@@ -11,10 +11,10 @@ class OscarGuiceServletConfig extends GuiceServletContextListener {
 
 class OscarServletModule extends ServletModule {
   override def configureServlets(): Unit = {
-    install(new DataConfig)
+    install(new DataModule)
 
     serve("/hw*").`with`(classOf[HelloWorldServlet])
     serve("/selection")`with`(classOf[NewPlayerSelectionsServlet])
-//    serve("submitPicks").`with`(classOf[PicksSubmittedServlet])
+    serve("/submitPicks.do").`with`(classOf[PicksSubmittedServlet])
   }
 }

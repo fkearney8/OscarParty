@@ -2,7 +2,7 @@ package com.oscarparty.data.dao
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper
 import com.oscarparty.data.Player
-import com.oscarparty.guice.DataConfig
+import com.oscarparty.guice.DataModule
 import org.junit.Assert._
 import org.junit._
 
@@ -11,7 +11,7 @@ import scala.util.Try
 class PlayerDAOTest {
   System.setProperty("sqlite4java.library.path", "native-libs")
 
-  val localDynamo = new DataConfig().createLocalDynamoDb
+  val localDynamo = new DataModule().createLocalDynamoDb
   val playerDao = new PlayerDAO(new DynamoDBMapper(localDynamo))
 
   @Test

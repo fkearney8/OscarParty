@@ -145,7 +145,7 @@
      to the boxes on the right
      to make your picks. You'll see that different categories are worth different points. Also, your top choices will
      be worth more (if you're right!) than your lower choices. There will be an awesome leaderboard at the Party
-     so don't worry about saving your picks. Ways to send Frank $5 will follow after you make your picks. Have fun!
+     so don't worry about saving your picks. Ways to send Frank $10 will follow after you make your picks. Have fun!
     </p>
 
     <%@ page import="java.util.*, com.oscarparty.data.nominees.*" %>
@@ -179,10 +179,10 @@
             </div>
             <div class="drop-area">
                 <div class="drop topPick"><%= eachCategory.points().points1st() %> points pick
-                    <input type="hidden" catName="<%=eachCategory.toString()%>" name="<%=eachCategory.toString()%>.topPick"/>
+                    <input type="hidden" catName="<%=eachCategory.toString()%>" name="<%=eachCategory.toString()%>.0"/>
                 </div>
                 <div class="drop midPick"><%= eachCategory.points().points2nd() %> points pick
-                    <input type="hidden" catName="<%=eachCategory.toString()%>" name="<%=eachCategory.toString()%>.midPick"/>
+                    <input type="hidden" catName="<%=eachCategory.toString()%>" name="<%=eachCategory.toString()%>.1"/>
                 </div>
                 <div class="drop botPick">
                     <%
@@ -190,7 +190,7 @@
                     String point_s_string = botPointsVal > 1 ? "points" : "point";
                     %>
                     <%= botPointsVal %> <%= point_s_string %> pick
-                    <input type="hidden" catName="<%=eachCategory.toString()%>" name="<%=eachCategory.toString()%>.botPick"/>
+                    <input type="hidden" catName="<%=eachCategory.toString()%>" name="<%=eachCategory.toString()%>.2"/>
                 </div>
             </div>
         </div>
