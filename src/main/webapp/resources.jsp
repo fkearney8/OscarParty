@@ -8,4 +8,9 @@
         color: #EFEC9F;
         font-size: 12px;
     }
+
+    a {
+        color: gold;
+    }
+
 </style>

@@ -8,15 +8,16 @@ import com.amazonaws.services.dynamodbv2.{AmazonDynamoDB, AmazonDynamoDBClientBu
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper
 import com.amazonaws.services.dynamodbv2.local.embedded.DynamoDBEmbedded
 import com.amazonaws.services.dynamodbv2.model._
-import com.google.inject.{AbstractModule, Provides}
+import com.google.inject.{AbstractModule, Provides, Stage}
 import com.oscarparty.data.dao.mappers.{PlayerDataObject, PlayerPicksDataObject, WinnerDataObject}
 
 import collection.JavaConverters._
 
 class DataModule extends AbstractModule {
   override def configure(): Unit = {
-    //TODO move to test and make this the real thing
-    bind(classOf[AmazonDynamoDB]).toInstance(productionDynamoDb)
+
+    bind(classOf[AmazonDynamoDB]).toInstance(
+      if (currentStage() == Stage.PRODUCTION) productionDynamoDb else localhostDynamoDb)
   }
 
   @Singleton
@@ -28,8 +29,10 @@ class DataModule extends AbstractModule {
   }
 
   def localhostDynamoDb: AmazonDynamoDB = {
+    val endpoint = "http://localhost:8120"
+    println(s"Running against local database at $endpoint")
     AmazonDynamoDBClientBuilder.standard().withEndpointConfiguration(
-      new AwsClientBuilder.EndpointConfiguration("http://localhost:8120", "us-west-2"))
+      new AwsClientBuilder.EndpointConfiguration(endpoint, "us-west-2"))
         .build()
   }
 
