@@ -6,5 +6,5 @@ import com.oscarparty.data.nominees.CategoryName
   * In memory cache of the next category coming up.
   */
 object NextCategory {
-  var storedNextCategory : CategoryName.Value = CategoryName.BestPicture
+  var nextCategory : CategoryName.Value = CategoryName.BestPicture
 }
