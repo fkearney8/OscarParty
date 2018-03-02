@@ -78,8 +78,8 @@
             $('.leaderrow').css('cursor', 'pointer');
         });
 
-        function gotoPlayerPicks(playerName) {
-            window.location.href = "playerPicks?playerName=" + playerName;
+        function gotoPlayerPicks(playerId) {
+            window.location.href = "playerPicks?playerId=" + playerId;
         }
     </script>
 </head>
@@ -104,9 +104,9 @@
         for (int i = 0; i < usersAndPoints.size(); i++) {
             PlayerWithPoints playerWithPoints = (PlayerWithPoints) usersAndPoints.get(i);
             %>
-            <div class="leaderrow" onclick="javascript:gotoPlayerPicks(&quot;<%= playerWithPoints.userName() %>&quot;)">
+            <div class="leaderrow" onclick="javascript:gotoPlayerPicks(&quot;<%= playerWithPoints.player().id() %>&quot;)">
                 <div class="leadername">
-                    <%= playerWithPoints.userName() %>
+                    <%= playerWithPoints.player().name() %>
                 </div>
                 <div class="leaderpoints">
                     <%= playerWithPoints.points() %>

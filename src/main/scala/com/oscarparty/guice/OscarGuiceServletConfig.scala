@@ -2,7 +2,7 @@ package com.oscarparty.guice
 
 import com.google.inject.{Guice, Injector, Stage}
 import com.google.inject.servlet.{GuiceServletContextListener, ServletModule}
-import com.oscarparty.servlets.{HelloWorldServlet, LeaderboardServlet, NewPlayerSelectionsServlet, PicksSubmittedServlet}
+import com.oscarparty.servlets._
 
 
 class OscarGuiceServletConfig extends GuiceServletContextListener {
@@ -22,6 +22,6 @@ class OscarServletModule extends ServletModule {
     serve("/selection")`with`(classOf[NewPlayerSelectionsServlet])
     serve("/submitPicks.do").`with`(classOf[PicksSubmittedServlet])
     serve("/leaderboard").`with`(classOf[LeaderboardServlet])
-//    serve("/playerPicks").`with`(classOf[PlayerPicksServlet])
+    serve("/playerPicks").`with`(classOf[PlayerPicksReviewServlet])
   }
 }

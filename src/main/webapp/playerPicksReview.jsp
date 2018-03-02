@@ -33,7 +33,6 @@
     <%@include file="header.jsp"%>
     <%@ page import="java.util.*, com.oscarparty.servlets.*" %>
     <%
-    DisplayablePlayerPicks playerPicks = (DisplayablePlayerPicks) request.getAttribute("playerPicks");
     %>
 
     <%!
@@ -47,37 +46,36 @@
         }
     %>
 
-    <h1>Player: <%= playerPicks.playerName() %></h1>
-    <h2>Point Total: <%= playerPicks.playerPoints() %></h2>
+    <h1>Player: <%= request.getAttribute("playerName") %></h1>
+    <h2>Point Total: <%= request.getAttribute("totalPoints") %></h2>
     <%
-    List<DisplayableCategory> displayCats = playerPicks.getDisplayCategoriesJava();
-    for (DisplayableCategory catPicks : displayCats) {
-
+    List<DisplayableCategory> playerPicks = (List<DisplayableCategory>) request.getAttribute("displayableCategoryPicks");
+    for (DisplayableCategory catPicks : playerPicks) {
         %>
         <div class="categoryDiv">
             <%
-            boolean catSelected = catPicks.categoryAlreadySelected();
+            boolean catSelected = catPicks.categoryHasAWinner();
             boolean pickedAWinner = catPicks.pickedAWinnerInThisCategory();
             String headerClass = selectionClass(pickedAWinner, catSelected);
             %>
             <h3 class="<%=headerClass%>"><%= catPicks.categoryName() %></h3>
             <ul class="playerSelectionUl">
                 <%
-                DisplayablePick topPick = catPicks.topPick();
+                DisplayablePick topPick = catPicks.pickAt(0);
                 String cssClass = selectionClass(topPick.isAWinner(), catSelected);
                 %>
                 <li class="<%=cssClass%>">
                     <%= topPick.pointValue() %> pts: <%= topPick.nomineeSelected() %>
                 </li>
                 <%
-                DisplayablePick midPick = catPicks.midPick();
+                DisplayablePick midPick = catPicks.pickAt(1);
                 cssClass = selectionClass(midPick.isAWinner(), catSelected);
                 %>
                 <li class="<%=cssClass%>">
                     <%= midPick.pointValue() %> pts: <%= midPick.nomineeSelected() %>
                 </li>
                 <%
-                DisplayablePick botPick = catPicks.botPick();
+                DisplayablePick botPick = catPicks.pickAt(2);
                 cssClass = selectionClass(botPick.isAWinner(), catSelected);
                 %>
                 <li class="<%=cssClass%>">

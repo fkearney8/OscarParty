@@ -4,7 +4,7 @@ import javax.inject.{Inject, Singleton}
 import javax.servlet.http.{HttpServlet, HttpServletRequest, HttpServletResponse}
 import java.util.{List => JList}
 
-import com.oscarparty.data.NextCategory
+import com.oscarparty.data.{NextCategory, Player}
 import com.oscarparty.data.dao.{PlayerDAO, PlayerPicksDAO, WinnersDAO}
 import com.oscarparty.data.nominees.{CategoryName, Nominees2018}
 import com.oscarparty.servlets.playerpicks.Calculator
@@ -41,7 +41,7 @@ class LeaderboardServlet @Inject() (playerPicksDao: PlayerPicksDAO,
       val playerName = player.name
       val points = calculator.calculatePickPoints(listOfPicks)
       val nextCatPicks = playerPicks(player).picksForCategory(nextCategory)
-      (playerName, points, nextCatPicks)
+      (player, points, nextCatPicks)
     }
 
     //to make things easier on the leaderboard page, we want the users in order by points
@@ -83,6 +83,6 @@ class LeaderboardServlet @Inject() (playerPicksDao: PlayerPicksDAO,
   }
 }
 
-case class PlayerWithPoints (userName: String, points: Integer, nextCategoryPicks: JList[String])
+case class PlayerWithPoints(player: Player, points: Integer, nextCategoryPicks: JList[String])
 
 case class CategoryAndWinner(categoryName: String, winner: String)
