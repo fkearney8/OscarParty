@@ -45,6 +45,7 @@ class DataModule extends AbstractModule {
   def dynamoMapper(dynamoDb: AmazonDynamoDB): DynamoDBMapper = new DynamoDBMapper(dynamoDb)
 
   def productionDynamoDb: AmazonDynamoDB = {
+    println("Using PRODUCTION database.")
     AmazonDynamoDBClientBuilder.standard().withRegion(Regions.US_WEST_2).build()
   }
 
