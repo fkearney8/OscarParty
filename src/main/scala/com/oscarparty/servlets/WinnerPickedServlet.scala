@@ -4,13 +4,13 @@ import javax.inject.{Inject, Singleton}
 import javax.servlet.http.{HttpServlet, HttpServletRequest, HttpServletResponse}
 
 import com.oscarparty.data.{NextCategory, Winner}
-import com.oscarparty.data.dao.WinnersDAO
+import com.oscarparty.data.dao.WinnersDaoDynamo
 import com.oscarparty.data.nominees.{CategoryName, Nominee, Nominees2018}
 
 import scala.util.Try
 
 @Singleton
-class WinnerPickedServlet @Inject() (winnersDao: WinnersDAO) extends HttpServlet {
+class WinnerPickedServlet @Inject() (winnersDao: WinnersDaoDynamo) extends HttpServlet {
 
   override def doPost(req: HttpServletRequest, resp: HttpServletResponse) {
     resp.setContentType("text/html; charset=UTF-8")

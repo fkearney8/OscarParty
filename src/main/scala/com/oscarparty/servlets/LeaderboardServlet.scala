@@ -5,7 +5,7 @@ import javax.servlet.http.{HttpServlet, HttpServletRequest, HttpServletResponse}
 import java.util.{List => JList}
 
 import com.oscarparty.data.{NextCategory, Player}
-import com.oscarparty.data.dao.{PlayerDAO, PlayerPicksDAO, WinnersDAO}
+import com.oscarparty.data.dao.{PlayerDaoDynamo, PlayerPicksDaoDynamo, WinnersDaoDynamo}
 import com.oscarparty.data.nominees.{CategoryName, Nominees2018}
 import com.oscarparty.servlets.playerpicks.Calculator
 import LeaderboardServlet._
@@ -17,9 +17,9 @@ object LeaderboardServlet {
 }
 
 @Singleton
-class LeaderboardServlet @Inject() (playerPicksDao: PlayerPicksDAO,
-                                    playerDao: PlayerDAO,
-                                    winnersDao: WinnersDAO,
+class LeaderboardServlet @Inject() (playerPicksDao: PlayerPicksDaoDynamo,
+                                    playerDao: PlayerDaoDynamo,
+                                    winnersDao: WinnersDaoDynamo,
                                     calculator: Calculator) extends HttpServlet {
 
   /** For display, truncate the pick text. */

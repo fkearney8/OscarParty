@@ -5,13 +5,13 @@ import javax.servlet.http.{HttpServlet, HttpServletRequest, HttpServletResponse}
 
 import com.google.common.annotations.VisibleForTesting
 import com.oscarparty.data.NextCategory
-import com.oscarparty.data.dao.WinnersDAO
+import com.oscarparty.data.dao.WinnersDaoDynamo
 import com.oscarparty.data.nominees.{CategoryName, Nominee, Nominees2018}
 import com.oscarparty.servlets.WinnerPickerServlet._
 import com.oscarparty.utils.JsonUtil
 
 @Singleton
-class WinnerPickerServlet @Inject() (winnersDao: WinnersDAO,
+class WinnerPickerServlet @Inject() (winnersDao: WinnersDaoDynamo,
                                      jsonUtil: JsonUtil) extends HttpServlet {
 
   protected override def doGet(req: HttpServletRequest, resp: HttpServletResponse) {

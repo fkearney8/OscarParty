@@ -4,7 +4,7 @@ import javax.inject.{Inject, Singleton}
 import javax.servlet.http.{HttpServlet, HttpServletRequest, HttpServletResponse}
 
 import com.oscarparty.data.{CategoryPicks, PlayerPicks, Winner}
-import com.oscarparty.data.dao.{PlayerDAO, PlayerPicksDAO, WinnersDAO}
+import com.oscarparty.data.dao.{PlayerDaoDynamo, PlayerPicksDaoDynamo, WinnersDaoDynamo}
 import com.oscarparty.data.nominees.{CategoryName, Nominee}
 import com.oscarparty.servlets.playerpicks.Calculator
 import collection.JavaConverters._
@@ -14,9 +14,9 @@ import java.util.{List => JList}
  * Servlet for showing the picks that a player has made.
  */
 @Singleton
-class PlayerPicksReviewServlet @Inject() (playerDao: PlayerDAO,
-                                          playerPicksDao: PlayerPicksDAO,
-                                          winnersDao: WinnersDAO,
+class PlayerPicksReviewServlet @Inject() (playerDao: PlayerDaoDynamo,
+                                          playerPicksDao: PlayerPicksDaoDynamo,
+                                          winnersDao: WinnersDaoDynamo,
                                           calculator: Calculator) extends HttpServlet {
 
 

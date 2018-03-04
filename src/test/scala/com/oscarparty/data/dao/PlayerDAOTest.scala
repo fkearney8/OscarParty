@@ -12,7 +12,7 @@ class PlayerDAOTest {
   System.setProperty("sqlite4java.library.path", "native-libs")
 
   val localDynamo = new DataModule().createLocalDynamoDb
-  val playerDao = new PlayerDAO(new DynamoDBMapper(localDynamo))
+  val playerDao = new PlayerDaoDynamo(new DynamoDBMapper(localDynamo))
 
   @Test
   def testFindPlayerById(): Unit = {

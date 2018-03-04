@@ -11,7 +11,7 @@ class WinnerDAOTest {
   System.setProperty("sqlite4java.library.path", "native-libs")
 
   private val localDynamo = new DataModule().createLocalDynamoDb
-  private val winnerDao = new WinnersDAO(new DynamoDBMapper(localDynamo))
+  private val winnerDao = new WinnersDaoDynamo(new DynamoDBMapper(localDynamo))
 
   @Test
   def saveAndRetrieveWinner(): Unit = {

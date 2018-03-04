@@ -8,7 +8,7 @@ import com.oscarparty.data.Winner
 import com.oscarparty.data.dao.mappers.{WinnerDataObject, WinnerMapper}
 import com.oscarparty.data.nominees.CategoryName
 
-class WinnersDAO @Inject() (dynamoMapper: DynamoDBMapper) {
+class WinnersDaoDynamo @Inject()(dynamoMapper: DynamoDBMapper) extends WinnersDao {
 
   private val winnerMapper = new WinnerMapper()
 

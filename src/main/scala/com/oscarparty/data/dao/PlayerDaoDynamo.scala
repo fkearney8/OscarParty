@@ -12,12 +12,12 @@ import com.oscarparty.data.dao.mappers.{PlayerDataObject, PlayerMapper}
 
 import collection.JavaConverters._
 
-class PlayerDAO @Inject() (dynamoMapper: DynamoDBMapper) {
+class PlayerDaoDynamo @Inject()(dynamoMapper: DynamoDBMapper) extends PlayerDao {
 
   val playerDataMapper = new PlayerMapper
 
   def getPlayerByName(playerName: String): Option[Player] = {
-
+    println(s"Loading from database for player name: $playerName")
     val eav: util.Map[String, AttributeValue] = collection.Map(":playerName" -> new AttributeValue().withS(playerName)).asJava
     val queryExpr: DynamoDBQueryExpression[PlayerDataObject] = new DynamoDBQueryExpression()
         .withIndexName(PlayerDataObject.NAME_INDEX)
@@ -31,6 +31,7 @@ class PlayerDAO @Inject() (dynamoMapper: DynamoDBMapper) {
   }
 
   def getPlayerById(playerId: String): Player = {
+    println(s"Loading from database for player ID $playerId")
     val playerDo = dynamoMapper.load(classOf[PlayerDataObject], playerId)
     playerDataMapper.toDomainObject(playerDo)
   }
@@ -46,6 +47,7 @@ class PlayerDAO @Inject() (dynamoMapper: DynamoDBMapper) {
   }
 
   def allPlayers: Seq[Player] = {
+    println("Loading all players from database.")
     dynamoMapper.scan(classOf[PlayerDataObject],
       new DynamoDBScanExpression())
         .asScala

@@ -14,8 +14,8 @@ class PlayerPicksDAOTest {
   def testFindPlayerPicks(): Unit = {
     val localDynamo = new DataModule().createLocalDynamoDb
     val dynamoMapper = new DynamoDBMapper(localDynamo)
-    val playerDao = new PlayerDAO(dynamoMapper)
-    val playerPicksDao = new PlayerPicksDAO(dynamoMapper, playerDao)
+    val playerDao = new PlayerDaoDynamo(dynamoMapper)
+    val playerPicksDao = new PlayerPicksDaoDynamo(dynamoMapper, playerDao)
 
     val playerId = playerDao.savePlayer("theresa").id
     val picks = List(CategoryPicks(CategoryName.Actor, 0, 1, 3))
