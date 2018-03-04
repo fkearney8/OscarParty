@@ -1,6 +1,6 @@
 package com.oscarparty.data.dao
 
-import java.util.concurrent.{ScheduledExecutorService, ScheduledThreadPoolExecutor, TimeUnit}
+import java.util.concurrent.{ScheduledExecutorService, TimeUnit}
 import javax.inject.Inject
 
 import com.google.common.cache.{CacheBuilder, CacheLoader}
@@ -8,13 +8,14 @@ import com.oscarparty.data.Player
 
 import scala.collection.JavaConverters._
 
-class PlayerDaoCaching @Inject() (delegateDao: PlayerDao) extends PlayerDao {
+
+class PlayerDaoCaching @Inject() (refreshScheduler: ScheduledExecutorService,
+                                  delegateDao: PlayerDao) extends PlayerDao {
 
   //we don't expect players to ever change right now
   private val cacheTtlMillis = 1000 * 60 * 10
 
-  private val scheduler: ScheduledExecutorService = new ScheduledThreadPoolExecutor(1)
-  scheduler.schedule(new Runnable {
+  refreshScheduler.schedule(new Runnable {
     override def run(): Unit = {
       cache.invalidateAll()
     }
@@ -67,6 +68,5 @@ class PlayerDaoCaching @Inject() (delegateDao: PlayerDao) extends PlayerDao {
     } else {
       cache.asMap().values().asScala.toSeq
     }
-
   }
 }

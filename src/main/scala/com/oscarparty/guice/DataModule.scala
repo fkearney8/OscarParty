@@ -1,5 +1,6 @@
 package com.oscarparty.guice
 
+import java.util.concurrent.ScheduledExecutorService
 import javax.inject.Singleton
 
 import com.amazonaws.client.builder.AwsClientBuilder
@@ -23,20 +24,20 @@ class DataModule extends AbstractModule {
 
   @Singleton
   @Provides
-  def playerDao(dynamoMapper: DynamoDBMapper): PlayerDao = {
-    new PlayerDaoCaching(new PlayerDaoDynamo(dynamoMapper))
+  def playerDao(scheduler: ScheduledExecutorService, dynamoMapper: DynamoDBMapper): PlayerDao = {
+    new PlayerDaoCaching(scheduler, new PlayerDaoDynamo(dynamoMapper))
   }
 
   @Singleton
   @Provides
-  def playerPicksDao(dynamoMapper: DynamoDBMapper, playerDao: PlayerDao): PlayerPicksDao = {
-    new PlayerPicksDaoCaching(new PlayerPicksDaoDynamo(dynamoMapper, playerDao))
+  def playerPicksDao(scheduler: ScheduledExecutorService, dynamoMapper: DynamoDBMapper, playerDao: PlayerDao): PlayerPicksDao = {
+    new PlayerPicksDaoCaching(scheduler, new PlayerPicksDaoDynamo(dynamoMapper, playerDao), playerDao)
   }
 
   @Singleton
   @Provides
-  def winnersDao(dynamoMapper: DynamoDBMapper): WinnersDao = {
-    new WinnersDaoCaching(new WinnersDaoDynamo(dynamoMapper))
+  def winnersDao(scheduler: ScheduledExecutorService, dynamoMapper: DynamoDBMapper): WinnersDao = {
+    new WinnersDaoCaching(scheduler, new WinnersDaoDynamo(dynamoMapper))
   }
 
   @Singleton

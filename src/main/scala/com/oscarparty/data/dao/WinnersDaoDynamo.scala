@@ -13,11 +13,13 @@ class WinnersDaoDynamo @Inject()(dynamoMapper: DynamoDBMapper) extends WinnersDa
   private val winnerMapper = new WinnerMapper()
 
   def winnerForCategory(category: CategoryName.Value): Option[Winner] = {
+    println(s"Database read: reading winner for category $category")
     val maybeWinnerDo = Option(dynamoMapper.load(classOf[WinnerDataObject], category.toString))
     maybeWinnerDo.map(winnerMapper.toDomainObject)
   }
 
   def saveWinner(winner: Winner): Unit = {
+    println(s"Database write: saving winner for category ${winner.category} to ${winner.winningNominee.name}")
     val winnerDo = winnerMapper.toDataObject(winner)
     dynamoMapper.save(winnerDo)
   }

@@ -17,7 +17,7 @@ class PlayerDaoDynamo @Inject()(dynamoMapper: DynamoDBMapper) extends PlayerDao 
   val playerDataMapper = new PlayerMapper
 
   def getPlayerByName(playerName: String): Option[Player] = {
-    println(s"Loading from database for player name: $playerName")
+    println(s"Database Read: Looking for player named $playerName from database.")
     val eav: util.Map[String, AttributeValue] = collection.Map(":playerName" -> new AttributeValue().withS(playerName)).asJava
     val queryExpr: DynamoDBQueryExpression[PlayerDataObject] = new DynamoDBQueryExpression()
         .withIndexName(PlayerDataObject.NAME_INDEX)
@@ -31,12 +31,13 @@ class PlayerDaoDynamo @Inject()(dynamoMapper: DynamoDBMapper) extends PlayerDao 
   }
 
   def getPlayerById(playerId: String): Player = {
-    println(s"Loading from database for player ID $playerId")
+    println(s"Database read: Loading player ID $playerId from database")
     val playerDo = dynamoMapper.load(classOf[PlayerDataObject], playerId)
     playerDataMapper.toDomainObject(playerDo)
   }
 
   def savePlayer(playerName: String): Player = {
+    println(s"Database write: saving player $playerName to database.")
     //check we don't have a player by that name
     if (getPlayerByName(playerName).isDefined) {
       throw new OscarException(s"Already have someone by the name $playerName in the game. Please choose another name.")
@@ -47,7 +48,7 @@ class PlayerDaoDynamo @Inject()(dynamoMapper: DynamoDBMapper) extends PlayerDao 
   }
 
   def allPlayers: Seq[Player] = {
-    println("Loading all players from database.")
+    println("Database read: Loading all players from database.")
     dynamoMapper.scan(classOf[PlayerDataObject],
       new DynamoDBScanExpression())
         .asScala

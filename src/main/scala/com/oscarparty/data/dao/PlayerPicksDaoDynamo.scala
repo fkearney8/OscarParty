@@ -18,7 +18,7 @@ class PlayerPicksDaoDynamo @Inject()(dynamoMapper: DynamoDBMapper,
   private val playerPicksDataMapper = new PlayerPicksMapper()
 
   def savePlayerPicks(picks: PlayerPicks): Unit = {
-
+    println(s"Database write: writing picks for player ${picks.playerId}")
     val pickDos: Iterable[PlayerPicksDataObject] = picks.picksByCat.map { case (_, categoryPicks) =>
         playerPicksDataMapper.toDataObject(picks.playerId, categoryPicks)
     }
@@ -27,6 +27,7 @@ class PlayerPicksDaoDynamo @Inject()(dynamoMapper: DynamoDBMapper,
   }
 
   def getPlayerPicks(playerId: String): PlayerPicks = {
+    println(s"Database read: reading picks for player $playerId")
     //for each category load their picks
     val playerPicksDoList = CategoryName.values.flatMap { eachCategory =>
       val picksForCat = dynamoMapper.load(classOf[PlayerPicksDataObject], playerId, eachCategory.toString)
@@ -37,6 +38,7 @@ class PlayerPicksDaoDynamo @Inject()(dynamoMapper: DynamoDBMapper,
   }
 
   def allPlayerPicks: Map[Player, PlayerPicks] = {
+    println(s"Database read: reading all player picks.")
     playerDao.allPlayers.map { player =>
       val playerPicks = getPlayerPicks(player.id)
       player -> playerPicks
