@@ -11,11 +11,12 @@ import com.oscarparty.servlets._
 
 
 class OscarGuiceServletConfig extends GuiceServletContextListener {
-  val stage: Stage = System.getenv("STAGE") match {
+  //tomcat Elastic Beanstalk passes what it calls 'environment variables' as system properties for tomcat instances.
+  val stage: Stage = System.getProperty("STAGE") match {
     case "production" => Stage.PRODUCTION
     case _ => Stage.DEVELOPMENT
   }
-  override def getInjector: Injector = Guice.createInjector(Stage.DEVELOPMENT, new OscarServletModule)
+  override def getInjector: Injector = Guice.createInjector(stage, new OscarServletModule)
 }
 
 class OscarServletModule extends ServletModule {
