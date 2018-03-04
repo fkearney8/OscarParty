@@ -6,10 +6,11 @@ import javax.servlet.http.{HttpServlet, HttpServletRequest, HttpServletResponse}
 import com.google.common.annotations.VisibleForTesting
 import com.oscarparty.data.NextCategory
 import com.oscarparty.data.dao.WinnersDAO
-import com.oscarparty.data.nominees.{CategoryName, Nominee, Nominees2018}
+import com.oscarparty.data.nominees.{CategoryName, CategoryNominees, Nominee, Nominees2018}
 import com.oscarparty.utils.JsonUtil
-
 import WinnerPickerServlet._
+
+import scala.collection.immutable.ListMap
 
 @Singleton
 class WinnerPickerServlet @Inject() (winnersDao: WinnersDAO,
@@ -43,17 +44,31 @@ class WinnerPickerServlet @Inject() (winnersDao: WinnersDAO,
 
 object WinnerPickerServlet {
   @VisibleForTesting
-  def constructCatsToNomineesSelectionMap: Map[String, Seq[Nominee]] = {
-    Nominees2018.categoryNominees.map {
+  def constructCatsToNomineesSelectionMap: ListMap[String, Seq[Nominee]] = {
+    val categoryNomineesMap: Map[CategoryName.Value, Seq[Nominee]] = Nominees2018.categoryNominees.map {
       case (category, catNoms) =>
         val catNomsWithNone: Seq[Nominee] = NoneSelectedNominee +: catNoms.nominees
-        category.toString -> catNomsWithNone
-    } + (NoneSelectedCategory.toString -> Seq(NoneSelectedNominee))
+        category -> catNomsWithNone
+    }
+
+    //establish the ordering we want
+    val inOrder: Seq[(CategoryName.Value, Seq[Nominee])] = categoryNomineesMap.toSeq.sortBy(_._1.id)
+    //add the None category at the front
+    val plusNone = (NoneSelectedCategory, Seq(NoneSelectedNominee)) +: inOrder
+
+    //convert the category to a string, because jackson doesn't like the enums
+    val catToString = plusNone.map { eachCatAndNoms =>
+      eachCatAndNoms._1.toString -> eachCatAndNoms._2
+    }
+
+    //convert to a map, preserving the order
+    ListMap(catToString: _*)
   }
 
   object NoneSelectedNominee extends Nominee("None", -1)
   object NoneSelectedCategory extends CategoryName.Value {
     override def id: Int = -1
+    override def toString: String = "None"
   }
 }
 
