@@ -1,5 +1,8 @@
 package com.oscarparty.guice
 
+import com.fasterxml.jackson.databind.{DeserializationFeature, ObjectMapper}
+import com.fasterxml.jackson.module.scala.DefaultScalaModule
+import com.fasterxml.jackson.module.scala.experimental.ScalaObjectMapper
 import com.google.inject.{Guice, Injector, Stage}
 import com.google.inject.servlet.{GuiceServletContextListener, ServletModule}
 import com.oscarparty.servlets._
@@ -18,10 +21,17 @@ class OscarServletModule extends ServletModule {
 
     install(new DataModule)
 
+    val mapper = new ObjectMapper() with ScalaObjectMapper
+    mapper.registerModule(DefaultScalaModule)
+    mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true)
+    bind(classOf[ObjectMapper]).toInstance(mapper)
+
     serve("/hw*").`with`(classOf[HelloWorldServlet])
     serve("/selection")`with`(classOf[NewPlayerSelectionsServlet])
     serve("/submitPicks.do").`with`(classOf[PicksSubmittedServlet])
     serve("/leaderboard").`with`(classOf[LeaderboardServlet])
     serve("/playerPicks").`with`(classOf[PlayerPicksReviewServlet])
+    serve("/winnerPicker").`with`(classOf[WinnerPickerServlet])
+    serve("/winnersPicked.do").`with`(classOf[WinnerPickedServlet])
   }
 }

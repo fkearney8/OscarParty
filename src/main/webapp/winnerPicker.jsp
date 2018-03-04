@@ -17,8 +17,8 @@
             $.each(categoriesWithoutWinners, function(index, category) {
                 $(".categorySelector")
                     .append($("<option></option>")
-                        .attr("value", category.id)
-                        .text(category.name))
+                        .attr("value", category.enumName)
+                        .text(category.displayName))
             });
             categorySelected();
         });
@@ -35,7 +35,7 @@
             $.each(nominees, function(index, nominee) {
                  $('#winnerSelector')
                      .append($("<option></option>")
-                         .attr("value", nominee.id)
+                         .attr("value", nominee.index)
                          .text(nominee.name));
             });
         }
