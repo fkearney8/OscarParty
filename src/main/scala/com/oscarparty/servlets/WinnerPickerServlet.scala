@@ -6,11 +6,9 @@ import javax.servlet.http.{HttpServlet, HttpServletRequest, HttpServletResponse}
 import com.google.common.annotations.VisibleForTesting
 import com.oscarparty.data.NextCategory
 import com.oscarparty.data.dao.WinnersDAO
-import com.oscarparty.data.nominees.{CategoryName, CategoryNominees, Nominee, Nominees2018}
+import com.oscarparty.data.nominees.{CategoryName, Nominee, Nominees2018}
+import com.oscarparty.servlets.WinnerPickerServlet._
 import com.oscarparty.utils.JsonUtil
-import WinnerPickerServlet._
-
-import scala.collection.immutable.ListMap
 
 @Singleton
 class WinnerPickerServlet @Inject() (winnersDao: WinnersDAO,
@@ -20,22 +18,24 @@ class WinnerPickerServlet @Inject() (winnersDao: WinnersDAO,
     resp.setContentType("text/html; charset=UTF-8")
     resp.setCharacterEncoding("UTF-8")
 
-    val categoriesWithoutWinners = getCategoriesWithoutWinners(winnersDao)
-    val categoriesWithoutWinnersStrings = categoriesWithoutWinners.map { eachCategory =>
+    val categoriesWithoutWinners = getCategoriesWithoutWinners
+
+    val categoriesWithoutWinnersStrings = categoriesWithoutWinners.toSeq.sortBy(_.id).map { eachCategory =>
       CategoryStrings(eachCategory.toString, eachCategory.displayName)
     }
+    val categoriesWithoutWinnersStringsPlusNone = CategoryStrings("None", "None") +: categoriesWithoutWinnersStrings
 
     //a map of the category name to an array of nominations
     val catsToNoms = constructCatsToNomineesSelectionMap
 
-    req.setAttribute("categoriesWithoutWinners", jsonUtil.toJson(categoriesWithoutWinnersStrings))
+    req.setAttribute("categoriesWithoutWinners", jsonUtil.toJson(categoriesWithoutWinnersStringsPlusNone))
     req.setAttribute("nextCategory", NextCategory.nextCategory)
     req.setAttribute("catsToNomsMap", jsonUtil.toJson(catsToNoms))
 
     req.getServletContext.getRequestDispatcher("/winnerPicker.jsp").forward(req, resp)
   }
 
-  private def getCategoriesWithoutWinners(winnersDao: WinnersDAO): Set[CategoryName.Value] = {
+  private def getCategoriesWithoutWinners: Set[CategoryName.Value] = {
     CategoryName.values.filter { eachCat =>
       winnersDao.winnerForCategory(eachCat).isEmpty
     }
@@ -44,32 +44,15 @@ class WinnerPickerServlet @Inject() (winnersDao: WinnersDAO,
 
 object WinnerPickerServlet {
   @VisibleForTesting
-  def constructCatsToNomineesSelectionMap: ListMap[String, Seq[Nominee]] = {
-    val categoryNomineesMap: Map[CategoryName.Value, Seq[Nominee]] = Nominees2018.categoryNominees.map {
+  def constructCatsToNomineesSelectionMap: Map[String, Seq[Nominee]] = {
+    Nominees2018.categoryNominees.map {
       case (category, catNoms) =>
         val catNomsWithNone: Seq[Nominee] = NoneSelectedNominee +: catNoms.nominees
-        category -> catNomsWithNone
-    }
-
-    //establish the ordering we want
-    val inOrder: Seq[(CategoryName.Value, Seq[Nominee])] = categoryNomineesMap.toSeq.sortBy(_._1.id)
-    //add the None category at the front
-    val plusNone = (NoneSelectedCategory, Seq(NoneSelectedNominee)) +: inOrder
-
-    //convert the category to a string, because jackson doesn't like the enums
-    val catToString = plusNone.map { eachCatAndNoms =>
-      eachCatAndNoms._1.toString -> eachCatAndNoms._2
-    }
-
-    //convert to a map, preserving the order
-    ListMap(catToString: _*)
+        category.toString -> catNomsWithNone
+    } + ("None" -> Seq(NoneSelectedNominee))
   }
 
   object NoneSelectedNominee extends Nominee("None", -1)
-  object NoneSelectedCategory extends CategoryName.Value {
-    override def id: Int = -1
-    override def toString: String = "None"
-  }
 }
 
 /** Jackson for scala (current version) doesn't support serializing enumerations.

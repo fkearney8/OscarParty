@@ -68,11 +68,11 @@ class LeaderboardServlet @Inject() (playerPicksDao: PlayerPicksDAO,
     val categories = CategoryName.values
     //add winners where they exist
     val categoryWinners = categories.map { category =>
-      CategoryAndWinner(category.toString, winnersDao.winnerForCategory(category).fold("")(_.winningNominee.name))
+      CategoryAndWinner(category.displayName, winnersDao.winnerForCategory(category).fold("")(_.winningNominee.name))
     }
     val javaCategoryWinners : JList[CategoryAndWinner] = categoryWinners.toSeq.asJava
 
-    req.setAttribute("nextCategory", nextCategory.toString)
+    req.setAttribute("nextCategory", nextCategory.displayName)
     req.setAttribute("categoryWinners", javaCategoryWinners)
 
     resp.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
