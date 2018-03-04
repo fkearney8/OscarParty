@@ -13,7 +13,7 @@ import scala.collection.immutable.Iterable
 
 
 class PlayerPicksDaoDynamo @Inject()(dynamoMapper: DynamoDBMapper,
-                                     playerDao: PlayerDaoDynamo) extends PlayerPicksDao {
+                                     playerDao: PlayerDao) extends PlayerPicksDao {
 
   private val playerPicksDataMapper = new PlayerPicksMapper()
 

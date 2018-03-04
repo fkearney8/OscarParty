@@ -9,6 +9,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper
 import com.amazonaws.services.dynamodbv2.local.embedded.DynamoDBEmbedded
 import com.amazonaws.services.dynamodbv2.model._
 import com.google.inject.{AbstractModule, Provides, Stage}
+import com.oscarparty.data.dao._
 import com.oscarparty.data.dao.mappers.{PlayerDataObject, PlayerPicksDataObject, WinnerDataObject}
 
 import collection.JavaConverters._
@@ -18,6 +19,24 @@ class DataModule extends AbstractModule {
 
     bind(classOf[AmazonDynamoDB]).toInstance(
       if (currentStage() == Stage.PRODUCTION) productionDynamoDb else localhostDynamoDb)
+  }
+
+  @Singleton
+  @Provides
+  def playerDao(dynamoMapper: DynamoDBMapper): PlayerDao = {
+    new PlayerDaoCaching(new PlayerDaoDynamo(dynamoMapper))
+  }
+
+  @Singleton
+  @Provides
+  def playerPicksDao(dynamoMapper: DynamoDBMapper, playerDao: PlayerDao): PlayerPicksDao = {
+    new PlayerPicksDaoCaching(new PlayerPicksDaoDynamo(dynamoMapper, playerDao))
+  }
+
+  @Singleton
+  @Provides
+  def winnersDao(dynamoMapper: DynamoDBMapper): WinnersDao = {
+    new WinnersDaoCaching(new WinnersDaoDynamo(dynamoMapper))
   }
 
   @Singleton

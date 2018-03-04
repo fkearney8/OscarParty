@@ -2,11 +2,11 @@ package com.oscarparty.servlets.playerpicks
 
 import javax.inject.Inject
 
-import com.oscarparty.data.dao.WinnersDaoDynamo
+import com.oscarparty.data.dao.WinnersDao
 import com.oscarparty.data.nominees.Nominee
 import com.oscarparty.data.{CategoryPicks, PlayerPicks, Winner}
 
-class Calculator @Inject() (winnersDao: WinnersDaoDynamo) {
+class Calculator @Inject() (winnersDao: WinnersDao) {
 
   def calculatePickPoints(playerPicks: PlayerPicks): Int = {
 

@@ -10,7 +10,7 @@ import javax.servlet.{RequestDispatcher, ServletException}
 
 import com.oscarparty.data.{CategoryPicks, PlayerPicks}
 import com.oscarparty.servlets.PicksSubmittedServlet._
-import com.oscarparty.data.dao.{PlayerDaoDynamo, PlayerPicksDaoDynamo}
+import com.oscarparty.data.dao.{PlayerDao, PlayerPicksDao}
 import com.oscarparty.data.nominees.{CategoryName, Nominees2018}
 
 import scala.collection.JavaConverters._
@@ -21,8 +21,8 @@ import scala.util.{Success, Try}
  * Servlet for when a player has submitted picks to be saved.
  */
 @Singleton
-class PicksSubmittedServlet @Inject() (playerDao: PlayerDaoDynamo,
-                                       playerPicksDao: PlayerPicksDaoDynamo) extends HttpServlet {
+class PicksSubmittedServlet @Inject() (playerDao: PlayerDao,
+                                       playerPicksDao: PlayerPicksDao) extends HttpServlet {
 
   override def doPost(req: HttpServletRequest, res: HttpServletResponse) {
     res.setContentType("text/html; charset=UTF-8")
