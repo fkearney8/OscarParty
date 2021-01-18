@@ -38,7 +38,6 @@ class PlayerPicksReviewServlet @Inject() (playerDao: PlayerDao,
     getServletContext.getRequestDispatcher("/playerPicksReview.jsp").forward(req, resp)
   }
 
-
   private def isAWinner(winnerOption: Option[Winner], picked: Nominee): Boolean = {
     winnerOption match {
       case None => false
@@ -61,14 +60,14 @@ class PlayerPicksReviewServlet @Inject() (playerDao: PlayerDao,
                                   playerPoints: Int,
                                   playerPicks: PlayerPicks): Seq[DisplayableCategory] = {
 
-    CategoryName.values.flatMap { cat =>
+    CategoryName.values.toSeq.sorted.flatMap { cat =>
       val maybePicksForCat = playerPicks.picksForCategory(cat)
 
       val maybeDisplayableCat: Option[DisplayableCategory] = maybePicksForCat.map { picksForCat: CategoryPicks =>
         displayableCategoryPicksFromCategoryPicks(picksForCat)
       }
       maybeDisplayableCat
-    }.toSeq
+    }
 
   }
 
